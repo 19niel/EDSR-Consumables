@@ -3,6 +3,24 @@
     include('../php/autoRedirect.php');
     include('../php/categoryList.php');
     include('../php/addCategory.php');
+    include_once('../php/config.php');
+
+    // Pagination For Customize Page
+    $records_per_page = 20;
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $start_record = ($current_page - 1) * $records_per_page;
+    
+    // Count total records
+    $sql_count = "SELECT COUNT(*) as total FROM categories WHERE is_deleted = 0";
+    $result_count = mysqli_query($conn, $sql_count);
+    $total_records = mysqli_fetch_assoc($result_count)['total'];
+    
+    // Fetch paginated records
+    $sql = "SELECT * FROM categories WHERE is_deleted = 0 ORDER BY id DESC LIMIT $start_record, $records_per_page";
+    $categoryResult = mysqli_query($conn, $sql);
+    
+    // Calculate total pages
+    $total_pages = ceil($total_records / $records_per_page);
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +51,8 @@
     
     <!-- Theme & App CSS -->
     <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="/e-dsr/css/sidebar.css" />
-    <link rel="stylesheet" href="/e-dsr/css/table.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/sidebar.css" />
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/table.css" />
     
     <title>E-DSR - Category Page</title>
     
@@ -200,7 +218,7 @@
     
     <!-- Unified Script Handlers -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>function redirectToPHPPage(id) { window.location.href = '/e-dsr/php/accountSelect.php?id=' + id; }</script>
+    <script>function redirectToPHPPage(id) { window.location.href = '<?php echo BASE_URL; ?>php/accountSelect.php?id=' + id; }</script>
     <script src="../js/hideElement.js"></script>
     <script type="text/javascript" src="../js/autoFill.js"></script>
     <script type="text/javascript" src="../js/download.js"></script>

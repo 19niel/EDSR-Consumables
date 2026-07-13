@@ -15,6 +15,6 @@ if (isset($_COOKIE['e-dsr-user'])) {
         $category = $qResult['category'];
         $stat = $qResult['stat'];
     }
-    header("Location: /e-dsr/pages/welcome_page.php");
+    header("Location: /e-dsr-cons/pages/welcome_page.php");
 }
 ?>

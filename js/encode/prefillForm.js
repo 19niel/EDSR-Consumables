@@ -22,7 +22,7 @@ function handleAccountData(accountData) {
   const encodedAccountName = encodeURIComponent(accountName);
   const encodedAccountExec = encodeURIComponent(accountExec);
 
-  const url = `/e-dsr/php/fetchAutofillEncode.php?accountName=${encodedAccountName}&accountExec=${encodedAccountExec}`;
+  const url = `${window.BASE_URL}php/fetchAutofillEncode.php?accountName=${encodedAccountName}&accountExec=${encodedAccountExec}`;
 
   fetch(url, {
     method: "GET",
@@ -43,7 +43,7 @@ function handleAccountData(accountData) {
 
 // Function to fetch data based on encoded ID
 function fetchData(encodedId) {
-  fetch(`/e-dsr/php/fetchDataEditEncode.php?id=${encodedId}`, {
+  fetch(`${window.BASE_URL}php/fetchDataEditEncode.php?id=${encodedId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -87,17 +87,32 @@ function prefillForm(data) {
   document.getElementById("dmDesignation").value = data.dmDesignation || "";
 
   // Project & Pricing Data Fields
-  document.getElementById("proposedPrice").value = data.proposedPrice || "";
-  document.getElementById("whatTranspired").value = data.whatTranspired || "";
-  document.getElementById("followUpAction").value = data.actionFollow || "";
+  const proposedPriceElem = document.getElementById("proposedPrice");
+  if (proposedPriceElem) proposedPriceElem.value = data.proposedPrice || "";
+  
+  const whatTranspiredElem = document.getElementById("whatTranspired");
+  if (whatTranspiredElem) whatTranspiredElem.value = data.whatTranspired || "";
+  
+  const followUpActionElem = document.getElementById("followUpAction");
+  if (followUpActionElem) followUpActionElem.value = data.actionFollow || "";
 
-  // Set dropdown values
-  $("#sbu").val(data.sbu || "");
-  $("#endUserType").val(data.endUser || "");
-  $("#paymentTerms").val(data.paymentTerms || "");
-  $("#contractType").val(data.contactType || "");
-  $("#callNature").val(data.callNature || "");
-  $("#reminderDate").val(data.reminderDate || "");
+  const sbuElem = $("#sbu");
+  if (sbuElem.length) sbuElem.val(data.sbu || "").trigger("change");
+  
+  const endUserTypeElem = $("#endUserType");
+  if (endUserTypeElem.length) endUserTypeElem.val(data.endUser || "");
+  
+  const paymentTermsElem = $("#paymentTerms");
+  if (paymentTermsElem.length) paymentTermsElem.val(data.paymentTerms || "");
+  
+  const contractTypeElem = $("#contractType");
+  if (contractTypeElem.length) contractTypeElem.val(data.contactType || "");
+  
+  const callNatureElem = $("#callNature");
+  if (callNatureElem.length) callNatureElem.val(data.callNature || "");
+  
+  const reminderDateElem = $("#reminderDate");
+  if (reminderDateElem.length) reminderDateElem.val(data.reminderDate || "");
   $("#deliveryDate").val(data.deliveryDate || "");
   $("#contractEnd").val(data.contractEnd || "");
   $("#estimatedDelivery").val(data.estimatedDelivery || "");

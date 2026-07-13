@@ -1,6 +1,6 @@
 <?php
 include_once('db_conn.php');
-
+include_once('config.php');
 if (isset($_POST['login'])) {
     $username = $_POST['user'];
     $password = $_POST['pass'];

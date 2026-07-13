@@ -26,11 +26,12 @@ if (isset($_POST['addUser'])) {
     $addUserResult = mysqli_query($conn, $sql);
 
     if ($addUserResult) {
-        echo '<script>
-                alert("User Added.");
-                window.location.href = "/e-dsr/pages/user.php";
-              </script>';
-        exit();
+        echo '
+        <script>
+            alert("Account Added successfully");
+            window.location.href = "' . BASE_URL . 'pages/user.php";
+        </script>
+        ';exit();
     } else {
         // Display an error message or log the error
         echo "Error: " . mysqli_error($conn);

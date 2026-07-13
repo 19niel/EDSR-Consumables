@@ -37,77 +37,7 @@ include('../php/accountList.php');
 
     <title>E-DSR — Search Records</title>
     
-    <style>
-        .main-content-card {
-            background: var(--surface);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-        .modern-search-input {
-            border-radius: 8px 0 0 8px !important;
-            border: 1px solid var(--input-border);
-            font-size: 0.95rem;
-            background-color: var(--input-bg) !important;
-            color: var(--input-text) !important;
-        }
-        .modern-search-input:focus {
-            border-color: var(--input-focus);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-        .search-group-btn {
-            border-radius: 0 8px 8px 0 !important;
-        }
-        .table thead th {
-            background-color: var(--table-header-bg) !important;
-            color: var(--text-secondary) !important;
-            font-weight: 600;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 12px 16px;
-            border-bottom: 2px solid var(--table-border) !important;
-        }
-        .table tbody td {
-            padding: 12px 16px;
-            font-size: 0.875rem;
-            color: var(--text-primary) !important;
-            border-bottom: 1px solid var(--table-border) !important;
-        }
-        .table-hover tbody tr:hover {
-            background-color: var(--table-row-hover) !important;
-            transition: background-color 0.15s ease-in-out;
-        }
-        .action-btn {
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-        }
-        .action-btn:hover {
-            transform: translateY(-1px);
-        }
-            padding: 6px 12px;
-            border-radius: 30px;
-            letter-spacing: 0.3px;
-        }
-        .pagination .page-link {
-            color: #495057;
-            border: 1px solid #dee2e6;
-            padding: 8px 16px;
-            margin: 0 2px;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .pagination .page-item.active .page-link {
-            background-color: #0d6efd;
-            border-color: #0d6efd;
-            color: #fff;
-        }
-    </style>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>

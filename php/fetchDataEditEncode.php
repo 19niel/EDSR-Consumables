@@ -41,5 +41,4 @@ if ($data) {
     echo json_encode(['success' => false, 'message' => 'No matching records found']);
 }
 
-$conn->close();
 ?>

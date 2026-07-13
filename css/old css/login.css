@@ -9,11 +9,11 @@
    -------------------------------------------------------------------------- */
 :root {
     --login-bg-from: #0F172A;
-    --login-bg-to: #1E3A5F;
-    --login-card: #FFFFFF;
-    --login-text: #0F172A;
-    --login-muted: #64748B;
-    --login-border: #E2E8F0;
+    --login-bg-to:   #1E3A5F;
+    --login-card:    #FFFFFF;
+    --login-text:    #0F172A;
+    --login-muted:   #64748B;
+    --login-border:  #E2E8F0;
     --login-primary: #2563EB;
     --login-primary-hover: #1D4ED8;
     --login-input-bg: #F8FAFC;
@@ -23,11 +23,11 @@
 
 [data-theme="dark"] {
     --login-bg-from: #020617;
-    --login-bg-to: #0B1120;
-    --login-card: #111827;
-    --login-text: #F8FAFC;
-    --login-muted: #94A3B8;
-    --login-border: #334155;
+    --login-bg-to:   #0B1120;
+    --login-card:    #111827;
+    --login-text:    #F8FAFC;
+    --login-muted:   #94A3B8;
+    --login-border:  #334155;
     --login-primary: #60A5FA;
     --login-primary-hover: #3B82F6;
     --login-input-bg: #1E293B;
@@ -40,9 +40,7 @@
    -------------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -86,7 +84,7 @@ body::before {
     width: 100%;
     max-width: 420px;
     padding: 2.5rem 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
     transition: background 0.25s ease, border-color 0.25s ease;
 }
 
@@ -107,7 +105,7 @@ body::before {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid rgba(37, 99, 235, 0.25);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
 .login-app-name {
@@ -227,7 +225,7 @@ body::before {
     width: 100%;
     max-width: 420px;
     padding: 2.5rem 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
     position: relative;
     z-index: 1;
 }
@@ -282,9 +280,9 @@ body::before {
     background: transparent;
 }
 
-.txt_field input:focus~label,
-.txt_field input:valid~label,
-.txt_field input:not([value=""])~label {
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label,
+.txt_field input:not([value=""]) ~ label {
     top: -0.5rem;
     left: 0.75rem;
     font-size: 0.72rem;
@@ -297,8 +295,7 @@ body::before {
 }
 
 .txt_field span::before {
-    display: none;
-    /* Remove old underline animation */
+    display: none; /* Remove old underline animation */
 }
 
 input[type="submit"],
@@ -338,14 +335,13 @@ input[type="submit"]:active {
     border-radius: 50%;
     border: 2px solid rgba(37, 99, 235, 0.25);
     object-fit: cover;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
 /* --------------------------------------------------------------------------
    Responsive
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-
     .center,
     .login-card {
         padding: 2rem 1.25rem;

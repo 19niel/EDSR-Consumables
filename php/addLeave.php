@@ -11,7 +11,7 @@ if (isset($_POST['leave'])) {
     if ($addLeaveResult) {
         echo '<script>
                 alert("User Added.");
-                window.location.href = "/e-dsr/pages/leaveData.php";
+                window.location.href = "' . BASE_URL . 'pages/leaveData.php";
               </script>';
         exit();
     }
@@ -26,7 +26,7 @@ if (isset($_POST['holiday'])) {
     if ($addHolidayResult) {
         echo '<script>
                 alert("Holiday Added.");
-                window.location.href = "/e-dsr/pages/leaveData.php";
+                window.location.href = "' . BASE_URL . 'pages/leaveData.php";
               </script>';
         exit();
     }
@@ -42,7 +42,7 @@ if (isset($_POST['event'])) {
     if ($addLeaveResult) {
         echo '<script>
                 alert("Event/Training Added.");
-                window.location.href = "/e-dsr/pages/leaveData.php";
+                window.location.href = "' . BASE_URL . 'pages/leaveData.php";
               </script>';
         exit();
     }

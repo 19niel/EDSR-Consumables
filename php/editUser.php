@@ -34,8 +34,8 @@ if (isset($_POST['editUser'])) {
             WHERE id = $editId";
     $result = mysqli_query($conn, $sql);
     echo '<script>
-            window.location.href = "/e-dsr/pages/user.php";
-            alert("User Updated.")
+            alert("User Updated.");
+            window.location.href = "' . BASE_URL . 'pages/user.php";
         </script>';
 }
 

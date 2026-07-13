@@ -5,6 +5,7 @@
     include ('../php/userList.php');
     include ('../php/categoryList.php');
     include ('../php/subcategoryList.php');
+    include ('../php/config.php');
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="E-DSR — DSR Encoding Engine. Submit your daily sales activity report.">
-        <title>Encode — E-DSR</title>
+        <title>Encode — E-DSR Cons</title>
 
         <!-- Anti-flash: apply saved theme before render -->
         <script>
@@ -35,9 +36,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         <!-- Theme & App CSS -->
-        <link rel="stylesheet" href="/e-dsr/css/theme.css" />
-        <link rel="stylesheet" href="/e-dsr/css/sidebar.css" />
-        <link rel="stylesheet" href="/e-dsr/css/encode.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/theme.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/sidebar.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/encode.css" />
 
         <script src="../js/hideElement.js" defer></script>
     </head>
@@ -87,13 +88,27 @@
                                     </div>
                                     
                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                       <label for="team" class="form-label">Team <span class="req">*</span></label>
+                                       <label for="team" class="form-label">Branch <span class="req">*</span></label>
                                         <select name="team" class="form-control form-select" id="team" required>
-                                            <option value="" disabled selected>-- Select Team --</option>
-                                            <option value="MAKATI">Makati</option>
-                                            <option value="QC">QC/Ortigas</option>
-                                            <option value="MANILA">Manila</option>
-                                        </select>
+                                            <option value="" disabled selected>-- Select Branch --</option>
+                                            <option value="MM">MM</option>
+                                            <option value="ANG">ANG</option>
+                                            <option value="CAB">CAB</option>
+                                            <option value="LAU">LAU</option>
+                                            <option value="BAT">BAT</option>
+                                            <option value="NAG">NAG</option>
+                                            <option value="SUB">SUB</option>
+                                            <option value="BAC">BAC</option>
+                                            <option value="CEB">CEB</option>
+                                            <option value="DUM">DUM</option>
+                                            <option value="ILO">ILO</option>
+                                            <option value="TAC">TAC</option>
+                                            <option value="CDO">CDO</option>
+                                            <option value="DAV">DAV</option>
+                                            <option value="GEN">GEN</option>
+                                            <option value="ZAM">ZAM</option>
+                                        </select> 
+                                        <!-- these are branches options but I just reuse the team columns and id for easy storage, disregard the naming  -->
                                     </div>
 
                                 </div>
@@ -347,52 +362,131 @@
                             </div>
 
                             <hr class="text-secondary my-4">
+                                <div class="card p-4 shadow-sm mb-4" id="machinePricingCard" style="display: none;">
+                                    <h5 class="text-secondary fw-semibold mb-3">Machine Product and Pricing Information</h5>
+                                    <div id="productEntries">
+                                        <div class="row product-entry g-3 mb-3 align-items-end">
+                                            <div class="col-lg-3 col-md-6 col-12">
+                                                <label class="form-label">Product Type <span class="req">*</span></label>
+                                                <select name="productType[]" class="form-select productType" required>
+                                                    <option value="N/A" selected disabled>Choose...</option>
+                                                    <?php 
+                                                    mysqli_data_seek($machineProductTypeResult, 0);
+                                                    while ($productTypeRow = mysqli_fetch_assoc($machineProductTypeResult)) { ?>
+                                                        <option value="<?php echo $productTypeRow['id']; ?>"><?php echo $productTypeRow['category_name']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-lg-3 col-md-6 col-12">
+                                                <label class="form-label">Model</label>
+                                                <select name="productTypeSubcategory[]" class="form-select productTypeSubcategory" disabled>
+                                                    <option value="N/A" selected disabled>Choose...</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-lg-2 col-md-3 col-6">
+                                                <label class="form-label">Quantity <span class="req">*</span></label>
+                                                <input type="number" class="form-control" name="quantity[]" min="1" required />
+                                            </div>
 
-                            <!-- Segment 6: Product and Pricing Information -->
-                            <div class="card p-4 shadow-sm mb-4">
-                                <h5 class="text-secondary fw-semibold mb-3">Product and Pricing Information</h5>
-                                <div id="productEntries">
-                                    <div class="row product-entry g-3 mb-3 align-items-end">
-                                        <div class="col-md-6 col-lg-3">
-                                            <label class="form-label">Product Type <span class="req">*</span></label>
-                                            <select name="productType[]" class="form-select productType" required>
-                                                <option value="N/A" selected disabled>Choose...</option>
-                                                <?php while ($productTypeRow = mysqli_fetch_assoc($productTypeResult)) { ?>
-                                                    <option value="<?php echo $productTypeRow['id']; ?>"><?php echo $productTypeRow['category_name']; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <div class="col-lg-3 col-md-6 col-6">
+                                                <label class="form-label">Amount <span class="req">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="number" class="form-control" name="productAmount[]" step="0.01" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-1 col-md-3 col-12">
+                                                <button type="button" class="btn btn-outline-danger remove-entry w-100" title="Remove Product Row">
+                                                    <i class="fa fa-trash-alt d-lg-none me-1"></i><span class="d-none d-lg-inline">Remove</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 col-lg-3">
-                                            <label class="form-label">Product Type Subcategory</label>
-                                            <select name="productTypeSubcategory[]" class="form-select productTypeSubcategory" disabled>
-                                                <option value="N/A" selected disabled>Choose...</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-lg-3">
-                                            <label class="form-label">Device Condition <span class="req">*</span></label>
-                                            <select name="deviceCondition[]" class="form-select deviceCondition" required>
-                                                <option value="N/A" selected disabled>Choose...</option>
-                                                <?php while ($deviceConditionRow = mysqli_fetch_assoc($deviceConditionResult)) { ?>
-                                                    <option value="<?php echo $deviceConditionRow['id']; ?>"><?php echo $deviceConditionRow['category_name']; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4 col-lg-2">
-                                            <label class="form-label">Quantity <span class="req">*</span></label>
-                                            <input type="number" class="form-control" name="quantity[]" required />
-                                        </div>
-                                        <div class="col-md-2 col-lg-1">
-                                            <button type="button" class="btn btn-outline-danger remove-entry w-100">Remove</button>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addProductEntry">
+                                            <i class="fa fa-plus me-1"></i> Add Another Product
+                                        </button>
+                                        <div class="text-end">
+                                            <strong>Total Qty:</strong> <span id="machineTotalQty">0</span> &nbsp;&nbsp;&nbsp;
+                                            <strong>Total Amount:</strong> ₱<span id="machineTotalAmount">0.00</span>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row mt-2">
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addProductEntry">Add Another Product</button>
+                                <div class="card p-4 shadow-sm mb-4" id="consumablesPricingCard" style="display: none;">
+                                    <h5 class="text-secondary fw-semibold mb-3">Consumables Product and Pricing Information</h5>
+                                    <div id="consumableEntries">
+                                        <div class="row product-entry g-3 mb-3 align-items-end">
+                                            <div class="col-lg-2 col-md-6 col-12">
+                                                <label class="form-label">Product Type <span class="req">*</span></label>
+                                                <select name="consumableType[]" class="form-select productType" required>
+                                                    <option value="N/A" selected disabled>Choose...</option>
+                                                    <?php 
+                                                    // Reset pointer if variable needs to be re-looped or shared
+                                                    mysqli_data_seek($consumablesProductTypeResult, 0);
+                                                    while ($productTypeRow = mysqli_fetch_assoc($consumablesProductTypeResult)) { ?>
+                                                        <option value="<?php echo $productTypeRow['id']; ?>"><?php echo $productTypeRow['category_name']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-lg-2 col-md-6 col-12">
+                                                <label class="form-label">Model</label>
+                                                <select name="consumableModel[]" class="form-select productTypeSubcategory" disabled>
+                                                    <option value="N/A" selected disabled>Choose...</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-lg-2 col-md-6 col-12">
+                                                <label class="form-label">Consumable <span class="req">*</span></label>
+                                                <select name="consumable[]" class="form-select consumableName" required disabled>
+                                                    <option value="N/A" selected disabled>Choose Model first...</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-lg-2 col-md-6 col-12">
+                                                <label class="form-label">Item Code <span class="req">*</span></label>
+                                                <select name="consumableItemCode[]" class="form-select itemCode" required disabled>
+                                                    <option value="N/A" selected disabled>Choose Consumable first...</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-lg-1 col-md-3 col-6">
+                                                <label class="form-label">Qty <span class="req">*</span></label>
+                                                <input type="number" class="form-control" name="consumableQuantity[]" min="1" required />
+                                            </div>
+                                            
+                                            <div class="col-lg-2 col-md-6 col-6">
+                                                <label class="form-label">Amount <span class="req">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">₱</span>
+                                                    <input type="number" class="form-control" name="consumableAmount[]" step="0.01" required />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-1 col-md-3 col-12">
+                                                <button type="button" class="btn btn-outline-danger remove-entry w-100" title="Remove Consumable Row">
+                                                    <i class="fa fa-trash-alt d-lg-none me-1"></i><span class="d-none d-lg-inline">Remove</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addConsumableEntry">
+                                            <i class="fa fa-plus me-1"></i> Add Another Consumable
+                                        </button>
+                                        <div class="text-end">
+                                            <strong>Total Qty:</strong> <span id="consumableTotalQty">0</span> &nbsp;&nbsp;&nbsp;
+                                            <strong>Total Amount:</strong> ₱<span id="consumableTotalAmount">0.00</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            
 
                             <hr class="text-secondary my-4">
 
@@ -482,10 +576,124 @@
         <script src="../js/toggleDateFields.js"></script>
         <script src="../js/handleIndustryChange.js"></script>
         <script src="../js/handleAccountSourceChange.js"></script>
-        <script src="../js/addProducts.js"></script>
+        <script src="../js/calculateTotals.js"></script>
+        <script>
+            $(document).ready(function () {
+                function toggleInputs(containerId, enable) {
+                    $(containerId).find('input, select, textarea').each(function() {
+                        if (enable) {
+                            $(this).prop('disabled', false);
+                            if ($(this).hasClass('productTypeSubcategory') || $(this).hasClass('itemCode')) {
+                                var parent = $(this).closest('.product-entry');
+                                var typeVal = parent.find('.productType').val() || parent.find('.deviceCondition').val();
+                                if (!typeVal || typeVal === 'N/A') {
+                                    $(this).prop('disabled', true);
+                                }
+                            }
+                        } else {
+                            $(this).prop('disabled', true);
+                        }
+                    });
+                }
+
+                function checkSBU() {
+                    var sbuVal = $('#sbu').val();
+                    if (!sbuVal) {
+                        $('#machinePricingCard').hide();
+                        $('#consumablesPricingCard').hide();
+                        toggleInputs('#machinePricingCard', false);
+                        toggleInputs('#consumablesPricingCard', false);
+                        return;
+                    }
+                    
+                    var trimmed = sbuVal.trim();
+                    if (trimmed === 'OP MFP' || trimmed === 'OP - PP' || trimmed === 'OP - PP ' || trimmed === 'OP - Riso') {
+                        $('#machinePricingCard').show();
+                        $('#consumablesPricingCard').hide();
+                        toggleInputs('#machinePricingCard', true);
+                        toggleInputs('#consumablesPricingCard', false);
+                    } else if (trimmed === 'OP - Consumables') {
+                        $('#machinePricingCard').hide();
+                        $('#consumablesPricingCard').show();
+                        toggleInputs('#machinePricingCard', false);
+                        toggleInputs('#consumablesPricingCard', true);
+                    } else {
+                        $('#machinePricingCard').hide();
+                        $('#consumablesPricingCard').hide();
+                        toggleInputs('#machinePricingCard', false);
+                        toggleInputs('#consumablesPricingCard', false);
+                    }
+                }
+
+                // Initial run on page load
+                checkSBU();
+
+                // Trigger on change of SBU dropdown
+                $('#sbu').on('change', function () {
+                    checkSBU();
+                });
+
+                // Item Code cascade is now handled by handleConsumableChange.js
+
+                // Add a new product entry
+                $('#addProductEntry').on('click', function () {
+                    let newEntry = $('#productEntries .product-entry').first().clone();
+                    
+                    newEntry.find('input, select').each(function() {
+                        if ($(this).is('select')) {
+                            $(this).prop('selectedIndex', 0);
+                            if ($(this).hasClass('productTypeSubcategory')) {
+                                $(this).prop('disabled', true).html('<option value="N/A" selected disabled>Choose...</option>');
+                            }
+                        } else {
+                            $(this).val('');
+                        }
+                    });
+                    
+                    $('#productEntries').append(newEntry);
+                });
+
+                // Remove a product entry
+                $('#productEntries').on('click', '.remove-entry', function () {
+                    if ($('#productEntries .product-entry').length > 1) {
+                        $(this).closest('.product-entry').remove();
+                    } else {
+                        alert("At least one product entry is required.");
+                    }
+                });
+
+                // Add a new consumable entry
+                $('#addConsumableEntry').on('click', function () {
+                    let newEntry = $('#consumableEntries .product-entry').first().clone();
+                    
+                    newEntry.find('input, select').each(function() {
+                        if ($(this).is('select')) {
+                            $(this).prop('selectedIndex', 0);
+                            if ($(this).hasClass('productTypeSubcategory') || $(this).hasClass('itemCode')) {
+                                $(this).prop('disabled', true).html('<option value="N/A" selected disabled>Choose...</option>');
+                            }
+                        } else {
+                            $(this).val('');
+                        }
+                    });
+                    
+                    $('#consumableEntries').append(newEntry);
+                });
+
+                // Remove a consumable entry
+                $('#consumableEntries').on('click', '.remove-entry', function () {
+                    if ($('#consumableEntries .product-entry').length > 1) {
+                        $(this).closest('.product-entry').remove();
+                    } else {
+                        alert("At least one consumable entry is required.");
+                    }
+                });
+            });
+        </script>
         <script src="../js/addContacts.js"></script>
         <script src="../js/handleAccountCategoryChange.js"></script>
         <script src="../js/handleProductTypeChange.js"></script>
+        <script src="../js/handleConsumableChange.js"></script>
         <script src="../js/handleAccountStatusChange.js"></script>
         <script src="../js/encodeAutofill.js"></script>
         <script src="../js/encode/prefillForm.js"></script>

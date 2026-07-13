@@ -1,165 +1,31 @@
 <?php
 include('db_conn.php');
+include('helpers/extract_form_data.php');
+include('helpers/product_helpers.php');
 
 if (isset($_POST['encodeAccount'])) {
 
-    // =========================
-    // MAIN FORM VALUES
-    // =========================
-    $sbu = $_POST['sbu'] ?? NULL;
-    $accountExecutive = $_POST['accountExecutive'] ?? NULL;
-    $callDate = $_POST['callDate'] ?? NULL;
-    
-    // ADDED: Capture the team choice from your dropdown menu
-    $team = $_POST['team'] ?? NULL; 
-
-    $accountName = $_POST['accountName'] ?? NULL;
-    $arsExpiryDate = $_POST['arsExpiryDate'] ?? NULL;
-
-    // FIXED: Formats "YYYY-MM" from your HTML5 month picker into a valid MySQL "YYYY-MM-DD"
-    $estimatedDelivery = !empty($_POST['estimatedDelivery']) ? $_POST['estimatedDelivery'] . "-01" : NULL; 
-
-    $endUser = $_POST['endUserType'] ?? NULL;
-    $segment = $_POST['segment'] ?? NULL;
-    $industrySubcategory = $_POST['industrySubcategory'] ?? NULL;
-    $accountCategory = $_POST['accountCategory'] ?? NULL;
-    $accountSource = $_POST['accountSource'] ?? NULL;
-    $accountSourceCategory = $_POST['accountSourceCategory'] ?? NULL;
-
-    // =========================
-    // CONTACT DETAILS
-    // =========================
-    $contactPerson = $_POST['contactPerson'][0] ?? NULL;
-    $designation = $_POST['designation'][0] ?? NULL;
-    $contactNumber = $_POST['contactNumber'][0] ?? NULL;
-    $emailAddress = $_POST['emailAddress'][0] ?? NULL;
-
-    // =========================
-    // DECISION MAKER
-    // =========================
-    $decisionMaker = $_POST['decisionMaker'] ?? NULL;
-    $dmDesignation = $_POST['dmDesignation'] ?? NULL;
-    $dmEmail = $_POST['dmEmail'] ?? NULL;
-
-    // =========================
-    // PROJECT DETAILS
-    // =========================
-    $projTitle = $_POST['projTitle'] ?? NULL;
-    $proposedPrice = $_POST['proposedPrice'] ?? NULL;
-    $paymentTerms = $_POST['paymentTerms'] ?? NULL;
-    $contractType = $_POST['contractType'] ?? NULL;
-    $projAddress = $_POST['projectAddress'] ?? NULL;
-
-    // =========================
-    // PROGRESS DETAILS
-    // =========================
-    $callNature = $_POST['callNature'] ?? 'N/A';
-    $accountStatus = $_POST['accountStatus'] ?? NULL;
-    $reason = $_POST['reason'] ?? NULL;
-    $deliveryDate = $_POST['deliveryDate'] ?? NULL;
-    $contractEnd = $_POST['contractEnd'] ?? NULL;
-    $remarks = $_POST['remarks'] ?? NULL;
-    $whatTranspired = $_POST['whatTranspired'] ?? NULL;
-    $reasonSubcategory = $_POST['reasonSubcategory'] ?? NULL;
-    $progressDate = $_POST['progressDate'] ?? NULL;
-
-    // =========================
-    // OTHER DETAILS
-    // =========================
-    $existingSystem = $_POST['existingSystem'] ?? NULL;
-    $contractEndCompetitor = $_POST['contractEndCompetitor'] ?? NULL;
-
-    // =========================
-    // ADDRESS
-    // =========================
-    $region = $_POST['region'] ?? NULL;
-    $province = $_POST['province'] ?? NULL;
-    $city = $_POST['city'] ?? NULL;
-    $barangay = $_POST['barangay'] ?? NULL;
-
-    $branch1 = $_POST['branch1'] ?? NULL;
-    $region1 = $_POST['region1'] ?? NULL;
-
-    $address = $_POST['address'] ?? NULL;
-
-    // =========================
-    // USER DETAILS
-    // =========================
-    $branch = NULL;
-    $department = NULL;
-
-    $userQuery = "SELECT branch, dept FROM users WHERE name = ? AND is_deleted = 0 LIMIT 1";
-    $userStmt = mysqli_prepare($conn, $userQuery);
-    mysqli_stmt_bind_param($userStmt, "s", $accountExecutive);
-    mysqli_stmt_execute($userStmt);
-    $userResult = mysqli_stmt_get_result($userStmt);
-
-    if ($userRow = mysqli_fetch_assoc($userResult)) {
-        $branch = $userRow['branch'];
-        $department = $userRow['dept'];
-    }
-    mysqli_stmt_close($userStmt);
+    // Extract grouped data
+    $pipeline = extractPipelineData($_POST);
+    $contact = extractContactData($_POST);
+    $project = extractProjectData($_POST);
+    $progress = extractProgressData($_POST);
+    $address = extractAddressData($_POST);
+    $user = getBranchAndDept($conn, $pipeline['accountExecutive']);
 
     // =========================
     // INSERT ENCODED
     // =========================
     $sql = "INSERT INTO encoded (
-        sbu,
-        accExec,
-        branch,
-        dept,
-        callDate,
-        team, -- ADDED: Inserted team right here
-        accName,
-        arsExpiryDate,
-        estimatedDelivery, 
-        accCat,
-        existingSystem,
-        endOfContractCompetitor,
-        endUser,
-        industry,
-        industrySubcategory,
-        accSource,
-        accountSourceCategory,
-        region,
-        province,
-        city,
-        barangay,
-        branch1, 
-        region1,
-        address,
-        contactPerson,
-        designation,
-        contactNumber,
-        email,
-        decisionMaker,
-        dmDesignation,
-        decisionMakerEmail,
-        projTitle,
-        proposedPrice,
-        paymentTerms,
-        contactType,
-        projAddress,
-        callNature,
-        accStatus,
-        reason,
-        deliveryDate,
-        endOfContract,
-        remarks,
-        whatTranspired,
-        segment,
-        reasonSubcategory,
-        progressDate
+        sbu, accExec, branch, dept, callDate, team, accName, arsExpiryDate, estimatedDelivery, 
+        accCat, existingSystem, endOfContractCompetitor, endUser, industry, industrySubcategory, 
+        accSource, accountSourceCategory, region, province, city, barangay, branch1, region1, 
+        address, contactPerson, designation, contactNumber, email, decisionMaker, dmDesignation, 
+        decisionMakerEmail, projTitle, proposedPrice, paymentTerms, contactType, projAddress, 
+        callNature, accStatus, reason, deliveryDate, endOfContract, remarks, whatTranspired, 
+        segment, reasonSubcategory, progressDate
     ) VALUES (
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?,
-        ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )"; 
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -170,54 +36,53 @@ if (isset($_POST['encodeAccount'])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssssssssssssssssssssssssssssssssssssssssssssss", // FIXED: Increased total characters to 46 's' types
-
-        $sbu,
-        $accountExecutive,
-        $branch,
-        $department,
-        $callDate,
-        $team, // ADDED: Mapped $team variable directly to line up after $callDate
-        $accountName,
-        $arsExpiryDate,
-        $estimatedDelivery, 
-        $accountCategory,
-        $existingSystem,
-        $contractEndCompetitor,
-        $endUser,
-        $segment,
-        $industrySubcategory,
-        $accountSource,
-        $accountSourceCategory,
-        $region,
-        $province,
-        $city,
-        $barangay,
-        $branch1,
-        $region1,
-        $address,
-        $contactPerson,
-        $designation,
-        $contactNumber,
-        $emailAddress,
-        $decisionMaker,
-        $dmDesignation,
-        $dmEmail,
-        $projTitle,
-        $proposedPrice,
-        $paymentTerms,
-        $contractType,
-        $projAddress,
-        $callNature,
-        $accountStatus,
-        $reason,
-        $deliveryDate,
-        $contractEnd,
-        $remarks,
-        $whatTranspired,
-        $segment,
-        $reasonSubcategory,
-        $progressDate
+        "ssssssssssssssssssssssssssssssssssssssssssssss",
+        $pipeline['sbu'],
+        $pipeline['accountExecutive'],
+        $user['branch'],
+        $user['department'],
+        $pipeline['callDate'],
+        $pipeline['team'],
+        $pipeline['accountName'],
+        $pipeline['arsExpiryDate'],
+        $progress['estimatedDelivery'], 
+        $pipeline['accountCategory'],
+        $project['existingSystem'],
+        $project['contractEndCompetitor'],
+        $pipeline['endUser'],
+        $pipeline['segment'],
+        $pipeline['industrySubcategory'],
+        $pipeline['accountSource'],
+        $pipeline['accountSourceCategory'],
+        $address['region'],
+        $address['province'],
+        $address['city'],
+        $address['barangay'],
+        $address['branch1'],
+        $address['region1'],
+        $address['address'],
+        $contact['contactPerson'],
+        $contact['designation'],
+        $contact['contactNumber'],
+        $contact['emailAddress'],
+        $contact['decisionMaker'],
+        $contact['dmDesignation'],
+        $contact['dmEmail'],
+        $project['projTitle'],
+        $project['proposedPrice'],
+        $project['paymentTerms'],
+        $project['contractType'],
+        $project['projAddress'],
+        $progress['callNature'],
+        $progress['accountStatus'],
+        $progress['reason'],
+        $progress['deliveryDate'],
+        $progress['contractEnd'],
+        $progress['remarks'],
+        $progress['whatTranspired'],
+        $pipeline['segment'],
+        $progress['reasonSubcategory'],
+        $progress['progressDate']
     );
 
     $execute = mysqli_stmt_execute($stmt);
@@ -226,7 +91,6 @@ if (isset($_POST['encodeAccount'])) {
         die("Execute failed: " . mysqli_stmt_error($stmt));
     }
 
-    // Capture the generated reference primary key ID
     $encodedID = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
 
@@ -234,72 +98,41 @@ if (isset($_POST['encodeAccount'])) {
     // INSERT SUBMISSION INTO ENCODED_LOGS TABLE
     // ====================================================
     $logSql = "INSERT INTO encoded_logs (
-        encodedID, 
-        progressDate, 
-        accountStatusID, 
-        reasonSubcategoryID, 
-        remarks, 
-        estimatedDelivery, 
-        deliveryDate, 
-        contractEndDate
+        encodedID, progressDate, accountStatusID, reasonSubcategoryID, remarks, 
+        estimatedDelivery, deliveryDate, contractEndDate
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     $logStmt = mysqli_prepare($conn, $logSql);
 
     if ($logStmt) {
-        $logStatusID  = (!empty($accountStatus) && $accountStatus !== 'N/A') ? (int)$accountStatus : NULL;
-        $logSubcatID  = (!empty($reasonSubcategory) && $reasonSubcategory !== 'N/A') ? (int)$reasonSubcategory : NULL;
-        $logProgDate  = !empty($progressDate) ? $progressDate : NULL;
-        $logRemarks   = !empty($remarks) ? $remarks : NULL;
-        $logEstDel    = !empty($estimatedDelivery) ? $estimatedDelivery : NULL; // Uses the updated "YYYY-MM-01" string
-        $logDelDate   = !empty($deliveryDate) ? $deliveryDate : NULL;
-        $logConEnd    = !empty($contractEnd) ? $contractEnd : NULL;
-
+        $logStatusID  = (!empty($progress['accountStatus']) && $progress['accountStatus'] !== 'N/A') ? (int)$progress['accountStatus'] : NULL;
+        $logSubcatID  = (!empty($progress['reasonSubcategory']) && $progress['reasonSubcategory'] !== 'N/A') ? (int)$progress['reasonSubcategory'] : NULL;
+        
         mysqli_stmt_bind_param(
             $logStmt, 
             "isiissss", 
             $encodedID, 
-            $logProgDate, 
+            $progress['progressDate'], 
             $logStatusID, 
             $logSubcatID, 
-            $logRemarks, 
-            $logEstDel, 
-            $logDelDate, 
-            $logConEnd
+            $progress['remarks'], 
+            $progress['estimatedDelivery'], 
+            $progress['deliveryDate'], 
+            $progress['contractEnd']
         );
         mysqli_stmt_execute($logStmt);
         mysqli_stmt_close($logStmt);
     }
 
-    // =========================
-    // INSERT PRODUCT DETAILS
-    // =========================
-    $productTypes = $_POST['productType'] ?? [];
-    $subcategories = $_POST['productTypeSubcategory'] ?? [];
-    $deviceConditions = $_POST['deviceCondition'] ?? [];
-    $quantities = $_POST['quantity'] ?? [];
+    // ====================================================
+    // INSERT PRODUCT / TRANSACTION DETAILS
+    // ====================================================
+    insertProductDetails($conn, $encodedID, $_POST);
 
-    if (!empty($productTypes)) {
-        $productSql = "INSERT INTO product_details (encodedID, productTypeID, productSubcategoryID, deviceConditionID, quantity) VALUES (?, ?, ?, ?, ?)";
-        $productStmt = mysqli_prepare($conn, $productSql);
-
-        foreach ($productTypes as $index => $productTypeID) {
-            $subcategoryID = $subcategories[$index] ?? NULL;
-            $conditionID = $deviceConditions[$index] ?? NULL;
-            $quantity = $quantities[$index] ?? 0;
-
-            mysqli_stmt_bind_param($productStmt, "iiiii", $encodedID, $productTypeID, $subcategoryID, $conditionID, $quantity);
-            mysqli_stmt_execute($productStmt);
-        }
-        mysqli_stmt_close($productStmt);
-    }
-
-    echo '
-    <script>
-        alert("Account, Products, and Initial History Log Added Successfully.");
-        window.location.href = "/e-dsr/pages/encode.php";
-    </script>
-    ';
+    echo '<script>
+        alert("Success: Account encoded along with products and system context!");
+        window.location.href = "' . BASE_URL . 'pages/encode.php";
+        </script>';
     exit();
 }
 ?>

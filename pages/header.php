@@ -14,6 +14,9 @@
     document.documentElement.setAttribute('data-theme', t);
     document.documentElement.setAttribute('data-bs-theme', t);
     window.EDSR_THEME = t;
+    
+    // Make BASE_URL available globally for Javascript files
+    window.BASE_URL = "<?php echo BASE_URL; ?>";
 })();
 </script>
 
@@ -24,7 +27,7 @@
             <span style="background:var(--primary);border-radius:6px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <i class="fa-solid fa-chart-line" style="color:#fff;font-size:0.75rem;"></i>
             </span>
-            <span class="navbar-brand">E-DSR 2.0</span>
+            <span class="navbar-brand">E-DSR Consumables</span>
         </a>
 
         <div class="d-flex align-items-center gap-2 d-lg-none ms-auto me-2">
@@ -92,7 +95,7 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
 
-                <a href="../php/logout.php?logoutid=<?php echo urlencode($name ?? ''); ?>"
+                <a href="<?php echo BASE_URL; ?>php/logout.php?logoutid=<?php echo urlencode($name ?? ''); ?>"
                    onclick="return confirm('Logout Account?')"
                    class="btn btn-sm d-flex align-items-center gap-1 edsr-logout-btn">
                     <i class="fa-solid fa-right-from-bracket" style="font-size:0.8rem; color: #fff;"></i>
@@ -101,7 +104,7 @@
             </div>
 
             <div class="d-flex d-lg-none mt-2 pb-1">
-                <a href="../php/logout.php?logoutid=<?php echo urlencode($name ?? ''); ?>"
+                <a href="<?php echo BASE_URL; ?>php/logout.php?logoutid=<?php echo urlencode($name ?? ''); ?>"
                    onclick="return confirm('Logout Account?')"
                    class="nav-link text-danger">
                     <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
@@ -111,7 +114,7 @@
     </div>
 </nav>
 
-<script defer src="/e-dsr/js/theme-toggle.js"></script>
+<script defer src="<?php echo BASE_URL; ?>js/theme-toggle.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {

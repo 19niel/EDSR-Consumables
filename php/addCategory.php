@@ -1,4 +1,5 @@
 <?php
+include_once('config.php');
 include ('db_conn.php');
 
 if (isset($_POST['add_category_button'])) {
@@ -10,13 +11,13 @@ if (isset($_POST['add_category_button'])) {
 
     if ($insert_category_result) {
         echo '<script>
-                window.location.href = "/e-dsr/pages/customize.php";
-                alert("Added a Category.")
+                alert("Added a Category.");
+                window.location.href = "'.BASE_URL.'pages/customize.php";
             </script>';
     } else {
         echo '<script>
-                window.location.href = "/e-dsr/pages/customize.php";
-                alert("Added a Category.")
+                alert("Failed to add category.");
+                window.location.href = "'.BASE_URL.'pages/customize.php";
             </script>';
     }
 }

@@ -192,7 +192,7 @@ include('../php/accountList.php');
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function redirectToPHPPage(id) {
-            window.location.href = '/e-dsr/php/accountSelect.php?id=' + id;
+            window.location.href = '<?php echo BASE_URL; ?>php/accountSelect.php?id=' + id;
         }
     </script>
     <script>

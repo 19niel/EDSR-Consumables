@@ -9,7 +9,7 @@ include ('../php/managerList.php');
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="E-DSR Dashboard — Daily sales activity calendar, calls chart, and performance metrics.">
-        <title>Dashboard — E-DSR</title>
+        <title>Dashboard — E-DSR Cons</title>
 
         <!-- Anti-flash: apply saved theme before render -->
         <script>
@@ -36,9 +36,9 @@ include ('../php/managerList.php');
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- Theme & App CSS -->
-        <link rel="stylesheet" href="/e-dsr/css/theme.css" />
-        <link rel="stylesheet" href="/e-dsr/css/sidebar.css" />
-        <link rel="stylesheet" href="/e-dsr/css/counters.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/theme.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/sidebar.css" />
+        <link rel="stylesheet" href="/e-dsr-cons/css/counters.css" />
     </head>
     <body>
         <?php include ('header.php'); ?>

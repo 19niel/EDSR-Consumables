@@ -1,4 +1,5 @@
 <?php
+include_once('config.php');
 include ('db_conn.php');
 
 if (isset($_GET['deleteUserId'])) {
@@ -9,7 +10,7 @@ if (isset($_GET['deleteUserId'])) {
   if ($result) {
     echo '<script>
             alert("User deleted.");
-            window.location.href = "/e-dsr/pages/user.php";
+            window.location.href = "'.BASE_URL.'pages/user.php";
           </script>';
   } else {
     echo 'MySQL Error: ' . mysqli_error($conn);
@@ -25,7 +26,7 @@ if (isset($_GET['deleteAccountId'])) {
   $result = mysqli_query($conn, $sql);
   echo '<script>
                 alert("Account Deleted.");
-                window.location.href = "/e-dsr/pages/search.php";
+                window.location.href = "'.BASE_URL.'pages/search.php";
               </script>';
   exit();
 }
@@ -36,7 +37,7 @@ if (isset($_GET['category_id'])) {
   $result = mysqli_query($conn, $sql);
   echo '<script>
                 alert("Category Deleted.");
-                window.location.href = "/e-dsr/pages/customize.php";
+                window.location.href = "'.BASE_URL.'pages/customize.php";
               </script>';
   exit();
 }

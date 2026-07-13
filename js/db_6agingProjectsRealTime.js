@@ -59,7 +59,7 @@ $(document).ready(function () {
             rowsHtml += `
                 <tr>
                     <td class="fw-semibold text-dark">
-                        <a href="/e-dsr/pages/editEncode.php?id=${encodeURIComponent(item.id)}" class="text-decoration-none text-danger border-bottom border-danger border-opacity-10 pb-0.5">
+                        <a href="${window.BASE_URL}pages/editEncode.php?id=${encodeURIComponent(item.id)}" class="text-decoration-none text-danger border-bottom border-danger border-opacity-10 pb-0.5">
                             ${item.LID}
                         </a>
                     </td>
