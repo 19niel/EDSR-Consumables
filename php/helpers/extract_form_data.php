@@ -10,6 +10,7 @@ function extractPipelineData($post) {
         'accountExecutive'      => $post['accountExecutive'] ?? NULL,
         'callDate'              => $post['callDate'] ?? NULL,
         'team'                  => $post['team'] ?? NULL,
+        'customerId'            => $post['customerId'] ?? NULL,
         'accountName'           => $post['accountName'] ?? NULL,
         'arsExpiryDate'         => $post['arsExpiryDate'] ?? NULL,
         'endUser'               => $post['endUserType'] ?? NULL,

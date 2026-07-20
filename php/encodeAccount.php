@@ -17,7 +17,7 @@ if (isset($_POST['encodeAccount'])) {
     // INSERT ENCODED
     // =========================
     $sql = "INSERT INTO encoded (
-        sbu, accExec, branch, dept, callDate, team, accName, arsExpiryDate, estimatedDelivery, 
+        sbu, accExec, branch, dept, callDate, team, customerId, accName, arsExpiryDate, estimatedDelivery, 
         accCat, existingSystem, endOfContractCompetitor, endUser, industry, industrySubcategory, 
         accSource, accountSourceCategory, region, province, city, barangay, branch1, region1, 
         address, contactPerson, designation, contactNumber, email, decisionMaker, dmDesignation, 
@@ -25,7 +25,7 @@ if (isset($_POST['encodeAccount'])) {
         callNature, accStatus, reason, deliveryDate, endOfContract, remarks, whatTranspired, 
         segment, reasonSubcategory, progressDate
     ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )"; 
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -36,13 +36,14 @@ if (isset($_POST['encodeAccount'])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssssssssssssssssssssssssssssssssssssssssssssss",
+        "sssssssssssssssssssssssssssssssssssssssssssssss",
         $pipeline['sbu'],
         $pipeline['accountExecutive'],
         $user['branch'],
         $user['department'],
         $pipeline['callDate'],
         $pipeline['team'],
+        $pipeline['customerId'],
         $pipeline['accountName'],
         $pipeline['arsExpiryDate'],
         $progress['estimatedDelivery'], 

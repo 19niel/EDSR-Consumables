@@ -36,10 +36,11 @@ $(document).ready(function () {
 
   $("#accountStatus").on("change", function () {
     var accountStatusId = $(this).val();
+    var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
 
     if (accountStatusId) {
       $("#reasonSubcategory")
-        .prop("disabled", false)
+        .prop("disabled", isDisabled)
         .html('<option value="N/A" disabled selected>Loading...</option>');
 
       $.ajax({
@@ -49,6 +50,11 @@ $(document).ready(function () {
         success: function (data) {
           if (data) {
             $("#reasonSubcategory").html(data);
+            var savedValue = $("#reasonSubcategory").attr("data-saved-value");
+            if (savedValue && savedValue !== "") {
+              $("#reasonSubcategory").val(savedValue);
+              $("#reasonSubcategory").removeAttr("data-saved-value");
+            }
           } else {
             $("#reasonSubcategory")
               .prop("disabled", true)

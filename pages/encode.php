@@ -120,10 +120,16 @@
                             <div class="card p-4 shadow-sm mb-4">
                                 <h5 class="text-secondary fw-semibold mb-3">Client Information</h5>
                                 <div class="row g-3">
-                                    <!-- Account Name -->
+                                    <!-- Customer ID -->
                                     <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <label for="customerId" class="form-label">Customer ID</label>
+                                        <input type="text" class="form-control" id="customerId" name="customerId" />
+                                    </div>
+
+                                    <!-- Account Name -->
+                                    <div class="col-md-6 col-lg-4 col-xl-3 position-relative">
                                         <label for="accountName" class="form-label">Account Name <span class="req">*</span></label>
-                                        <input type="text" class="form-control" id="accountName" required name="accountName" onchange="searchAccounts(this.value)" />
+                                        <input type="text" class="form-control" id="accountName" required name="accountName" onchange="searchAccounts(this.value)" autocomplete="off"/>
                                         <ul id="accountList" class="account-list"></ul>
                                     </div>
 

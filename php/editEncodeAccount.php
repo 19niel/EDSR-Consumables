@@ -34,6 +34,7 @@ if (isset($_POST['editEncode'])) {
                 dept = '{$user['department']}',
                 callDate = '{$pipeline['callDate']}',
                 team = '{$pipeline['team']}',  
+                customerId = '{$pipeline['customerId']}',
                 accName = '{$pipeline['accountName']}',
                 arsExpiryDate = '{$pipeline['arsExpiryDate']}',
                 endUser = '{$pipeline['endUser']}', 

@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
+  $.fn.triggerChangeBypass = function() {
+    return this.each(function() {
+      let $el = $(this);
+      let wasDisabled = $el.prop('disabled');
+      if (wasDisabled) {
+        $el.data('was-disabled-by-bypass', true);
+        $el.prop('disabled', false);
+      }
+      $el.trigger('change');
+      if (wasDisabled) {
+        $el.prop('disabled', true);
+        $el.removeData('was-disabled-by-bypass');
+      }
+    });
+  };
+
   // Extract the encoded ID from the URL query string
   const urlParams = new URLSearchParams(window.location.search);
   const encodedId = urlParams.get("id"); // The 'id' parameter in the URL
@@ -97,7 +113,7 @@ function prefillForm(data) {
   if (followUpActionElem) followUpActionElem.value = data.actionFollow || "";
 
   const sbuElem = $("#sbu");
-  if (sbuElem.length) sbuElem.val(data.sbu || "").trigger("change");
+  if (sbuElem.length) sbuElem.val(data.sbu || "").triggerChangeBypass();
   
   const endUserTypeElem = $("#endUserType");
   if (endUserTypeElem.length) endUserTypeElem.val(data.endUser || "");
@@ -118,12 +134,12 @@ function prefillForm(data) {
   $("#estimatedDelivery").val(data.estimatedDelivery || "");
 
   // Populate Region and trigger Province, City, and Barangay loading
-  $("#region").val(data.region || "").trigger("change");
+  $("#region").val(data.region || "").triggerChangeBypass();
 
   setTimeout(() => {
-    $("#province").val(data.province || "").trigger("change");
+    $("#province").val(data.province || "").triggerChangeBypass();
     setTimeout(() => {
-      $("#city").val(data.city || "").trigger("change");
+      $("#city").val(data.city || "").triggerChangeBypass();
       setTimeout(() => {
         $("#barangay").val(data.barangay || "");
       }, 100);
@@ -131,21 +147,21 @@ function prefillForm(data) {
   }, 100);
 
   // Populate Segment and trigger Industry Subcategory loading
-  $("#segment").val(data.segment || "").trigger("change");
+  $("#segment").val(data.segment || "").triggerChangeBypass();
 
   setTimeout(() => {
     $("#industrySubcategory").val(data.industrySubcategory || "");
   }, 100);
 
   // Populate Account Source and trigger Account Source Category loading
-  $("#accountSource").val(data.accSource || "").trigger("change");
+  $("#accountSource").val(data.accSource || "").triggerChangeBypass();
 
   setTimeout(() => {
     $("#accountSourceCategory").val(data.accountSourceCategory || "");
   }, 100);
 
   // Populate Account Category and trigger visibility check
-  $("#accountCategory").val(data.accCat || "").trigger("change");
+  $("#accountCategory").val(data.accCat || "").triggerChangeBypass();
 
   // Handle Existing System & End of Competitor Date visibility
   if (data.accCat === "NEW") {
@@ -167,7 +183,7 @@ function prefillForm(data) {
 
   // Populate Account Status and trigger Reason Subcategory loading
   $("#reasonSubcategory").attr("data-saved-value", data.reasonSubcategory || "");
-  $("#accountStatus").val(data.accStatus || "").trigger("change");
+  $("#accountStatus").val(data.accStatus || "").triggerChangeBypass();
 
   if (data.accStatus === "230") {
     document.getElementById("deliveryDateContainer").style.display = "block";
@@ -215,7 +231,7 @@ function prefillForm(data) {
       quantityInput.value = product.quantity || "";
 
       // Trigger change to populate subcategories
-      $(productTypeSelect).trigger("change");
+      $(productTypeSelect).triggerChangeBypass();
 
       const targetSubcat = product.productSubcategoryID || "";
 
@@ -226,7 +242,7 @@ function prefillForm(data) {
         const subcatOptions = Array.from(subcatSelect.options).map((opt) => opt.value);
         if (subcatOptions.includes(targetSubcat)) {
           subcatSelect.value = targetSubcat;
-          $(subcatSelect).trigger("change");
+          $(subcatSelect).triggerChangeBypass();
           clearInterval(retryInterval);
         } else if (++attempts >= maxAttempts) {
           clearInterval(retryInterval);

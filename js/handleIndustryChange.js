@@ -5,10 +5,11 @@ $(document).ready(function () {
 
   $("#segment").on("change", function () {
     var industryId = $(this).val();
+    var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
 
     if (industryId) {
       $("#industrySubcategory")
-        .prop("disabled", false)
+        .prop("disabled", isDisabled)
         .html('<option value="N/A" disabled selected>Loading...</option>');
 
       $.ajax({
@@ -18,6 +19,11 @@ $(document).ready(function () {
         success: function (data) {
           if (data) {
             $("#industrySubcategory").html(data);
+            var savedValue = $("#industrySubcategory").attr("data-saved-value");
+            if (savedValue && savedValue !== "") {
+              $("#industrySubcategory").val(savedValue);
+              $("#industrySubcategory").removeAttr("data-saved-value");
+            }
           } else {
             $("#industrySubcategory")
               .prop("disabled", true)

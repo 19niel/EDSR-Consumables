@@ -5,10 +5,11 @@ $(document).ready(function () {
 
   $("#accountSource").on("change", function () {
     var accountSourceId = $(this).val();
+    var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
 
     if (accountSourceId) {
       $("#accountSourceCategory")
-        .prop("disabled", false)
+        .prop("disabled", isDisabled)
         .html('<option value="N/A" disabled selected>Loading...</option>');
 
       $.ajax({
@@ -18,6 +19,11 @@ $(document).ready(function () {
         success: function (data) {
           if (data) {
             $("#accountSourceCategory").html(data);
+            var savedValue = $("#accountSourceCategory").attr("data-saved-value");
+            if (savedValue && savedValue !== "") {
+              $("#accountSourceCategory").val(savedValue);
+              $("#accountSourceCategory").removeAttr("data-saved-value");
+            }
           } else {
             $("#accountSourceCategory")
               .prop("disabled", true)

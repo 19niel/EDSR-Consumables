@@ -13,6 +13,7 @@ $(document).ready(function () {
     // ─────────────────────────────────────────────────────────────────
     $(document).on('change', '#consumableEntries .productTypeSubcategory', function () {
         var modelId   = $(this).val();
+        var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
         var container = $(this).closest('.product-entry');
         var consumableSelect = container.find('.consumableName');
         var itemCodeSelect   = container.find('.itemCode');
@@ -30,7 +31,7 @@ $(document).ready(function () {
         }
 
         consumableSelect
-            .prop('disabled', false)
+            .prop('disabled', isDisabled)
             .html('<option value="N/A" disabled selected>Loading...</option>');
 
         $.ajax({
@@ -46,7 +47,16 @@ $(document).ready(function () {
                     var saved = consumableSelect.attr('data-saved-value');
                     if (saved) {
                         consumableSelect.val(saved).removeAttr('data-saved-value');
+                        let wasDisabled = consumableSelect.prop('disabled');
+                        if (wasDisabled) {
+                            consumableSelect.data('was-disabled-by-bypass', true);
+                            consumableSelect.prop('disabled', false);
+                        }
                         consumableSelect.trigger('change');
+                        if (wasDisabled) {
+                            consumableSelect.prop('disabled', true);
+                            consumableSelect.removeData('was-disabled-by-bypass');
+                        }
                     }
                 } else {
                     consumableSelect
@@ -67,6 +77,7 @@ $(document).ready(function () {
     // ─────────────────────────────────────────────────────────────────
     $(document).on('change', '.consumableName', function () {
         var consumableId = $(this).val();
+        var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
         var container    = $(this).closest('.product-entry');
         var itemCodeSelect = container.find('.itemCode');
 
@@ -78,7 +89,7 @@ $(document).ready(function () {
         }
 
         itemCodeSelect
-            .prop('disabled', false)
+            .prop('disabled', isDisabled)
             .html('<option value="N/A" disabled selected>Loading...</option>');
 
         $.ajax({

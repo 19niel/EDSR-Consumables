@@ -2,13 +2,14 @@ $(document).ready(function () {
   // 1. Core Event Handler: Runs when a Product Type dropdown changes
   $(document).on("change", ".productType", function () {
     var productTypeId = $(this).val();
+    var isDisabled = $(this).is(':disabled') || $(this).data('was-disabled-by-bypass') === true;
     // Finds the wrapper row container matching your HTML class
     var container = $(this).closest(".product-entry");
     var subcategoryDropdown = container.find(".productTypeSubcategory");
 
     if (productTypeId && productTypeId !== "N/A") {
       subcategoryDropdown
-        .prop("disabled", false)
+        .prop("disabled", isDisabled)
         .html('<option value="N/A" disabled selected>Loading...</option>');
 
       $.ajax({
@@ -50,7 +51,16 @@ $(document).ready(function () {
     var productTypeSelect = $(this).find(".productType");
     // Force the change event to fire if it already has a saved selection from the DB
     if (productTypeSelect.val() && productTypeSelect.val() !== "N/A") {
+      let wasDisabled = productTypeSelect.prop('disabled');
+      if (wasDisabled) {
+        productTypeSelect.data('was-disabled-by-bypass', true);
+        productTypeSelect.prop('disabled', false);
+      }
       productTypeSelect.trigger("change");
+      if (wasDisabled) {
+        productTypeSelect.prop('disabled', true);
+        productTypeSelect.removeData('was-disabled-by-bypass');
+      }
     }
   });
 });
