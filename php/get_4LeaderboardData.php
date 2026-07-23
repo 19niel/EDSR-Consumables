@@ -6,8 +6,32 @@ include('db_conn.php');
 header('Content-Type: application/json');
 
 $monthFilter = isset($_GET['month']) ? mysqli_real_escape_string($conn, $_GET['month']) : 'current';
+$sbuFilter = isset($_GET['sbu']) ? mysqli_real_escape_string($conn, $_GET['sbu']) : 'all';
 
-$whereClause = "WHERE is_deleted = 0 AND accStatus IN ('345', '346')";
+$whereClause = "WHERE is_deleted = 0 AND accStatus = '230'";
+
+$sbuConditions = [];
+$sbuArray = explode(',', $sbuFilter);
+
+if (!in_array('all', $sbuArray) && !empty($sbuFilter)) {
+    foreach ($sbuArray as $sbu) {
+        $sbu = trim($sbu);
+        if ($sbu === 'km_machine') {
+            $sbuConditions[] = "(sbu LIKE '%OP MFP%' OR sbu LIKE '%OP - PP%')";
+        } elseif ($sbu === 'riso_machine') {
+            $sbuConditions[] = "(sbu = 'OP - Riso' OR sbu = 'OP Riso')";
+        } elseif ($sbu === 'km_consumables') {
+            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID IN (393, 395)))";
+        } elseif ($sbu === 'riso_consumables') {
+            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 396))";
+        }
+    }
+}
+
+if (!empty($sbuConditions)) {
+    $whereClause .= " AND (" . implode(" OR ", $sbuConditions) . ")";
+}
+
 $currentYear = date('Y');
 
 if ($monthFilter === 'current') {

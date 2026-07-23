@@ -65,7 +65,30 @@ $userRole = isset($_SESSION['category']) ? strtoupper(trim($_SESSION['category']
                         <h5 class="m-0 fw-bold tracking-tight" style="color:var(--text-primary);">BO Dashboard</h5>
                         <p class="small m-0 mt-1" style="color:var(--text-secondary);">Data Generation Log for Sales Department</p>
                     </div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 align-items-center">
+                        <style>
+                            .btn-check.sbu-toggle:checked + .btn-outline-secondary {
+                                background-color: #0d6efd !important;
+                                border-color: #0d6efd !important;
+                                color: #fff !important;
+                            }
+                        </style>
+                        <div class="btn-group shadow-sm" role="group" aria-label="SBU Filters">
+                            <input type="checkbox" class="btn-check sbu-toggle" id="sbu_all" value="all" checked autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-bold px-4 py-2" for="sbu_all" style="font-size: 0.85rem;">All</label>
+
+                            <input type="checkbox" class="btn-check sbu-toggle" id="sbu_km_machine" value="km_machine" autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-bold px-3 py-2" for="sbu_km_machine" style="font-size: 0.85rem;">KM Machine</label>
+
+                            <input type="checkbox" class="btn-check sbu-toggle" id="sbu_riso_machine" value="riso_machine" autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-bold px-3 py-2" for="sbu_riso_machine" style="font-size: 0.85rem;">Riso Machine</label>
+
+                            <input type="checkbox" class="btn-check sbu-toggle" id="sbu_km_cons" value="km_consumables" autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-bold px-3 py-2" for="sbu_km_cons" style="font-size: 0.85rem;">KM Cons.</label>
+
+                            <input type="checkbox" class="btn-check sbu-toggle" id="sbu_riso_cons" value="riso_consumables" autocomplete="off">
+                            <label class="btn btn-outline-secondary fw-bold px-3 py-2" for="sbu_riso_cons" style="font-size: 0.85rem;">Riso Cons.</label>
+                        </div>
                         <a href="../php/exportAllData.php" class="btn btn-white border border-secondary-subtle btn-light px-3 fw-medium d-flex align-items-center gap-2 shadow-sm rounded-3">
                             <i class="fa fa-download text-secondary"></i> Export Dataset
                         </a>
@@ -76,6 +99,39 @@ $userRole = isset($_SESSION['category']) ? strtoupper(trim($_SESSION['category']
                     <?php endif; ?>
                     </div>
                 </div>
+
+                <script>
+                    const sbuToggles = document.querySelectorAll('.sbu-toggle');
+                    
+                    sbuToggles.forEach(toggle => {
+                        toggle.addEventListener('change', function(e) {
+                            if (this.value === 'all' && this.checked) {
+                                // If "All" is selected, deselect others
+                                sbuToggles.forEach(t => { if (t.value !== 'all') t.checked = false; });
+                            } else if (this.value !== 'all' && this.checked) {
+                                // If a specific one is selected, deselect "All"
+                                document.getElementById('sbu_all').checked = false;
+                            }
+                            
+                            // If user unchecks everything, re-check "All"
+                            const anyChecked = Array.from(sbuToggles).some(t => t.checked);
+                            if (!anyChecked) {
+                                document.getElementById('sbu_all').checked = true;
+                            }
+                            
+                            // Collect active filters
+                            const activeFilters = Array.from(sbuToggles).filter(t => t.checked).map(t => t.value).join(',');
+                            
+                            // Make active filters available globally for JS components
+                            window.currentSbuFilter = activeFilters;
+                            
+                            const event = new CustomEvent('kpiSbuFilterUpdated', { detail: { sbu: activeFilters } });
+                            document.dispatchEvent(event);
+                        });
+                    });
+                    
+                    window.currentSbuFilter = 'all';
+                </script>
 
                 <!-- KPI Summary Cards -->
                 <?php include('dashboard/0_kpiSummaryCards.php'); ?>

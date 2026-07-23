@@ -73,7 +73,7 @@ $(document).ready(function () {
                 }
             },
             xaxis: {
-                categories: ['Qualified', 'Negotiation', 'Won', 'Lost', 'Dropped'],
+                categories: ['In the Works', 'For Delivery', 'Delivered', 'Lost', 'Dropped'],
                 labels: { show: false },
                 axisBorder: { show: false },
                 axisTicks: { show: false }
@@ -114,9 +114,12 @@ $(document).ready(function () {
             const monthFilterEl = document.getElementById('kpiMonthFilter');
             selectedMonth = monthFilterEl ? monthFilterEl.value : 'current';
         }
-        console.log(`%c[Pipeline Engine] Fetching pipeline metrics for filter: ${selectedMonth}`, 'color: #0dcaf0; font-weight: bold;');
+        
+        const selectedSbu = window.currentSbuFilter || 'all';
 
-        let requestData = { month: selectedMonth };
+        console.log(`%c[Pipeline Engine] Fetching pipeline metrics for filter: ${selectedMonth} and SBU: ${selectedSbu}`, 'color: #0dcaf0; font-weight: bold;');
+
+        let requestData = { month: selectedMonth, sbu: selectedSbu };
         if (selectedMonth === 'custom') {
             const dateFromEl = document.getElementById('dateFrom');
             const dateToEl = document.getElementById('dateTo');
@@ -217,6 +220,10 @@ $(document).ready(function () {
     // Attach listening interceptors
     document.addEventListener('kpiFilterUpdated', function (e) {
         fetchPipelineFunnelMetrics(e.detail.period);
+    });
+    
+    document.addEventListener('kpiSbuFilterUpdated', function (e) {
+        fetchPipelineFunnelMetrics();
     });
 
     // Handle theme toggle

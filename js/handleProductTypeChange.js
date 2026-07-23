@@ -26,6 +26,18 @@ $(document).ready(function () {
               subcategoryDropdown.val(savedValue);
               // Clear attribute after setting so it doesn't conflict with manual modifications
               subcategoryDropdown.removeAttr("data-saved-value");
+              
+              // Trigger change so that downstream select (consumables) loads
+              let wasDisabled = subcategoryDropdown.prop('disabled');
+              if (wasDisabled) {
+                  subcategoryDropdown.data('was-disabled-by-bypass', true);
+                  subcategoryDropdown.prop('disabled', false);
+              }
+              subcategoryDropdown.trigger('change');
+              if (wasDisabled) {
+                  subcategoryDropdown.prop('disabled', true);
+                  subcategoryDropdown.removeData('was-disabled-by-bypass');
+              }
             }
           } else {
             subcategoryDropdown

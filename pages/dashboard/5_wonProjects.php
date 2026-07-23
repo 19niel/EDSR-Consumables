@@ -49,7 +49,7 @@
     <div class="w-100 mb-1">
         <div class="d-flex justify-content-between align-items-center">
             <h6 class="text-uppercase text-success tracking-wider fw-bold small m-0" style="font-size: 0.68rem;">
-                <i class="fa-solid fa-circle-check me-1"></i>Recently Won Projects
+                <i class="fa-solid fa-circle-check me-1"></i>Recently Delivered Projects
             </h6>
             <span class="badge bg-success-subtle text-success border border-success-subtle px-1.5 py-0.5" style="font-size: 0.55rem; font-weight: 600; border-radius: 4px;">Live Table</span>
         </div>

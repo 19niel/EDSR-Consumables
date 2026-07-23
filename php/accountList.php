@@ -105,7 +105,11 @@ $result_count = mysqli_query($conn, $sql_count);
 $total_records = mysqli_fetch_assoc($result_count)['total'] ?? 0;
 
 // Main execution query binding category descriptive names via LEFT JOIN
-$sql = "SELECT e.*, c.category_name AS status_name 
+$sql = "SELECT e.*, c.category_name AS status_name,
+        (SELECT GROUP_CONCAT(DISTINCT pc.category_name SEPARATOR ', ') 
+         FROM product_details pd 
+         LEFT JOIN categories pc ON pd.productTypeID = pc.id 
+         WHERE pd.encodedID = e.id) AS product_types
         FROM encoded e
         LEFT JOIN categories c ON e.accStatus = c.id";
 

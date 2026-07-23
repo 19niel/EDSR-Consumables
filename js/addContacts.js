@@ -4,8 +4,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (!contactEntries || !addContactEntry) return;
 
+  function updateAddButtonVisibility() {
+    const currentCount = document.querySelectorAll(".contact-entry").length;
+    if (currentCount >= 2) {
+      addContactEntry.style.display = "none";
+    } else {
+      addContactEntry.style.display = "inline-block";
+    }
+  }
+
+  // Initial check on load
+  updateAddButtonVisibility();
+
   // Add a new contact entry
   addContactEntry.addEventListener("click", function () {
+    if (document.querySelectorAll(".contact-entry").length >= 2) return;
+
     let newEntry = document.querySelector(".contact-entry").cloneNode(true);
 
     // Clear input values in the cloned entry
@@ -25,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Append the cloned entry
     contactEntries.appendChild(newEntry);
+    updateAddButtonVisibility();
   });
 
   // Remove a contact entry
@@ -33,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (removeBtn) {
       if (document.querySelectorAll(".contact-entry").length > 1) {
         removeBtn.closest(".contact-entry").remove();
+        updateAddButtonVisibility();
       } else {
         alert("At least one contact entry is required.");
       }

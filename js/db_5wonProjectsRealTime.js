@@ -32,10 +32,12 @@ $(document).ready(function () {
     }
 
     function fetchWonProjectTableMetrics(selectedMonth = 'current') {
+        const selectedSbu = window.currentSbuFilter || 'all';
+
         $.ajax({
             url: '../php/get_5wonProjectsData.php',
             type: 'GET',
-            data: { month: selectedMonth },
+            data: { month: selectedMonth, sbu: selectedSbu },
             dataType: 'json',
             success: function (response) {
                 if (response && response.success) {
@@ -150,6 +152,10 @@ $(document).ready(function () {
     $('#kpiMonthFilter').on('change', function () {
         const pickedMonth = $(this).val();
         fetchWonProjectTableMetrics(pickedMonth);
+    });
+
+    document.addEventListener('kpiSbuFilterUpdated', function (e) {
+        fetchWonProjectTableMetrics($('#kpiMonthFilter').val() || 'current');
     });
 
     window.refreshWonProjectsTable = fetchWonProjectTableMetrics;

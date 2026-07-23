@@ -9,9 +9,12 @@ $(document).ready(function () {
     const recordsPerPage = 5;
 
     function fetchAgingProjectMetrics() {
+        const selectedSbu = window.currentSbuFilter || 'all';
+
         $.ajax({
             url: '../php/get_6agingProjectsData.php',
             type: 'GET',
+            data: { sbu: selectedSbu },
             dataType: 'json',
             success: function (response) {
                 if (response && response.success) {
@@ -123,4 +126,8 @@ $(document).ready(function () {
     window.refreshAgingProjectsTable = function () {
         fetchAgingProjectMetrics();
     };
+
+    document.addEventListener('kpiSbuFilterUpdated', function (e) {
+        fetchAgingProjectMetrics();
+    });
 });

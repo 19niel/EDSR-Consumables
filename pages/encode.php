@@ -427,7 +427,7 @@
                                     <h5 class="text-secondary fw-semibold mb-3">Consumables Product and Pricing Information</h5>
                                     <div id="consumableEntries">
                                         <div class="row product-entry g-3 mb-3 align-items-end">
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-1 col-md-3 col-12">
                                                 <label class="form-label">Product Type <span class="req">*</span></label>
                                                 <select name="consumableType[]" class="form-select productType" required>
                                                     <option value="N/A" selected disabled>Choose...</option>
@@ -440,7 +440,7 @@
                                                 </select>
                                             </div>
                                             
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-1 col-md-3 col-12">
                                                 <label class="form-label">Model</label>
                                                 <select name="consumableModel[]" class="form-select productTypeSubcategory" disabled>
                                                     <option value="N/A" selected disabled>Choose...</option>
@@ -454,7 +454,7 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-4 col-md-12 col-12">
                                                 <label class="form-label">Item Code <span class="req">*</span></label>
                                                 <select name="consumableItemCode[]" class="form-select itemCode" required disabled>
                                                     <option value="N/A" selected disabled>Choose Consumable first...</option>

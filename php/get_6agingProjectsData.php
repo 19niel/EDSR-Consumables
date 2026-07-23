@@ -15,6 +15,31 @@ if ($settingsResult && mysqli_num_rows($settingsResult) > 0) {
     $thresholdDays = intval($settingsRow['setting_value']);
 }
 
+$sbuFilter = isset($_GET['sbu']) ? mysqli_real_escape_string($conn, $_GET['sbu']) : 'all';
+
+$sbuCondition = "";
+$sbuConditions = [];
+$sbuArray = explode(',', $sbuFilter);
+
+if (!in_array('all', $sbuArray) && !empty($sbuFilter)) {
+    foreach ($sbuArray as $sbu) {
+        $sbu = trim($sbu);
+        if ($sbu === 'km_machine') {
+            $sbuConditions[] = "(sbu LIKE '%OP MFP%' OR sbu LIKE '%OP - PP%')";
+        } elseif ($sbu === 'riso_machine') {
+            $sbuConditions[] = "(sbu = 'OP - Riso' OR sbu = 'OP Riso')";
+        } elseif ($sbu === 'km_consumables') {
+            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID IN (393, 395)))";
+        } elseif ($sbu === 'riso_consumables') {
+            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 396))";
+        }
+    }
+}
+
+if (!empty($sbuConditions)) {
+    $sbuCondition = " AND (" . implode(" OR ", $sbuConditions) . ")";
+}
+
 // 🎯 Step 2: Use the dynamic $thresholdDays variable in the DATEDIFF filter
 // Fully independent of month variables to show critical unattended items from oldest to newest
 $query = "SELECT 
@@ -26,6 +51,7 @@ $query = "SELECT
           WHERE is_deleted = 0 
             AND progressDate IS NOT NULL 
             AND accStatus IN (345, 346)
+            $sbuCondition
             AND DATEDIFF(NOW(), progressDate) >= $thresholdDays
           ORDER BY progressDate ASC"; // Oldest unattended items prioritized at the top of the table
 

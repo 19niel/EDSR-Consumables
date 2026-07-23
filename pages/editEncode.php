@@ -128,7 +128,7 @@
                             <i class="fa-solid fa-arrow-left text-secondary"></i> Back to Search
                         </a>
                         <?php if (isset($row['sbu']) && ($row['sbu'] === 'OP - Consumables' || $row['sbu'] == 343)): ?>
-                        <a href="../php/generateQuotation.php?id=<?php echo urlencode($encodedMasterId); ?>" target="_blank" class="btn btn-primary px-3 fw-medium d-flex align-items-center gap-2 shadow-sm rounded-3">
+                        <a href="../php/generateHtmlQuotation.php?id=<?php echo urlencode($encodedMasterId); ?>" target="_blank" class="btn btn-primary px-3 fw-medium d-flex align-items-center gap-2 shadow-sm rounded-3">
                             <i class="fa-solid fa-print"></i> Print Quotation
                         </a>
                         <?php endif; ?>

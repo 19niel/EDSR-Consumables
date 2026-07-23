@@ -102,6 +102,7 @@ include('../php/accountList.php');
                                     <th class="text-center" style="width: 110px;">Actions</th>
                                     <th>Lead ID</th>
                                     <th>Project Title</th>
+                                    <th>Product Type</th>
                                     <th>Sales Executive</th>
                                     <th>Client Name</th>
                                     <th>Creation Date</th>
@@ -139,6 +140,7 @@ include('../php/accountList.php');
                                             </td>
                                             <td><span class="text-dark fw-semibold tracking-wider"><?php echo htmlspecialchars($row['LID'] ?? 'N/A'); ?></span></td>
                                             <td><div class="text-dark fw-medium" style="max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['projTitle'] ?? 'N/A'); ?></div></td>
+                                            <td><div class="text-secondary fw-medium" style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['product_types'] ?? 'N/A'); ?></div></td>
                                             <td><div class="text-dark fw-medium" style="max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['accExec'] ?? 'N/A'); ?></div></td>
                                             <td><span class="text-secondary"><?php echo htmlspecialchars(ucwords(strtolower($row['accName'] ?? ''))); ?></span></td>
                                             <td><span class="text-muted font-monospace"><?php echo htmlspecialchars($row['callDate'] ?? 'N/A'); ?></span></td>
@@ -154,7 +156,7 @@ include('../php/accountList.php');
                                     <?php } 
                                 } else { ?>
                                     <tr>
-                                        <td colspan="10" class="text-center text-muted py-5">
+                                        <td colspan="11" class="text-center text-muted py-5">
                                             <div class="py-4">
                                                 <i class="fa fa-inbox d-block mb-3 text-secondary opacity-50" style="font-size: 3.5rem;"></i>
                                                 <h5 class="fw-semibold text-dark m-0">No Matching Records Found</h5>

@@ -5,7 +5,7 @@
                                 <?php if (!empty($consumableSavedProducts)): ?>
                                     <?php foreach ($consumableSavedProducts as $item): ?>
                                         <div class="row product-entry g-3 mb-3 align-items-end">
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-1 col-md-3 col-12">
                                                 <label class="form-label">Product Type <span class="req">*</span></label>
                                                 <select name="consumableType[]" class="form-select productType" disabled>
                                                     <option value="N/A" disabled>Choose...</option>
@@ -18,7 +18,7 @@
                                                     ?>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-1 col-md-3 col-12">
                                                 <label class="form-label">Product Type Subcategory</label>
                                                 <select name="consumableModel[]" class="form-select productTypeSubcategory" disabled data-saved-value="<?php echo htmlspecialchars($item['productSubcategoryID'] ?? ''); ?>">
                                                     <option value="N/A">Choose...</option>
@@ -44,7 +44,7 @@
                                                     <?php endif; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2 col-md-6 col-12">
+                                            <div class="col-lg-4 col-md-12 col-12">
                                                 <label class="form-label">Item Code <span class="req">*</span></label>
                                                 <?php
                                                     $displayItemCode = htmlspecialchars($item['itemCode'] ?? '');
@@ -84,7 +84,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <div class="row product-entry g-3 mb-3 align-items-end">
-                                        <div class="col-lg-2 col-md-6 col-12">
+                                        <div class="col-lg-1 col-md-3 col-12">
                                             <label class="form-label">Product Type <span class="req">*</span></label>
                                             <select name="consumableType[]" class="form-select productType" disabled>
                                                 <option value="N/A" selected disabled>Choose...</option>
@@ -96,7 +96,7 @@
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="col-lg-2 col-md-6 col-12">
+                                        <div class="col-lg-1 col-md-3 col-12">
                                             <label class="form-label">Product Type Subcategory</label>
                                             <select name="consumableModel[]" class="form-select productTypeSubcategory" disabled>
                                                 <option value="N/A" selected disabled>Choose...</option>
@@ -108,7 +108,7 @@
                                                 <option value="N/A" selected disabled>Choose Model first...</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-2 col-md-6 col-12">
+                                        <div class="col-lg-4 col-md-12 col-12">
                                             <label class="form-label">Item Code <span class="req">*</span></label>
                                             <select name="consumableItemCode[]" class="form-select itemCode" disabled>
                                                 <option value="N/A" selected disabled>Choose...</option>

@@ -23,12 +23,16 @@ function extractPipelineData($post) {
 }
 
 function extractContactData($post) {
+    $contactPerson = is_array($post['contactPerson'] ?? null) ? implode(' / ', array_filter($post['contactPerson'])) : ($post['contactPerson'] ?? NULL);
+    $designation = is_array($post['designation'] ?? null) ? implode(' / ', array_filter($post['designation'])) : ($post['designation'] ?? NULL);
+    $contactNumber = is_array($post['contactNumber'] ?? null) ? implode(' / ', array_filter($post['contactNumber'])) : ($post['contactNumber'] ?? NULL);
+    $emailAddress = is_array($post['emailAddress'] ?? null) ? implode(' / ', array_filter($post['emailAddress'])) : ($post['emailAddress'] ?? NULL);
+
     return [
-        // Using index [0] for arrays, or falling back to single value
-        'contactPerson' => isset($post['contactPerson'][0]) ? $post['contactPerson'][0] : ($post['contactPerson'] ?? NULL),
-        'designation'   => isset($post['designation'][0]) ? $post['designation'][0] : ($post['designation'] ?? NULL),
-        'contactNumber' => isset($post['contactNumber'][0]) ? $post['contactNumber'][0] : ($post['contactNumber'] ?? NULL),
-        'emailAddress'  => isset($post['emailAddress'][0]) ? $post['emailAddress'][0] : ($post['emailAddress'] ?? NULL),
+        'contactPerson' => $contactPerson,
+        'designation'   => $designation,
+        'contactNumber' => $contactNumber,
+        'emailAddress'  => $emailAddress,
         
         // Decision Maker
         'decisionMaker' => $post['decisionMaker'] ?? NULL,

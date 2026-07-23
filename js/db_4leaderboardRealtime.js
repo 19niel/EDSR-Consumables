@@ -133,7 +133,9 @@ $(document).ready(function () {
             month = monthFilterEl ? monthFilterEl.value : 'current';
         }
 
-        let requestData = { month: month };
+        const selectedSbu = window.currentSbuFilter || 'all';
+
+        let requestData = { month: month, sbu: selectedSbu };
         if (month === 'custom') {
             const dateFromEl = document.getElementById('dateFrom');
             const dateToEl = document.getElementById('dateTo');
@@ -185,6 +187,10 @@ $(document).ready(function () {
 
     document.addEventListener('kpiFilterUpdated', function (e) {
         fetchLeaderboardMetrics(e.detail.period);
+    });
+
+    document.addEventListener('kpiSbuFilterUpdated', function (e) {
+        fetchLeaderboardMetrics();
     });
 
     document.addEventListener('edsrThemeChange', function (e) {

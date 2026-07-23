@@ -13,6 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
             triggerKpiFilterUpdate();
         });
     }
+
+    document.addEventListener('kpiSbuFilterUpdated', function (e) {
+        updateSalesMeterRealtime();
+    });
 });
 
 function triggerKpiFilterUpdate() {
@@ -65,7 +69,9 @@ function updateSalesMeterRealtime() {
         }
     }
 
-    let url = `../php/get_1KpiSalesTotal.php?period=${selectedPeriod}`;
+    const selectedSbu = window.currentSbuFilter || 'all';
+
+    let url = `../php/get_1KpiSalesTotal.php?period=${selectedPeriod}&sbu=${selectedSbu}`;
     if (selectedPeriod === 'custom') {
         const dateFromEl = document.getElementById('dateFrom');
         const dateToEl = document.getElementById('dateTo');

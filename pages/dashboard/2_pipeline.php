@@ -20,17 +20,17 @@ $currentMonthIndex = date('m');
     <div class="mt-1 border-top pt-1">
         <div class="row g-1 text-center">
             <div class="col" style="line-height: 1.1;">
-                <div class="fw-semibold text-primary" style="font-size: 0.62rem;">Qualified</div>
+                <div class="fw-semibold text-primary" style="font-size: 0.62rem;">In the Works</div>
                 <div class="fw-bold mt-0.5" id="funnelQty-345" style="font-size: 0.72rem;">0 Accs</div>
                 <div class="text-muted" id="funnelVal-345" style="font-size: 0.58rem;">₱0.00</div>
             </div>
             <div class="col border-start" style="line-height: 1.1;">
-                <div class="fw-semibold text-info" style="font-size: 0.62rem;">Negotiation</div>
+                <div class="fw-semibold text-info" style="font-size: 0.62rem;">For Delivery</div>
                 <div class="fw-bold mt-0.5" id="funnelQty-346" style="font-size: 0.72rem;">0 Accs</div>
                 <div class="text-muted" id="funnelVal-346" style="font-size: 0.58rem;">₱0.00</div>
             </div>
             <div class="col border-start" style="line-height: 1.1;">
-                <div class="fw-semibold text-success" style="font-size: 0.62rem;">Won</div>
+                <div class="fw-semibold text-success" style="font-size: 0.62rem;">Delivered</div>
                 <div class="fw-bold mt-0.5" id="funnelQty-230" style="font-size: 0.72rem;">0 Accs</div>
                 <div class="text-muted" id="funnelVal-230" style="font-size: 0.58rem;">₱0.00</div>
             </div>
