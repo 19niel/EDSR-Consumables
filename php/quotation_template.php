@@ -127,11 +127,22 @@ if (file_exists($logoPath)) {
             <td class="info-label">Address:</td>
             <td colspan="3"><?php echo htmlspecialchars($data['address'] ?? ''); ?></td>
         </tr>
+        <?php
+        $cpDisplay = trim($data['contactPerson'] ?? '');
+        if (!empty(trim($data['contactPerson1'] ?? ''))) {
+            $cpDisplay .= ' / ' . trim($data['contactPerson1']);
+        }
+        
+        $cnDisplay = trim($data['contactNumber'] ?? '');
+        if (!empty(trim($data['contactNumber1'] ?? ''))) {
+            $cnDisplay .= ' / ' . trim($data['contactNumber1']);
+        }
+        ?>
         <tr>
             <td class="info-label">Contact Person:</td>
-            <td><?php echo htmlspecialchars(trim($data['contactPerson'] ?? '')); ?></td>
+            <td><?php echo htmlspecialchars($cpDisplay); ?></td>
             <td class="info-label">Contact No:</td>
-            <td><?php echo htmlspecialchars(trim($data['contactNumber'] ?? '')); ?></td>
+            <td><?php echo htmlspecialchars($cnDisplay); ?></td>
         </tr>
     </table>
     

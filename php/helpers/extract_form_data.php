@@ -23,16 +23,26 @@ function extractPipelineData($post) {
 }
 
 function extractContactData($post) {
-    $contactPerson = is_array($post['contactPerson'] ?? null) ? implode(' / ', array_filter($post['contactPerson'])) : ($post['contactPerson'] ?? NULL);
-    $designation = is_array($post['designation'] ?? null) ? implode(' / ', array_filter($post['designation'])) : ($post['designation'] ?? NULL);
-    $contactNumber = is_array($post['contactNumber'] ?? null) ? implode(' / ', array_filter($post['contactNumber'])) : ($post['contactNumber'] ?? NULL);
-    $emailAddress = is_array($post['emailAddress'] ?? null) ? implode(' / ', array_filter($post['emailAddress'])) : ($post['emailAddress'] ?? NULL);
+    $contactPerson = is_array($post['contactPerson'] ?? null) ? ($post['contactPerson'][0] ?? NULL) : ($post['contactPerson'] ?? NULL);
+    $designation = is_array($post['designation'] ?? null) ? ($post['designation'][0] ?? NULL) : ($post['designation'] ?? NULL);
+    $contactNumber = is_array($post['contactNumber'] ?? null) ? ($post['contactNumber'][0] ?? NULL) : ($post['contactNumber'] ?? NULL);
+    $emailAddress = is_array($post['emailAddress'] ?? null) ? ($post['emailAddress'][0] ?? NULL) : ($post['emailAddress'] ?? NULL);
+
+    $contactPerson1 = is_array($post['contactPerson'] ?? null) ? ($post['contactPerson'][1] ?? NULL) : NULL;
+    $designation1 = is_array($post['designation'] ?? null) ? ($post['designation'][1] ?? NULL) : NULL;
+    $contactNumber1 = is_array($post['contactNumber'] ?? null) ? ($post['contactNumber'][1] ?? NULL) : NULL;
+    $emailAddress1 = is_array($post['emailAddress'] ?? null) ? ($post['emailAddress'][1] ?? NULL) : NULL;
 
     return [
         'contactPerson' => $contactPerson,
         'designation'   => $designation,
         'contactNumber' => $contactNumber,
         'emailAddress'  => $emailAddress,
+        
+        'contactPerson1' => $contactPerson1,
+        'designation1'   => $designation1,
+        'contactNumber1' => $contactNumber1,
+        'emailAddress1'  => $emailAddress1,
         
         // Decision Maker
         'decisionMaker' => $post['decisionMaker'] ?? NULL,

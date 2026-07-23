@@ -66,7 +66,7 @@ $output = fopen('php://output', 'w');
 fputcsv($output, [
     'ID', 'Account Executive', 'Account Name', 'Call Date', 'End User', 'Address', 'Area',
     'Account Category', 'Segment', 'Industry', 'Account Source', 'Contact Person',
-    'Designation', 'Contact Number', 'Email Address', 'Decision Maker', 'DM Contact Number',
+    'Designation', 'Contact Number', 'Email Address', 'Contact Person 2', 'Designation 2', 'Contact Number 2', 'Email Address 2', 'Decision Maker', 'DM Contact Number',
     'DM Designation', 'Existing System', 'Contract Type', 'Contract Start Date',
     'Contract End Date', 'Proposed System', 'Proposed Price', 'Payment Terms',
     'Call Nature', 'Account Status', 'Follow Up Action', 'What Transpired'
@@ -76,7 +76,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     fputcsv($output, [
         $row['id'], $row['accExec'], $row['accName'], $row['callDate'], $row['endUser'], $row['address'],
         $row['area'], $row['accCat'], $row['segment'], $row['industry'], $row['accSource'], $row['contactPerson'],
-        $row['designation'], $row['contactNumber'], $row['email'], $row['decisionMaker'], $row['dmNumber'],
+        $row['designation'], $row['contactNumber'], $row['email'], $row['contactPerson1'], $row['designation1'], $row['contactNumber1'], $row['email1'], $row['decisionMaker'], $row['dmNumber'],
         $row['dmDesignation'], $row['existingSystem'], $row['contactType'], $row['startContractDate'],
         $row['endContractDate'], $row['proposedSystem'], $row['proposedPrice'], $row['paymentTerms'],
         $row['callNature'], $row['accStatus'], $row['actionFollow'], $row['whatTranspired']

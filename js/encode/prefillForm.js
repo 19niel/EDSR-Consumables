@@ -84,11 +84,22 @@ function prefillForm(data) {
   document.getElementById("arsExpiryDate").value = data.arsExpiryDate || "";
   document.getElementById("address").value = data.address || "";
 
-  // Handle Contact Information Array Inputs safely, supporting multiple entries
-  const cpArray = (data.contactPerson || "").split(' / ');
-  const desArray = (data.designation || "").split(' / ');
-  const numArray = (data.contactNumber || "").split(' / ');
-  const emailArray = (data.email || "").split(' / ');
+  // Handle Contact Information Arrays cleanly
+  const cpArray = [];
+  if (data.contactPerson) cpArray.push(data.contactPerson);
+  if (data.contactPerson1) cpArray.push(data.contactPerson1);
+
+  const desArray = [];
+  if (data.designation) desArray.push(data.designation);
+  if (data.designation1) desArray.push(data.designation1);
+
+  const numArray = [];
+  if (data.contactNumber) numArray.push(data.contactNumber);
+  if (data.contactNumber1) numArray.push(data.contactNumber1);
+
+  const emailArray = [];
+  if (data.email) emailArray.push(data.email);
+  if (data.email1) emailArray.push(data.email1);
 
   const contactEntriesContainer = document.getElementById("contactEntries");
   if (contactEntriesContainer) {
