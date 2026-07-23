@@ -84,18 +84,44 @@ function prefillForm(data) {
   document.getElementById("arsExpiryDate").value = data.arsExpiryDate || "";
   document.getElementById("address").value = data.address || "";
 
-  // FIXED: Handle Contact Information Array Inputs safely using Query Selectors
-  const cpInput = document.querySelector('input[name="contactPerson[]"]');
-  if (cpInput) cpInput.value = data.contactPerson || "";
+  // Handle Contact Information Array Inputs safely, supporting multiple entries
+  const cpArray = (data.contactPerson || "").split(' / ');
+  const desArray = (data.designation || "").split(' / ');
+  const numArray = (data.contactNumber || "").split(' / ');
+  const emailArray = (data.email || "").split(' / ');
 
-  const desInput = document.querySelector('input[name="designation[]"]');
-  if (desInput) desInput.value = data.designation || "";
+  const contactEntriesContainer = document.getElementById("contactEntries");
+  if (contactEntriesContainer) {
+    const addButton = document.getElementById("addContactEntry");
+    let allEntries = contactEntriesContainer.querySelectorAll(".contact-entry");
 
-  const numInput = document.querySelector('input[name="contactNumber[]"]');
-  if (numInput) numInput.value = data.contactNumber || "";
+    cpArray.forEach((cp, index) => {
+      let entry;
+      if (index === 0) {
+        entry = allEntries[0];
+      } else {
+        if (index >= allEntries.length && addButton && document.querySelectorAll(".contact-entry").length < 2) {
+            addButton.click();
+            allEntries = contactEntriesContainer.querySelectorAll(".contact-entry");
+        }
+        entry = allEntries[index];
+      }
+      
+      if (entry) {
+        const cpInput = entry.querySelector('input[name="contactPerson[]"]');
+        if (cpInput) cpInput.value = cp;
 
-  const emailInput = document.querySelector('input[name="emailAddress[]"]');
-  if (emailInput) emailInput.value = data.email || "";
+        const desInput = entry.querySelector('input[name="designation[]"]');
+        if (desInput) desInput.value = desArray[index] || "";
+
+        const numInput = entry.querySelector('input[name="contactNumber[]"]');
+        if (numInput) numInput.value = numArray[index] || "";
+
+        const emailInput = entry.querySelector('input[name="emailAddress[]"]');
+        if (emailInput) emailInput.value = emailArray[index] || "";
+      }
+    });
+  }
 
   // Decision Maker Fields Lookup
   document.getElementById("dmEmail").value = data.decisionMakerEmail || "";
