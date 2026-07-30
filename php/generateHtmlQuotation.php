@@ -103,7 +103,7 @@ $isKm = !$isRiso;
         }
         
         .top-info-table {
-            width: 100%;
+            width: 450px;
             margin-bottom: 20px;
             font-size: 13px;
             border-collapse: collapse;
@@ -119,7 +119,7 @@ $isKm = !$isRiso;
         .top-value {
             border-bottom: 1px solid #000;
             padding-bottom: 2px;
-            padding-left: 10px;
+            padding-left: 30px; /* Increase this to push the text further right along the line */
             font-weight: normal;
         }
         .attention-subtext {
@@ -340,27 +340,32 @@ $isKm = !$isRiso;
     <button class="print-btn no-print" onclick="window.print()">🖨️ Print Quotation</button>
 
     <div class="a4-container">
-        <div class="header-logo">
-            <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo"><br>
-            <strong>www.ubix.com.ph</strong>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+            <div style="font-size: 24px; font-weight: 800; color: #333; border: 2px solid #333; padding: 8px 16px; border-radius: 4px; background-color: #f8f9fa; text-transform: uppercase;">
+                LID: <?= htmlspecialchars($customerId) ?>
+            </div>
+            <div class="header-logo" style="margin-bottom: 0;">
+                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo"><br>
+                <strong>www.ubix.com.ph</strong>
+            </div>
         </div>
 
         <table class="top-info-table">
             <tr>
                 <td class="top-label">Date:</td>
-                <td class="top-value"><?= htmlspecialchars($date) ?></td>
+                <td><div class="top-value"><?= htmlspecialchars($date) ?></div></td>
             </tr>
             <tr>
                 <td class="top-label">Customer ID :</td>
-                <td class="top-value"><?= htmlspecialchars($customerId) ?></td>
+                <td><div class="top-value"><?= htmlspecialchars($customerId) ?></div></td>
             </tr>
             <tr>
                 <td class="top-label">Company Name :</td>
-                <td class="top-value"><?= htmlspecialchars($companyName) ?></td>
+                <td><div class="top-value"><?= htmlspecialchars($companyName) ?></div></td>
             </tr>
             <tr>
                 <td class="top-label">Address :</td>
-                <td class="top-value"><?= htmlspecialchars($address) ?></td>
+                <td><div class="top-value"><?= htmlspecialchars($address) ?></div></td>
             </tr>
             <tr><td colspan="2" style="height: 10px;"></td></tr>
             <tr>
@@ -521,6 +526,7 @@ $isKm = !$isRiso;
 
                 <div class="sign-block">
                     Noted by:<br><br><br>
+                    <div style="text-align:center; width:80%;">Maria Valerie Gomez</div>
                     <div class="sign-line-full"></div>
                     <div class="sign-sub" style="padding-left:0; text-align:center; width:80%;">Signature over Printed Name</div>
                 </div>

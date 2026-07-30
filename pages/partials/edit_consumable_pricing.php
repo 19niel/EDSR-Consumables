@@ -97,7 +97,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-1 col-md-3 col-12">
-                                            <label class="form-label">Product Type Subcategory</label>
+                                            <label class="form-label">Model</label>
                                             <select name="consumableModel[]" class="form-select productTypeSubcategory" disabled>
                                                 <option value="N/A" selected disabled>Choose...</option>
                                             </select>

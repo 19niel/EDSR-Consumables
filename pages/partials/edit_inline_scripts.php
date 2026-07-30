@@ -83,6 +83,8 @@
 
             function checkSBU() {
                 var sbuVal = $('#sbu').val();
+                var sbuId = $('#sbu').find('option:selected').attr('data-id');
+                
                 if (!sbuVal || sbuVal === 'N/A') {
                     $('#machinePricingCard').hide();
                     $('#consumablesPricingCard').hide();
@@ -91,12 +93,13 @@
                 var trimmed = sbuVal.trim();
                 var isAdminEdit = document.getElementById('isAdminEdit') &&
                                   document.getElementById('isAdminEdit').value === 'true';
-                if (trimmed === 'OP MFP' || trimmed === 'OP - PP' || trimmed === 'OP - PP ' || trimmed === 'OP - Riso') {
+                                  
+                if (sbuId == '339' || sbuId == '340' || sbuId == '341' || trimmed === 'OP MFP' || trimmed === 'OP - PP' || trimmed === 'OP - Riso') {
                     $('#machinePricingCard').show();
                     $('#consumablesPricingCard').hide();
                     if (isAdminEdit) toggleInputs('#machinePricingCard', true);
                     toggleInputs('#consumablesPricingCard', false);
-                } else if (trimmed === 'OP - Consumables') {
+                } else if (sbuId == '342' || sbuId == '343' || trimmed === 'OP - Consumables') {
                     $('#machinePricingCard').hide();
                     $('#consumablesPricingCard').show();
                     toggleInputs('#machinePricingCard', false);

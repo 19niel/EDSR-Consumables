@@ -4,11 +4,18 @@
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <label for="sbu" class="form-label">SBU/Segment<span class="req">*</span></label>
                                     <select id="sbu" name="sbu" class="form-select" disabled required>
-                                        <option value="N/A" disabled>Choose...</option>
-                                        <?php foreach ($sbuResult as $sbuRow) { 
-                                            $selected = (isset($row['sbu']) && $row['sbu'] === $sbuRow['category_name']) ? 'selected' : '';
+                                        <option value="N/A" data-id="N/A" disabled>Choose...</option>
+                                        <?php 
+                                        $sbuMatched = false;
+                                        foreach ($sbuResult as $sbuRow) { 
+                                            // Fallback to match by ID if it's stored as ID, otherwise match by name
+                                            $selected = (isset($row['sbu']) && ($row['sbu'] === $sbuRow['category_name'] || $row['sbu'] == $sbuRow['id'])) ? 'selected' : '';
+                                            if ($selected) $sbuMatched = true;
                                         ?>
-                                            <option value="<?php echo $sbuRow['category_name']; ?>" <?php echo $selected; ?>><?php echo $sbuRow['category_name']; ?></option>
+                                            <option value="<?php echo $sbuRow['category_name']; ?>" data-id="<?php echo $sbuRow['id']; ?>" <?php echo $selected; ?>><?php echo $sbuRow['category_name']; ?></option>
+                                        <?php } ?>
+                                        <?php if (isset($row['sbu']) && !$sbuMatched && $row['sbu'] !== '' && $row['sbu'] !== 'N/A') { ?>
+                                            <option value="<?php echo htmlspecialchars($row['sbu']); ?>" data-id="legacy" selected><?php echo htmlspecialchars($row['sbu']); ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>

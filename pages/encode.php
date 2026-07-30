@@ -68,9 +68,9 @@
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <label for="sbu" class="form-label">SBU/Segment<span class="req"> *</span></label>
                                         <select id="sbu" name="sbu" class="form-select" required>
-                                            <option value="N/A" selected disabled>Choose...</option>
+                                            <option value="N/A" data-id="N/A" selected disabled>Choose...</option>
                                             <?php foreach ($sbuResult as $sbuRow) { ?>
-                                                <option value="<?php echo $sbuRow['category_name']; ?>"><?php echo $sbuRow['category_name']; ?></option>
+                                                <option value="<?php echo $sbuRow['category_name']; ?>" data-id="<?php echo $sbuRow['id']; ?>"><?php echo $sbuRow['category_name']; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -331,7 +331,7 @@
                                 <h5 class="text-secondary fw-semibold mb-3">Project Details</h5>
                                 <div class="row g-3">
                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="projTitle" class="form-label">Project Title <span class="req">*</span></label>
+                                        <label for="projTitle" class="form-label">Company Name / Project Title <span class="req">*</span></label>
                                         <input type="text" class="form-control" id="projTitle" name="projTitle" required/>
                                     </div>
 
@@ -604,7 +604,9 @@
 
                 function checkSBU() {
                     var sbuVal = $('#sbu').val();
-                    if (!sbuVal) {
+                    var sbuId = $('#sbu').find('option:selected').attr('data-id');
+                    
+                    if (!sbuVal || sbuVal === 'N/A') {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', false);
@@ -612,13 +614,12 @@
                         return;
                     }
                     
-                    var trimmed = sbuVal.trim();
-                    if (trimmed === 'OP MFP' || trimmed === 'OP - PP' || trimmed === 'OP - PP ' || trimmed === 'OP - Riso') {
+                    if (sbuId == '339' || sbuId == '340' || sbuId == '341') {
                         $('#machinePricingCard').show();
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', true);
                         toggleInputs('#consumablesPricingCard', false);
-                    } else if (trimmed === 'OP - Consumables') {
+                    } else if (sbuId == '342' || sbuId == '343') {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').show();
                         toggleInputs('#machinePricingCard', false);

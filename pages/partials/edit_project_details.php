@@ -4,7 +4,7 @@
                             <h5 class="text-secondary fw-semibold mb-3">Project Details</h5>
                             <div class="row g-3">
                                 <div class="col-md-6 col-lg-4 col-xl-3">
-                                    <label for="projTitle" class="form-label">Project Title<span class="req">*</span></label>
+                                    <label for="projTitle" class="form-label">Company Name / Project Title<span class="req">*</span></label>
                                     <input type="text" class="form-control" id="projTitle" name="projTitle" disabled value="<?php echo htmlspecialchars($row['projTitle'] ?? ''); ?>" required/>
                                 </div>
 
