@@ -34,7 +34,7 @@ include('php/autoLogin.php');
         <img class="logo" src="img/new.png" alt="UBIX Logo">
         <form name="form" action="php/login.php" method="POST">
             <div class="title">
-                E-DSR Consumables   
+                E-DSR <span style="color: var(--login-primary);">Consumables</span>
             </div>
 
             <div class="txt_field">

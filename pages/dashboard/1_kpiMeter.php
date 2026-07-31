@@ -59,7 +59,8 @@ $currentMonthIndex = date('m');
         </div>
         
         <div class="gauge-value-display fw-bold text-dark mt-2">0.0%</div>
-        <div class="text-muted  fw-medium mt-1 small" id="metricSubtextDisplay">
+        <div class="fw-bold text-primary mt-1" id="targetAmountDisplay" style="font-size: 1.1rem;">Target: ₱--</div>
+        <div class="text-muted fw-medium mt-1 small" id="metricSubtextDisplay">
             Calculating real-time sales volume values...
         </div>
     </div>

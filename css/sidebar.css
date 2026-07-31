@@ -61,7 +61,7 @@
 
 .account-list li:hover {
     background-color: var(--surface-muted, #F1F5F9);
-    color: var(--primary, #2563EB);
+    color: var(--primary, #059669);
 }
 
 /* ==========================================================================

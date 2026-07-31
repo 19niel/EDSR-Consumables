@@ -21,8 +21,8 @@
     --surface-muted: #F1F5F9;
 
     /* Brand Colors */
-    --primary: #2563EB;
-    --primary-hover: #1D4ED8;
+    --primary: #059669;
+    --primary-hover: #047857;
     --accent: #14B8A6;
 
     /* Semantic Status Colors */
@@ -41,7 +41,7 @@
     /* Sidebar */
     --sidebar-bg: #0F172A;
     --sidebar-text: #CBD5E1;
-    --sidebar-active: #2563EB;
+    --sidebar-active: #059669;
     --sidebar-hover-bg: #1E293B;
 
     /* Cards */
@@ -60,7 +60,7 @@
     /* Inputs */
     --input-bg: #FFFFFF;
     --input-border: #CBD5E1;
-    --input-focus: #2563EB;
+    --input-focus: #059669;
     --input-text: #0F172A;
     --input-placeholder: #94A3B8;
 
@@ -90,8 +90,8 @@
     --surface-muted: #1E293B;
 
     /* Brand Colors */
-    --primary: #60A5FA;
-    --primary-hover: #3B82F6;
+    --primary: #34D399;
+    --primary-hover: #10B981;
     --accent: #2DD4BF;
 
     /* Semantic Status Colors */
@@ -110,7 +110,7 @@
     /* Sidebar */
     --sidebar-bg: #020617;
     --sidebar-text: #CBD5E1;
-    --sidebar-active: #60A5FA;
+    --sidebar-active: #34D399;
     --sidebar-hover-bg: #0F172A;
 
     /* Cards */
@@ -129,7 +129,7 @@
     /* Inputs */
     --input-bg: #1E293B;
     --input-border: #334155;
-    --input-focus: #60A5FA;
+    --input-focus: #34D399;
     --input-text: #F8FAFC;
     --input-placeholder: #64748B;
 

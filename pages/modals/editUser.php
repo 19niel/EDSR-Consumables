@@ -27,21 +27,21 @@
                         <label for="editBranch" class="form-label">Branch</label>
                         <select id="editBranch" name="editBranch" class="form-select" required>
                             <option value="N/A" selected disabled>Choose...</option>
-                            <option value="Main Office">Main Office</option>
                             <option value="Angeles">Angeles</option>
+                            <option value="Bacolod">Bacolod</option>
                             <option value="Batangas">Batangas</option>
                             <option value="Cabanatuan">Cabanatuan</option>
+                            <option value="Cagayan De Oro">Cagayan De Oro</option>
+                            <option value="Cebu">Cebu</option>
+                            <option value="Davao">Davao</option>
+                            <option value="Dumaguete">Dumaguete</option>
+                            <option value="Gensan">Gensan</option>
+                            <option value="Iloilo">Iloilo</option>
                             <option value="La Union">La Union</option>
+                            <option value="Main Office">Main Office</option>
                             <option value="Naga">Naga</option>
                             <option value="Subic">Subic</option>
-                            <option value="Bacolod">Bacolod</option>
-                            <option value="Cebu">Cebu</option>
-                            <option value="Dumaguete">Dumaguete</option>
-                            <option value="Iloilo">Iloilo</option>
                             <option value="Tacloban">Tacloban</option>
-                            <option value="Cagayan De Oro">Cagayan De Oro</option>
-                            <option value="Davao">Davao</option>
-                            <option value="Gensan">Gensan</option>
                             <option value="Zamboanga">Zamboanga</option>
                         </select>
                     </div>
@@ -68,11 +68,7 @@
                             <option value="OP Sales - PP">OP Sales - PP</option>
                             <option value="OP Sales - MFP/RISO">OP Sales - MFP/RISO</option>
                             <option value="OP Consumables">OP Consumables</option>
-                            <option value="CSD">CSD</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="UIC">UIC</option>
-                            <option value="MIS">MIS</option>
-                            <option value="Food and Beverages">Food and Beverages</option>
+                            <option value="IT">IT</option>
                         </select>
                     </div>
                     <!-- Dropdown to select the category -->
@@ -91,26 +87,22 @@
                         <label for="editSubDepartment" class="form-label">Sub Department</label>
                         <select id="editSubDepartment" name="editSubDepartment" class="form-select">
                             <option value="N/A" selected disabled>Choose...</option>
-                            <option value="PP SALES">PP SALES</option>
-                            <option value="OP MFP(NORTH)">OP MFP(NORTH)</option>
-                            <option value="OP MFP(SOUTH)">OP MFP(SOUTH)</option>
-                            <option value="OP RISO">OP RISO</option>
-                            <option value="ENTERPRISE">ENTERPRISE</option>
-                            <option value="OP CONSUMABLES SALES">OP CONSUMABLES SALES</option>
-                            <option value="FURNITURE">FURNITURE</option>
-                            <option value="RENTAL SALES - MAKATI/BGC">RENTAL SALES - MAKATI/BGC</option>
-                            <option value="RENTAL SALES - SOUTH MANILA">RENTAL SALES - SOUTH MANILA</option>
-                            <option value="RENTAL SALES - QC/ORTIGAS">RENTAL SALES - QC/ORTIGAS</option>
-                            <option value="BRANCH - LA UNION">BRANCH - LA UNION</option>
                             <option value="BRANCH - ANGELES">BRANCH - ANGELES</option>
-                            <option value="BRANCH - CABANATUAN">BRANCH - CABANATUAN</option>
                             <option value="BRANCH - BACOLOD">BRANCH - BACOLOD</option>
+                            <option value="BRANCH - BATANGAS">BRANCH - BATANGAS</option>
+                            <option value="BRANCH - CABANATUAN">BRANCH - CABANATUAN</option>
+                            <option value="BRANCH - CAGAYAN DE ORO">BRANCH - CAGAYAN DE ORO</option>
                             <option value="BRANCH - CEBU">BRANCH - CEBU</option>
-                            <option value="BRANCH - ILO-ILO">BRANCH - ILO-ILO</option>
-                            <option value="BRANCH - CDO">BRANCH - CDO</option>
+                            <option value="BRANCH - DAVAO">BRANCH - DAVAO</option>
                             <option value="BRANCH - DUMAGUETE">BRANCH - DUMAGUETE</option>
                             <option value="BRANCH - GENSAN">BRANCH - GENSAN</option>
-                            <option value="Food and Beverages">Food and Beverages</option>
+                            <option value="BRANCH - ILOILO">BRANCH - ILOILO</option>
+                            <option value="BRANCH - LA UNION">BRANCH - LA UNION</option>
+                            <option value="BRANCH - MAIN OFFICE">BRANCH - MAIN OFFICE</option>
+                            <option value="BRANCH - NAGA">BRANCH - NAGA</option>
+                            <option value="BRANCH - SUBIC">BRANCH - SUBIC</option>
+                            <option value="BRANCH - TACLOBAN">BRANCH - TACLOBAN</option>
+                            <option value="BRANCH - ZAMBOANGA">BRANCH - ZAMBOANGA</option>
                         </select>
                     </div>
                     <!-- Dropdown to select the role -->

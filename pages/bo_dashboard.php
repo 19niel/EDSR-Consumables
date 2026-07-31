@@ -4,13 +4,21 @@ include('../php/accountList.php');
 include('../php/db_conn.php'); 
 
 // Fetch dynamic configuration target limits directly from database
-$kpiSalesTarget = 5000000.00; // System fallback default
-$settingsQuery = "SELECT setting_value FROM dashboard_settings WHERE setting_key = 'kpi_sales_target' LIMIT 1";
+$targetKmMachine = 5000000.00; // System fallback default
+$targetRisoMachine = 5000000.00;
+$targetKmCons = 5000000.00;
+$targetRisoCons = 5000000.00;
+
+$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_machine', 'kpi_target_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons')";
 $settingsResult = mysqli_query($conn, $settingsQuery);
 
 if ($settingsResult && mysqli_num_rows($settingsResult) > 0) {
-    $settingsRow = mysqli_fetch_assoc($settingsResult);
-    $kpiSalesTarget = floatval($settingsRow['setting_value']);
+    while ($row = mysqli_fetch_assoc($settingsResult)) {
+        if ($row['setting_key'] === 'kpi_target_km_machine') $targetKmMachine = floatval($row['setting_value']);
+        elseif ($row['setting_key'] === 'kpi_target_riso_machine') $targetRisoMachine = floatval($row['setting_value']);
+        elseif ($row['setting_key'] === 'kpi_target_km_cons') $targetKmCons = floatval($row['setting_value']);
+        elseif ($row['setting_key'] === 'kpi_target_riso_cons') $targetRisoCons = floatval($row['setting_value']);
+    }
 }
 mysqli_close($conn); 
 
@@ -180,7 +188,12 @@ $userRole = isset($_SESSION['category']) ? strtoupper(trim($_SESSION['category']
 
     <script>
         window.dashboardConfig = {
-            salesTarget: <?php echo $kpiSalesTarget; ?>
+            targets: {
+                km_machine: <?php echo $targetKmMachine; ?>,
+                riso_machine: <?php echo $targetRisoMachine; ?>,
+                km_consumables: <?php echo $targetKmCons; ?>,
+                riso_consumables: <?php echo $targetRisoCons; ?>
+            }
         };
     </script>
 

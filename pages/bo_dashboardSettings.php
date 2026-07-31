@@ -9,29 +9,41 @@ $statusMessageHtml = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Processing Panel Action 1: KPI Sales Target Limit Meter
-    if (isset($_POST['target_goal'])) {
-        $targetGoal = floatval($_POST['target_goal']);
-        if ($targetGoal > 0) {
-            $updateQuery = "INSERT INTO dashboard_settings (setting_key, setting_value) 
-                            VALUES ('kpi_sales_target', ?)
-                            ON DUPLICATE KEY UPDATE setting_value = ?";
-            
-            $stmt = mysqli_prepare($conn, $updateQuery);
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ss", $targetGoal, $targetGoal);
-                if (mysqli_stmt_execute($stmt)) {
-                    $statusMessageHtml = '
-                        <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">
-                            <i class="fa-solid fa-circle-check me-2"></i>Sales target configuration metric saved successfully!
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>';
-                } else {
-                    $statusMessageHtml = '<div class="alert alert-danger">Error writing target value: ' . mysqli_error($conn) . '</div>';
+    if (isset($_POST['target_km_machine']) && isset($_POST['target_riso_machine']) && isset($_POST['target_km_cons']) && isset($_POST['target_riso_cons'])) {
+        $targets = [
+            'kpi_target_km_machine' => floatval($_POST['target_km_machine']),
+            'kpi_target_riso_machine' => floatval($_POST['target_riso_machine']),
+            'kpi_target_km_cons' => floatval($_POST['target_km_cons']),
+            'kpi_target_riso_cons' => floatval($_POST['target_riso_cons'])
+        ];
+        
+        $allSuccess = true;
+        foreach ($targets as $key => $val) {
+            if ($val > 0) {
+                $updateQuery = "INSERT INTO dashboard_settings (setting_key, setting_value) 
+                                VALUES (?, ?)
+                                ON DUPLICATE KEY UPDATE setting_value = ?";
+                $stmt = mysqli_prepare($conn, $updateQuery);
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, "sss", $key, $val, $val);
+                    if (!mysqli_stmt_execute($stmt)) {
+                        $allSuccess = false;
+                    }
+                    mysqli_stmt_close($stmt);
                 }
-                mysqli_stmt_close($stmt);
+            } else {
+                $allSuccess = false;
             }
+        }
+        
+        if ($allSuccess) {
+            $statusMessageHtml = '
+                <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">
+                    <i class="fa-solid fa-circle-check me-2"></i>Sales target configuration metrics saved successfully!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
         } else {
-            $statusMessageHtml = '<div class="alert alert-warning">Sales target metrics must be greater than zero.</div>';
+            $statusMessageHtml = '<div class="alert alert-danger">Error writing target values or values must be greater than zero.</div>';
         }
     }
     
@@ -64,16 +76,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // 🎯 Fetch current live configurations safely from the database to pre-populate input cells
-$currentSalesTarget = 5000000.00; // System baseline fallback limit
+$targetKmMachine = 5000000.00; // System baseline fallback limit
+$targetRisoMachine = 5000000.00;
+$targetKmCons = 5000000.00;
+$targetRisoCons = 5000000.00;
 $agingDaysThreshold = 60;         // Stagnation baseline fallback rule index
 
-$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_sales_target', 'aging_days_threshold')";
+$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_machine', 'kpi_target_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons', 'aging_days_threshold')";
 $settingsResult = mysqli_query($conn, $settingsQuery);
 
 if ($settingsResult) {
     while ($row = mysqli_fetch_assoc($settingsResult)) {
-        if ($row['setting_key'] === 'kpi_sales_target') {
-            $currentSalesTarget = floatval($row['setting_value']);
+        if ($row['setting_key'] === 'kpi_target_km_machine') {
+            $targetKmMachine = floatval($row['setting_value']);
+        } elseif ($row['setting_key'] === 'kpi_target_riso_machine') {
+            $targetRisoMachine = floatval($row['setting_value']);
+        } elseif ($row['setting_key'] === 'kpi_target_km_cons') {
+            $targetKmCons = floatval($row['setting_value']);
+        } elseif ($row['setting_key'] === 'kpi_target_riso_cons') {
+            $targetRisoCons = floatval($row['setting_value']);
         } elseif ($row['setting_key'] === 'aging_days_threshold') {
             $agingDaysThreshold = intval($row['setting_value']);
         }
@@ -183,19 +204,39 @@ mysqli_close($conn);
                             </div>
                             
                             <form id="kpiSalesTargetForm" method="POST" action="" class="w-100 d-flex flex-column h-100 justify-content-between">
-                                <div class="mb-3 flex-grow-1">
-                                    <label for="targetAmountInput" class="form-label small fw-bold text-secondary text-uppercase" style="font-size:0.68rem;">Target Amount (₱)</label>
-                                    <div class="input-group mb-2">
-                                        <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
-                                        <input type="number" step="0.01" min="1" class="form-control fw-bold fs-6" id="targetAmountInput" name="target_goal" value="<?php echo $currentSalesTarget; ?>" required>
+                                <div class="mb-3 flex-grow-1 d-flex flex-column gap-2">
+                                    <div>
+                                        <label for="kmMachineInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">KM Machine (₱)</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
+                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="kmMachineInput" name="target_km_machine" value="<?php echo $targetKmMachine; ?>" required>
+                                        </div>
                                     </div>
-                                    <div class="form-text text-muted" style="font-size: 0.7rem;">
-                                        Shorthand Label Preview: <strong id="shorthandPreview" class="text-dark">--</strong>
+                                    <div>
+                                        <label for="risoMachineInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">Riso Machine (₱)</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
+                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="risoMachineInput" name="target_riso_machine" value="<?php echo $targetRisoMachine; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="kmConsInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">KM Cons. (₱)</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
+                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="kmConsInput" name="target_km_cons" value="<?php echo $targetKmCons; ?>" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label for="risoConsInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">Riso Cons. (₱)</label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
+                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="risoConsInput" name="target_riso_cons" value="<?php echo $targetRisoCons; ?>" required>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary w-100 rounded-3 fw-semibold py-2 mt-2 shadow-sm">
-                                    <i class="fa fa-save me-2"></i>Save Panel Target
+                                    <i class="fa fa-save me-2"></i>Save Targets
                                 </button>
                             </form>
                         </div>
@@ -279,16 +320,7 @@ mysqli_close($conn);
         }
 
         $(document).ready(function() {
-            const $inputField = $('#targetAmountInput');
-            const $previewText = $('#shorthandPreview');
-
-            // Update numerical shorthand preview text live on input actions
-            $inputField.on('input', function() {
-                $previewText.text(formatToShorthand($(this).val()));
-            });
-            
-            // Execute once on template load initialization
-            $previewText.text(formatToShorthand($inputField.val()));
+            // No shorthand preview needed for the 4 compact fields, keeping JS clean.
         });
     </script>
 </body>

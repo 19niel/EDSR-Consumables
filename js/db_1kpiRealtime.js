@@ -51,9 +51,25 @@ function formatCurrencyShorthand(value) {
 }
 
 function updateSalesMeterRealtime() {
-    const targetGoal = window.dashboardConfig && window.dashboardConfig.salesTarget
-        ? window.dashboardConfig.salesTarget
-        : 5000000.00;
+    let targetGoal = 0;
+    const targets = window.dashboardConfig && window.dashboardConfig.targets 
+        ? window.dashboardConfig.targets 
+        : { km_machine: 5000000, riso_machine: 5000000, km_consumables: 5000000, riso_consumables: 5000000 };
+    
+    const selectedSbu = window.currentSbuFilter || 'all';
+    
+    if (selectedSbu === 'all') {
+        targetGoal = targets.km_machine + targets.riso_machine + targets.km_consumables + targets.riso_consumables;
+    } else {
+        const sbus = selectedSbu.split(',');
+        if (sbus.includes('km_machine')) targetGoal += targets.km_machine;
+        if (sbus.includes('riso_machine')) targetGoal += targets.riso_machine;
+        if (sbus.includes('km_consumables')) targetGoal += targets.km_consumables;
+        if (sbus.includes('riso_consumables')) targetGoal += targets.riso_consumables;
+    }
+    
+    // Fallback if something went wrong
+    if (targetGoal === 0) targetGoal = 20000000;
 
     // 🎯 Dynamically reads whatever option PHP selected automatically on page boot
     const monthFilterEl = document.getElementById('kpiMonthFilter');
@@ -68,8 +84,6 @@ function updateSalesMeterRealtime() {
             customDateRangeEl.style.display = 'none';
         }
     }
-
-    const selectedSbu = window.currentSbuFilter || 'all';
 
     let url = `../php/get_1KpiSalesTotal.php?period=${selectedPeriod}&sbu=${selectedSbu}`;
     if (selectedPeriod === 'custom') {
@@ -96,6 +110,7 @@ function updateSalesMeterRealtime() {
                 const needleEl = document.querySelector('.gauge-needle');
                 const targetLineEl = document.querySelector('.gauge-target-line');
                 const displayValueEl = document.querySelector('.gauge-value-display');
+                const targetDisplayEl = document.getElementById('targetAmountDisplay');
                 const textMetricEl = document.getElementById('metricSubtextDisplay');
 
                 if (!bodyEl || !needleEl) return;
@@ -111,8 +126,11 @@ function updateSalesMeterRealtime() {
                 if (displayValueEl) {
                     displayValueEl.innerHTML = `${percentage.toFixed(1)}%`;
                 }
+                if (targetDisplayEl) {
+                    targetDisplayEl.innerHTML = `Target: ₱${targetGoal.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+                }
                 if (textMetricEl) {
-                    textMetricEl.innerHTML = `EMR Amount: <strong>₱${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong> / ₱${targetGoal.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+                    textMetricEl.innerHTML = `Current Sales: <strong>₱${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong>`;
                 }
 
                 if (displayValueEl) displayValueEl.className = "gauge-value-display";

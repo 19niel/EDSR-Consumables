@@ -34,7 +34,7 @@ $username = $_GET['username'];
         <img class="logo" src="img/new.png" alt="UBIX Logo">
         <form name="form" action="php/login.php" method="POST">
             <div class="title">
-                Electronic Daily Sales Report
+                E-DSR <span style="color: var(--login-primary);">Consumables</span>
                 <span style="display:block;font-size:0.78rem;font-weight:500;color:var(--login-muted);margin-top:4px;">Set Your New Password</span>
             </div>
 
