@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2026 at 07:28 AM
+-- Generation Time: Aug 03, 2026 at 10:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -154,11 +154,11 @@ INSERT INTO `categories` (`id`, `field`, `category_name`, `is_deleted`) VALUES
 (336, 'Terms of Payment', 'N/A', 0),
 (337, 'Existing System', 'N/A', 0),
 (338, 'Product Type', 'IFPD', 1),
-(339, 'SBU', 'Rental', 0),
-(340, 'SBU', 'OP MFP', 0),
-(341, 'SBU', 'OP - PP ', 0),
-(342, 'SBU', 'OP - Riso', 0),
-(343, 'SBU', 'OP - Consumables', 0),
+(339, 'SBU', 'OP - MFP', 0),
+(340, 'SBU', 'OP - PP', 0),
+(341, 'SBU', 'OP - Riso', 0),
+(342, 'SBU', 'KM Kitbuyer', 0),
+(343, 'SBU', 'RISO Kitbuyer', 0),
 (344, 'Source of Account', 'Canvass', 0),
 (345, 'Account Status', 'In The Works', 0),
 (346, 'Account Status', 'For Delivery', 0),
@@ -922,7 +922,11 @@ CREATE TABLE `dashboard_settings` (
 
 INSERT INTO `dashboard_settings` (`id`, `setting_key`, `setting_value`, `updated_at`) VALUES
 (1, 'kpi_sales_target', '20000', '2026-07-17 05:23:10'),
-(12, 'aging_days_threshold', '7', '2026-06-15 06:44:32');
+(12, 'aging_days_threshold', '7', '2026-06-15 06:44:32'),
+(21, 'kpi_target_km_machine', '10000', '2026-07-31 08:59:50'),
+(22, 'kpi_target_riso_machine', '20000', '2026-07-31 08:59:50'),
+(23, 'kpi_target_km_cons', '30000', '2026-07-31 08:59:50'),
+(24, 'kpi_target_riso_cons', '40000', '2026-07-31 08:59:50');
 
 -- --------------------------------------------------------
 
@@ -1002,15 +1006,6 @@ CREATE TABLE `encoded` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `encoded`
---
-
-INSERT INTO `encoded` (`id`, `sbu`, `accExec`, `callDate`, `team`, `customerId`, `accName`, `arsExpiryDate`, `accCat`, `existingSystem`, `endOfContractCompetitor`, `endUser`, `industry`, `industrySubcategory`, `accSource`, `accountSourceCategory`, `region`, `province`, `city`, `barangay`, `branch1`, `region1`, `address`, `contactPerson`, `designation`, `contactNumber`, `email`, `contactPerson1`, `designation1`, `contactNumber1`, `email1`, `decisionMaker`, `dmDesignation`, `decisionMakerEmail`, `projTitle`, `proposedPrice`, `paymentTerms`, `contactType`, `projAddress`, `productType`, `productTypeSubcategory`, `deviceCondition`, `itemCode`, `quantity`, `productAmount`, `progressDate`, `accStatus`, `reasonSubcategory`, `remarks`, `deliveryDate`, `endOfContract`, `branch`, `segment`, `area`, `dmNumber`, `startContractDate`, `endContractDate`, `proposedSystem`, `callNature`, `actionFollow`, `dept`, `reason`, `accexec_id`, `created_at`, `is_deleted`, `whatTranspired`, `estimatedDelivery`) VALUES
-(60, 'OP - Riso', 'Joy Tiempo', '2026-07-21', 'CAB', '1233123', '234234', '2026-07-23', 'EXISTING', NULL, '0000-00-00', 'Centralized', '321', '173', '72', NULL, NULL, NULL, NULL, NULL, 'TAC', 'VISAYAS', '234', '324', '234', '234', 'cp_email@gmail.com', NULL, NULL, NULL, NULL, '234', '234', 'dm_email@gmail.com', '324', '234', 'Cash', 'Kitbuyer', '324', NULL, NULL, NULL, NULL, NULL, NULL, '2026-07-23', '345', NULL, '243234', NULL, NULL, 'Main Office', '321', NULL, NULL, '0000-00-00', '0000-00-00', '', 'N/A', '', 'OP Sales - PP', NULL, 10, '2026-07-22 06:57:31', 0, NULL, 'October'),
-(61, 'OP - Consumables', 'Joy Tiempo', '2026-07-22', 'ANG', '23423', '234', '2026-07-23', 'NEW', 'Lexmark', '2026-07-23', 'Centralized', '318', '165', '253', NULL, NULL, NULL, NULL, NULL, 'CAB', 'LUZON', '24234', 'CP Full Name', 'SAD ', 'CP Contact Deets', 'cp_email@gmail.com', NULL, NULL, NULL, NULL, 'DM Name', 'DM Designation', 'dm_email@gmail.com', 'ABC Company Dealbreaking', '9999999', 'Cash', 'Rental', 'Zamboanga', NULL, NULL, NULL, NULL, NULL, NULL, '2026-07-24', '230', NULL, '234234', '2026-07-24', '2026-07-29', 'Main Office', '318', NULL, NULL, '0000-00-00', '0000-00-00', '', 'N/A', '', 'OP Sales - PP', NULL, 10, '2026-07-22 06:58:48', 0, NULL, NULL),
-(62, 'OP - Consumables', 'Reymund Rodelas', '2026-07-22', 'MAKATI', '1233123', '3213', '2026-07-23', 'NEW', 'Lexmark', '2026-07-23', 'Various', '321', '174', '344', '', '', '', '', '', 'GEN', 'MINDANAO', '213321312312', 'CP Full Name / john doe', 'SAD  / boom', 'CP Contact Deets / 0909090909', 'cp_email@gmail.com / jd@gmail.com', NULL, NULL, NULL, NULL, 'DM Name', 'DM Designation', 'dm_email@gmail.com', 'ABC Company Dealbreaking', '68000', 'Cash', 'Rental', '13231232132', NULL, NULL, NULL, NULL, NULL, NULL, '2026-07-23', '345', '', '213123', NULL, NULL, 'Main Office', '321', NULL, NULL, '0000-00-00', '0000-00-00', '', 'N/A', '', 'CSD', NULL, 26, '2026-07-22 07:31:14', 0, NULL, 'December');
-
---
 -- Triggers `encoded`
 --
 DELIMITER $$
@@ -1038,16 +1033,6 @@ CREATE TABLE `encoded_logs` (
   `contractEndDate` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `encoded_logs`
---
-
-INSERT INTO `encoded_logs` (`id`, `encodedID`, `progressDate`, `accountStatusID`, `reasonSubcategoryID`, `remarks`, `estimatedDelivery`, `deliveryDate`, `contractEndDate`, `created_at`) VALUES
-(78, 60, '2026-07-23', 345, NULL, '243234', 'October', NULL, NULL, '2026-07-22 06:57:31'),
-(79, 61, '2026-07-24', 230, NULL, '234234', NULL, '2026-07-24', '2026-07-29', '2026-07-22 06:58:48'),
-(80, 62, '2026-07-23', 345, NULL, '213123', 'December', NULL, NULL, '2026-07-22 07:31:14'),
-(81, 62, '2026-07-23', 345, NULL, '213123', 'December', NULL, NULL, '2026-07-23 03:59:30');
 
 -- --------------------------------------------------------
 
@@ -1107,7 +1092,6 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (35, 'Maria Valerie Gomez', 'event', '8', '2024-02-12', 25, 0),
 (36, 'Hannah Patricia Resuello', 'event', '8', '2024-02-12', NULL, 0),
 (37, 'Carlos Ramirez', 'event', '8', '2024-02-12', 31, 0),
-(38, 'Jade Lorenz Cruz', 'event', '8', '2024-02-12', 9, 0),
 (39, 'Carlos Ramirez', 'event', '8', '2024-02-16', 31, 0),
 (40, 'Carlos Ramirez', 'event', '8', '2024-02-16', 31, 0),
 (41, 'Sophia Lei Ramos', 'training', '4', '2024-01-04', NULL, 0),
@@ -1115,14 +1099,8 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (43, 'Sophia Lei Ramos', 'training', '4', '2024-01-08', NULL, 0),
 (44, 'Sophia Lei Ramos', 'training', '4', '2024-01-09', NULL, 0),
 (45, 'Sophia Lei Ramos', 'training', '4', '2024-01-10', NULL, 0),
-(46, 'Jade Lorenz Cruz', 'training', '4', '2024-01-04', 9, 0),
-(47, 'Jade Lorenz Cruz', 'training', '4', '2024-01-05', 9, 0),
-(48, 'Jade Lorenz Cruz', 'training', '4', '2024-01-08', 9, 0),
-(49, 'Jade Lorenz Cruz', 'training', '4', '2024-01-09', 9, 0),
-(50, 'Jade Lorenz Cruz', 'training', '4', '2024-01-10', 9, 0),
 (51, 'Mary Joy Valencia', 'training', '4', '2024-01-16', NULL, 0),
 (52, 'Ritz Ann Hipolito', 'training', '4', '2024-01-16', NULL, 0),
-(53, 'Jade Lorenz Cruz', 'training', '4', '2024-01-16', 9, 0),
 (54, 'Joy Tiempo', 'event', '4', '2024-02-16', 10, 0),
 (55, 'Dennis Baltazar', 'event', '4', '2024-02-16', NULL, 0),
 (56, 'Jose Benemerito', 'event', '4', '2024-02-16', NULL, 0),
@@ -1136,14 +1114,12 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (64, 'Maria Valerie Gomez', 'event', '4', '2024-02-16', 25, 0),
 (65, 'Reymund Rodelas', 'event', '4', '2024-02-16', 26, 0),
 (66, 'Hannah Patricia Resuello', 'event', '4', '2024-02-16', NULL, 0),
-(67, 'Benjur Castillo', 'event', '4', '2024-02-16', 39, 0),
 (68, 'Katrina Masangcay', 'event', '4', '2024-02-16', NULL, 0),
 (69, 'Reynaldo Francisco', 'event', '4', '2024-02-16', 29, 0),
 (70, 'Sophia Lei Ramos', 'event', '4', '2024-02-16', NULL, 0),
 (71, 'Mary Joy Valencia', 'event', '4', '2024-02-16', NULL, 0),
 (72, 'Ritz Ann Hipolito', 'event', '4', '2024-02-16', NULL, 0),
 (73, 'Ritz Ann Hipolito', 'event', '4', '2024-02-16', NULL, 0),
-(74, 'Jade Lorenz Cruz', 'event', '4', '2024-02-16', 9, 0),
 (75, 'Joy Tiempo', 'meeting', '4', '2024-05-02', 10, 0),
 (76, 'Joy Tiempo', 'meeting', '4', '2024-05-09', 10, 0),
 (77, 'Joy Tiempo', 'meeting', '4', '2024-05-16', 10, 0),
@@ -1165,15 +1141,11 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (93, 'Reymund Rodelas', 'training', '4', '2024-06-14', 26, 0),
 (94, 'Maria Valerie Gomez', 'training', '4', '2024-06-14', 25, 0),
 (95, 'Hannah Patricia Resuello', 'training', '4', '2024-06-14', NULL, 0),
-(96, 'Benjur Castillo', 'training', '4', '2024-06-14', 39, 0),
 (97, 'Carlos Ramirez', 'training', '4', '2024-06-14', 31, 0),
-(98, 'Jezza Bantillan', 'training', '4', '2024-06-14', 49, 0),
 (99, 'Ritz Ann Hipolito', 'training', '4', '2024-06-14', NULL, 0),
-(100, 'Jade Lorenz Cruz', 'training', '4', '2024-06-14', 9, 0),
 (101, 'Mary Joy Valencia', 'training', '4', '2024-06-14', NULL, 0),
 (102, 'Katrina Masangcay', 'training', '4', '2024-06-14', NULL, 0),
 (103, 'Reynaldo Francisco', 'training', '4', '2024-06-14', 29, 0),
-(104, 'Ken Angelo Azanza', 'training', '4', '2024-06-14', 41, 0),
 (105, 'Irix Sosa', 'training', '8', '2024-06-05', NULL, 0),
 (106, 'Irix Sosa', 'training', '8', '2024-06-04', NULL, 0),
 (107, 'Irix Sosa', 'training', '8', '2024-06-20', NULL, 0),
@@ -1195,9 +1167,7 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (123, 'Irix Sosa', 'training', '8', '2024-07-05', NULL, 0),
 (124, 'Dennis Baltazar', 'event', '8', '2024-06-27', NULL, 0),
 (125, 'Dennis Baltazar', 'event', '8', '2024-06-28', NULL, 0),
-(126, 'Julie-an Camazo', 'meeting', '8', '2024-09-06', 21, 0),
 (127, 'Dennis Baltazar', 'training', '8', '2024-10-08', NULL, 0),
-(128, 'Ferdinand Dee', 'training', '8', '2024-10-08', 60, 0),
 (129, 'Joy Tiempo', 'training', '8', '2024-10-08', 10, 0),
 (130, 'Dories Azeez', 'meeting', '8', '2024-10-14', 33, 0),
 (131, 'Dories Azeez', 'meeting', '8', '2024-10-15', 33, 0),
@@ -1205,53 +1175,21 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (133, 'Maria Valerie Gomez', 'event', '8', '2024-10-12', 25, 0),
 (134, 'Maria Valerie Gomez', 'event', '8', '2024-10-17', 25, 0),
 (135, 'Maria Valerie Gomez', 'event', '8', '2024-10-18', 25, 0),
-(136, 'Ferdinand Dee', 'event', '8', '2024-10-29', 60, 0),
 (137, 'Genfrix Lorenz Genido', 'event', '8', '2024-10-29', NULL, 0),
-(138, 'Jezza Bantillan', 'event', '8', '2024-10-29', 49, 0),
-(139, 'Jade Lorenz Cruz', 'event', '8', '2024-10-29', 9, 0),
 (140, 'Carlos Ramirez', 'event', '8', '2024-10-30', 31, 0),
 (141, 'Reymund Rodelas', 'event', '8', '2024-10-30', 26, 0),
 (142, 'Dennis Baltazar', 'event', '8', '2024-10-30', NULL, 0),
 (143, 'Genfrix Lorenz Genido', 'meeting', '8', '2024-11-06', NULL, 0),
 (144, 'Reynaldo Francisco', 'meeting', '8', '2024-11-12', 29, 0),
-(145, 'Benjur Castillo', 'meeting', '4', '2024-12-09', 39, 0),
-(146, 'Benjur Castillo', 'meeting', '4', '2024-12-10', 39, 0),
-(147, 'Benjur Castillo', 'meeting', '8', '2025-01-07', 39, 0),
 (148, 'Reynaldo Francisco', 'meeting', '8', '2025-01-03', 29, 0),
-(149, 'Benjur Castillo', 'meeting', '8', '2025-01-09', 39, 0),
-(150, 'Julie-an Camazo', 'meeting', '8', '2025-01-21', 21, 0),
 (151, 'Dennis Baltazar', 'training', '4', '2025-02-11', NULL, 0),
-(152, 'Ferdinand Dee', 'training', '4', '2025-02-11', 60, 0),
-(153, 'Ferdinand Dee', 'event', '8', '2025-02-12', 60, 0),
 (154, 'Dennis Baltazar', 'event', '8', '2025-02-12', NULL, 0),
 (155, 'Joy Tiempo', 'event', '8', '2025-02-12', 10, 0),
-(156, 'Benjur Castillo', 'meeting', '4', '2025-02-12', 39, 0),
-(157, 'Benjur Castillo', 'event', '8', '2025-02-14', 39, 0),
-(158, 'Benjur Castillo', 'meeting', '4', '2025-02-17', 39, 0),
-(159, 'Benjur Castillo', 'meeting', '4', '2025-02-18', 39, 0),
-(160, 'Benjur Castillo', 'meeting', '4', '2025-02-19', 39, 0),
 (161, 'Joy Tiempo', 'event', '8', '2025-02-13', 10, 0),
 (162, 'Joy Tiempo', 'event', '8', '2025-02-14', 10, 0),
 (163, 'Dennis Baltazar', 'event', '8', '2025-02-13', NULL, 0),
 (164, 'Dennis Baltazar', 'event', '8', '2025-02-14', NULL, 0),
-(165, 'Ferdinand Dee', 'event', '8', '2025-02-13', 60, 0),
-(166, 'Ferdinand Dee', 'event', '8', '2025-02-14', 60, 0),
-(167, 'Benjur Castillo', 'meeting', '4', '2025-02-24', 39, 0),
-(168, 'Benjur Castillo', 'meeting', '4', '2025-02-20', 39, 0),
-(169, 'Benjur Castillo', 'meeting', '4', '2025-03-03', 39, 0),
-(170, 'Benjur Castillo', 'meeting', '4', '2025-03-05', 39, 0),
-(171, 'Ken Angelo Azanza', 'meeting', '4', '2025-02-28', 41, 0),
-(172, 'Benjur Castillo', 'meeting', '4', '2025-03-06', 39, 0),
-(173, 'Benjur Castillo', 'meeting', '4', '2025-03-12', 39, 0),
-(174, 'Benjur Castillo', 'meeting', '4', '2025-03-13', 39, 0),
-(175, 'Benjur Castillo', 'meeting', '4', '2025-03-17', 39, 0),
-(176, 'Benjur Castillo', 'meeting', '4', '2025-03-19', 39, 0),
-(177, 'Benjur Castillo', 'meeting', '4', '2025-03-20', 39, 0),
-(178, 'Benjur Castillo', 'meeting', '4', '2025-03-24', 39, 0),
-(179, 'Benjur Castillo', 'meeting', '4', '2025-03-26', 39, 0),
-(180, 'Benjur Castillo', 'meeting', '4', '2025-03-31', 39, 0),
 (181, 'Emanuel Saez', 'training', '8', '2025-05-05', 76, 0),
-(182, 'Michaela Cedilla', 'training', '8', '2025-05-05', 63, 0),
 (183, 'Hannah Mae Pangan', 'training', '8', '2025-05-05', 64, 0),
 (184, 'Carlos Ramirez', 'training', '8', '2025-05-05', 31, 0),
 (185, 'Reymund Rodelas', 'training', '8', '2025-05-05', 26, 0),
@@ -1259,52 +1197,32 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (187, 'Allaine Bless Espinosa', 'training', '8', '2025-05-05', 58, 0),
 (188, 'Bianca Inocencio', 'training', '8', '2025-05-05', 72, 0),
 (189, 'Bien Valdez', 'training', '8', '2025-05-05', 92, 0),
-(190, 'Ralph Ronnie Ian Dela Cruz', 'training', '8', '2025-05-05', 89, 0),
 (191, 'Jomar Soriano', 'training', '8', '2025-05-05', 91, 0),
 (192, 'Meralynn Doria', 'training', '8', '2025-05-05', 20, 0),
 (193, 'Mark Lourenz Brutas', 'training', '8', '2025-05-05', 77, 0),
-(194, 'Mary Rose Andal', 'training', '8', '2025-05-05', 80, 0),
-(195, 'Ferdinand Dee', 'training', '8', '2025-05-05', 60, 0),
-(196, 'Monico Alexander Flores', 'event', '8', '2025-05-13', 87, 0),
-(197, 'Monico Alexander Flores', 'event', '8', '2025-05-14', 87, 0),
-(198, 'Monico Alexander Flores', 'event', '8', '2025-05-15', 87, 0),
-(199, 'Monico Alexander Flores', 'event', '8', '2025-05-16', 87, 0),
 (200, 'Allaine Bless Espinosa', 'meeting', '4', '2025-05-28', 58, 0),
 (201, 'Reynaldo Francisco', 'meeting', '4', '2025-05-28', 29, 0),
 (202, 'Emanuel Saez', 'meeting', '4', '2025-05-29', 76, 0),
 (203, 'Bianca Inocencio', 'meeting', '4', '2025-05-29', 72, 0),
 (204, 'Emanuel Saez', 'meeting', '8', '2025-05-28', 76, 0),
 (205, 'Emanuel Saez', 'meeting', '8', '2025-05-29', 76, 0),
-(206, 'Ronald Talampas', 'meeting', '8', '2025-05-29', 90, 0),
-(207, 'Ronald Talampas', 'meeting', '6', '2025-05-29', 90, 0),
 (208, 'Bianca Inocencio', 'meeting', '8', '2025-05-29', 72, 0),
 (209, 'Joy Tiempo', 'meeting', '8', '2025-05-29', 10, 0),
 (210, 'Bien Valdez', 'meeting', '8', '2025-05-30', 92, 0),
-(211, 'Mary Rose Andal', 'meeting', '4', '2025-05-30', 80, 0),
 (212, 'Jomar Soriano', 'meeting', '4', '2025-05-30', 91, 0),
-(213, 'Michaela Cedilla', 'meeting', '4', '2025-05-30', 63, 0),
 (214, 'Reymund Rodelas', 'meeting', '4', '2025-05-30', 26, 0),
 (215, 'Hannah Mae Pangan', 'meeting', '4', '2025-05-30', 64, 0),
 (216, 'Allaine Bless Espinosa', 'meeting', '4', '2025-05-30', 58, 0),
-(217, 'Jade Lorenz Cruz', 'meeting', '4', '2025-05-30', 9, 0),
 (218, 'Joy Tiempo', 'meeting', '5', '2025-05-30', 10, 0),
-(219, 'Michaela Cedilla', 'meeting', '4', '2025-06-02', 63, 0),
 (220, 'Hannah Mae Pangan', 'meeting', '4', '2025-06-02', 64, 0),
-(221, 'Jade Lorenz Cruz', 'meeting', '3', '2025-06-02', 9, 0),
-(222, 'Ralph Ronnie Ian Dela Cruz', 'meeting', '4', '2025-06-03', 89, 0),
 (223, 'Allaine Bless Espinosa', 'meeting', '4', '2025-06-03', 58, 0),
-(224, 'Monico Alexander Flores', 'meeting', '4', '2025-06-04', 87, 0),
-(225, 'John Rafael Mahinay', 'meeting', '8', '2025-06-05', 81, 0),
 (226, 'Maria Valerie Gomez', 'meeting', '8', '2025-06-09', 25, 0),
 (227, 'Joy Tiempo', 'meeting', '8', '2025-06-11', 10, 0),
 (228, 'Emanuel Saez', 'meeting', '4', '2025-06-30', 76, 0),
 (229, 'Bien Valdez', 'meeting', '8', '2025-07-02', 92, 0),
 (230, 'Jennebel Suello', 'meeting', '4', '2025-07-09', 48, 0),
 (231, 'Allen Rose Cahilig', 'meeting', '8', '2025-07-09', 19, 0),
-(232, 'Mary Rose Andal', 'meeting', '8', '2025-07-21', 80, 0),
 (233, 'Bien Valdez', 'meeting', '8', '2025-07-23', 92, 0),
-(234, 'Nicko Acita', 'event', '8', '2025-07-24', 97, 0),
-(235, 'Nicko Acita', 'event', '8', '2025-07-25', 97, 0),
 (236, 'Joy Tiempo', 'event', '8', '2025-07-24', 10, 0),
 (237, 'Joy Tiempo', 'event', '8', '2025-07-25', 10, 0),
 (238, 'Maria Valerie Gomez', 'event', '8', '2025-07-24', 25, 0),
@@ -1321,18 +1239,11 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (249, 'Reymund Rodelas', 'meeting', '4', '2025-08-06', 26, 0),
 (250, 'Bien Valdez', 'meeting', '8', '2025-08-11', 92, 0),
 (251, 'Meralynn Doria', 'meeting', '4', '2025-08-18', 20, 0),
-(252, 'Mary Rose Andal', 'meeting', '8', '2025-08-22', 80, 0),
 (253, 'Edelyn Tolibas', 'meeting', '8', '2025-09-01', 78, 0),
 (254, 'Emanuel Saez', 'meeting', '8', '2025-08-29', 76, 0),
-(255, 'Julie-an Camazo', 'meeting', '8', '2025-08-20', 21, 0),
 (256, 'Bien Valdez', 'meeting', '8', '2025-09-02', 92, 0),
-(257, 'John Rafael Mahinay', 'meeting', '8', '2025-09-25', 81, 0),
 (258, 'Hannah Mae Pangan', 'meeting', '4', '2025-09-19', 64, 0),
 (259, 'Hannah Mae Pangan', 'meeting', '4', '2025-09-25', 64, 0),
-(260, 'Rochelle Pornobi', 'meeting', '4', '2025-09-19', 99, 0),
-(261, 'Rochelle Pornobi', 'meeting', '4', '2025-09-25', 99, 0),
-(262, 'Daniel De Leon', 'meeting', '4', '2025-09-19', 100, 0),
-(263, 'Daniel De Leon', 'meeting', '4', '2025-09-25', 100, 0),
 (264, 'Allaine Bless Espinosa', 'meeting', '4', '2025-09-24', 58, 0),
 (265, 'Allaine Bless Espinosa', 'event', '4', '2025-09-19', 58, 0),
 (266, 'Bianca Inocencio', 'event', '4', '2025-09-19', 72, 0),
@@ -1341,16 +1252,10 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (269, 'Bien Valdez', 'meeting', '4', '2025-09-25', 92, 0),
 (270, 'Bien Valdez', 'meeting', '4', '2025-09-24', 92, 0),
 (271, 'Jomar Soriano', 'meeting', '4', '2025-09-19', 91, 0),
-(272, 'Siricia-Mae Torres', 'meeting', '4', '2025-09-19', 95, 0),
-(273, 'Nicko Acita', 'meeting', '4', '2025-09-19', 97, 0),
-(274, 'Angelica Lejano', 'meeting', '4', '2025-09-19', 101, 0),
-(275, 'Angelica Lejano', 'meeting', '4', '2025-09-24', 101, 0),
 (276, 'Emanuel Saez', 'event', '6', '2025-09-18', 76, 0),
 (277, 'Emanuel Saez', 'event', '6', '2025-09-19', 76, 0),
 (278, 'Mark Lourenz Brutas', 'event', '6', '2025-09-18', 77, 0),
 (279, 'Mark Lourenz Brutas', 'event', '6', '2025-09-19', 77, 0),
-(280, 'Mary Rose Andal', 'event', '6', '2025-09-18', 80, 0),
-(281, 'Mary Rose Andal', 'event', '6', '2025-09-19', 80, 0),
 (282, 'Maria Valerie Gomez', 'event', '6', '2025-09-18', 25, 0),
 (283, 'Maria Valerie Gomez', 'event', '6', '2025-09-19', 25, 0),
 (284, 'Joy Tiempo', 'event', '8', '2025-09-18', 10, 0),
@@ -1361,7 +1266,6 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (289, 'Edelyn Tolibas', 'meeting', '4', '2025-10-13', 78, 0),
 (290, 'Bien Valdez', 'meeting', '8', '2025-11-07', 92, 0),
 (291, 'Bien Valdez', 'meeting', '8', '2025-11-12', 92, 0),
-(292, 'Mary Rose Andal', 'event', '8', '2025-11-21', 80, 0),
 (293, 'Emanuel Saez', 'event', '8', '2025-11-21', 76, 0),
 (294, 'Emanuel Saez', 'meeting', '8', '2025-11-24', 76, 0),
 (295, 'Bien Valdez', 'meeting', '8', '2025-12-24', 92, 0),
@@ -1379,13 +1283,8 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (307, 'Bianca Inocencio', 'meeting', '4', '2026-01-06', 72, 0),
 (308, 'Emanuel Saez', 'meeting', '4', '2026-01-06', 76, 0),
 (309, 'Mark Lourenz Brutas', 'meeting', '4', '2026-01-06', 77, 0),
-(310, 'Mary Rose Andal', 'meeting', '4', '2026-01-06', 80, 0),
 (311, 'Jomar Soriano', 'meeting', '4', '2026-01-06', 91, 0),
 (312, 'Bien Valdez', 'meeting', '4', '2026-01-06', 92, 0),
-(313, 'Siricia-Mae Torres', 'meeting', '4', '2026-01-06', 95, 0),
-(314, 'Rochelle Pornobi', 'meeting', '4', '2026-01-06', 99, 0),
-(315, 'Angelica Lejano', 'meeting', '4', '2026-01-06', 101, 0),
-(316, 'Jose Eduardo Bauyon', 'meeting', '4', '2026-01-06', 105, 0),
 (317, 'Emanuel Saez', 'training', '4', '2026-01-05', 76, 0),
 (318, 'Edelyn Tolibas', 'meeting', '8', '2026-01-05', 78, 0),
 (319, 'Emanuel Saez', 'meeting', '8', '2026-01-08', 76, 0),
@@ -1401,11 +1300,9 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (329, 'Bianca Inocencio', 'training', '4', '2026-01-12', 72, 0),
 (330, 'Emanuel Saez', 'training', '4', '2026-01-12', 76, 0),
 (331, 'Mark Lourenz Brutas', 'training', '4', '2026-01-12', 77, 0),
-(332, 'Mary Rose Andal', 'training', '4', '2026-01-12', 80, 0),
 (333, 'Jane Mendoza', 'training', '4', '2026-01-12', 84, 0),
 (334, 'Jomar Soriano', 'training', '4', '2026-01-12', 91, 0),
 (335, 'Bien Valdez', 'training', '4', '2026-01-12', 92, 0),
-(336, 'Rochelle Pornobi', 'training', '4', '2026-01-12', 99, 0),
 (337, 'Emanuel Saez', 'meeting', '8', '2026-01-13', 76, 0),
 (338, 'Allaine Bless Espinosa', 'meeting', '4', '2026-01-09', 58, 0),
 (339, 'Allaine Bless Espinosa', 'meeting', '4', '2026-01-13', 58, 0),
@@ -1437,15 +1334,11 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (365, 'Maria Valerie Gomez', 'event', '8', '2026-02-04', 25, 0),
 (366, 'Jefferson Manabat', 'event', '8', '2026-02-04', 15, 0),
 (367, 'Joy Tiempo', 'event', '8', '2026-02-04', 10, 0),
-(368, 'Mary Rose Andal', 'event', '8', '2026-02-04', 80, 0),
-(369, 'Edwin Lachica', 'event', '8', '2026-02-04', 106, 0),
 (370, 'Bianca Inocencio', 'training', '4', '2026-02-02', 72, 0),
 (371, 'Emanuel Saez', 'training', '4', '2026-02-02', 76, 0),
 (372, 'Mark Lourenz Brutas', 'training', '4', '2026-02-02', 77, 0),
-(373, 'Mary Rose Andal', 'training', '4', '2026-02-02', 80, 0),
 (374, 'Jomar Soriano', 'training', '4', '2026-02-02', 91, 0),
 (375, 'Bien Valdez', 'training', '4', '2026-02-02', 92, 0),
-(376, 'Rochelle Pornobi', 'training', '4', '2026-02-02', 99, 0),
 (377, 'Danica Mae Zarsata', 'training', '8', '2026-02-02', 113, 0),
 (378, 'Joy Tiempo', 'event', '8', '2026-02-04', 10, 0),
 (379, 'Joy Tiempo', 'event', '8', '2026-02-05', 10, 0),
@@ -1459,19 +1352,12 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (387, 'Emanuel Saez', 'event', '8', '2026-02-04', 76, 0),
 (388, 'Emanuel Saez', 'event', '8', '2026-02-05', 76, 0),
 (389, 'Emanuel Saez', 'event', '8', '2026-02-06', 76, 0),
-(390, 'Mary Rose Andal', 'event', '8', '2026-02-04', 80, 0),
-(391, 'Mary Rose Andal', 'event', '8', '2026-02-05', 80, 0),
-(392, 'Mary Rose Andal', 'event', '8', '2026-02-06', 80, 0),
-(393, 'Edwin Lachica', 'event', '8', '2026-02-04', 106, 0),
-(394, 'Edwin Lachica', 'event', '8', '2026-02-05', 106, 0),
-(395, 'Edwin Lachica', 'event', '8', '2026-02-06', 106, 0),
 (396, 'Danica Mae Zarsata', 'event', '8', '2026-02-04', 113, 0),
 (397, 'Danica Mae Zarsata', 'event', '8', '2026-02-05', 113, 0),
 (398, 'Danica Mae Zarsata', 'event', '8', '2026-02-06', 113, 0),
 (399, 'Edelyn Tolibas', 'meeting', '8', '2026-02-16', 78, 0),
 (400, 'Emanuel Saez', 'meeting', '8', '2026-02-12', 76, 0),
 (401, 'Emanuel Saez', 'meeting', '8', '2026-02-18', 76, 0),
-(402, 'Mary Rose Andal', 'meeting', '8', '2026-02-16', 80, 0),
 (403, 'JR Mahinan', 'meeting', '8', '2026-02-13', 112, 0),
 (404, 'Edelyn Tolibas', 'meeting', '8', '2026-02-20', 78, 0),
 (405, 'Allen Rose Cahilig', 'meeting', '8', '2026-02-27', 19, 0),
@@ -1481,25 +1367,19 @@ INSERT INTO `event` (`id`, `employee_name`, `type`, `duration`, `date`, `employe
 (409, 'Emanuel Saez', 'event', '8', '2026-02-26', 76, 0),
 (410, 'Emanuel Saez', 'meeting', '4', '2026-02-27', 76, 0),
 (411, 'Maria Valerie Gomez', 'event', '8', '2026-02-26', 25, 0),
-(412, 'Edwin Lachica', 'event', '8', '2026-02-26', 106, 0),
 (413, 'Edelyn Tolibas', 'meeting', '8', '2026-03-09', 78, 0),
 (414, 'Bien Valdez', 'meeting', '4', '2026-03-05', 92, 0),
 (415, 'Bien Valdez', 'meeting', '8', '2026-03-06', 92, 0),
 (416, 'Emanuel Saez', 'meeting', '4', '2026-03-06', 76, 0),
 (417, 'Emanuel Saez', 'meeting', '4', '2026-03-09', 76, 0),
-(418, 'Mary Rose Andal', 'meeting', '4', '2026-03-06', 80, 0),
 (419, 'Meralynn Doria', 'meeting', '4', '2026-03-11', 20, 0),
 (420, 'Bien Valdez', 'meeting', '8', '2026-03-12', 92, 0),
-(421, 'Edwin Lachica', 'meeting', '4', '2026-03-10', 106, 0),
 (422, 'Emanuel Saez', 'event', '8', '2026-03-12', 76, 0),
 (423, 'Emanuel Saez', 'event', '8', '2026-03-13', 76, 0),
-(424, 'Mary Rose Andal', 'event', '8', '2026-03-12', 80, 0),
-(425, 'Edwin Lachica', 'meeting', '4', '2026-03-16', 106, 0),
 (426, 'Emanuel Saez', 'meeting', '8', '2026-03-16', 76, 0),
 (427, 'Emanuel Saez', 'meeting', '8', '2026-03-23', 76, 0),
 (428, 'Emanuel Saez', 'event', '8', '2026-03-24', 76, 0),
 (429, 'Kenneth Esguerra', 'meeting', '4', '2026-03-24', 125, 0),
-(430, 'Mary Rose Andal', 'meeting', '8', '2026-03-26', 80, 0),
 (431, 'Edelyn Tolibas', 'meeting', '8', '2026-04-08', 78, 0),
 (432, 'Edelyn Tolibas', 'meeting', '8', '2026-04-21', 78, 0),
 (433, 'Emanuel Saez', 'meeting', '4', '2026-04-16', 76, 0),
@@ -3855,15 +3735,6 @@ CREATE TABLE `product_details` (
   `deviceConditionID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `product_details`
---
-
-INSERT INTO `product_details` (`id`, `encodedID`, `productTypeID`, `productSubcategoryID`, `itemCode`, `quantity`, `productAmount`, `is_deleted`, `deviceConditionID`) VALUES
-(14790, 60, 350, 301, NULL, 2, 234.00, 0, NULL),
-(14791, 61, 393, 436, '604', 4, 2333.00, 0, 295),
-(14793, 62, 396, 519, '1112', 1, 123123.00, 0, 666);
-
 -- --------------------------------------------------------
 
 --
@@ -4518,85 +4389,28 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `user_id`, `password`, `dept`, `category`, `log_at`, `pass_change`, `stat`, `branch`, `authority`, `handled`, `is_download_restricted`, `is_deleted`) VALUES
-(4, 'Neil Estrella', 'neil.estrella', '$2y$10$ihytYkNQ77YbyuY4j8V0oebuCeBHQVK99NzdybUS22ikMkFN64dfW', 'OP Sales - MFP/RISO', 'Manager', '2025-06-23 09:31:33', 'Yes', 'offline', 'Main Office', 'Manager', 'OP MFP(SOUTH)', 0, 0),
-(5, 'Ron Cabrera', 'ron.cabrera', '$2y$10$Gep4Dn0.KAQlJ8X82YG1tOGdB45gHk2PwxQPALKUcZS8z8yMgMzVC', 'OP Sales - PP', 'Manager', '2026-05-11 11:04:22', 'No', 'online', 'Main Office', 'Senior Manager', 'PP SALES', 0, 0),
-(6, 'Joey Francisco', 'joey.francisco', '$2y$10$hBOEcSr/.pwmOHXcJwHYKeCMcBCTMEFqv8zztxrhg85KYI4UNWMGS', 'CSD', 'Manager', '2026-02-12 16:03:12', 'Yes', 'offline', 'Main Office', 'General Manager', 'BRANCH - CEBU', 0, 0),
-(9, 'Jade Lorenz Cruz', 'jadelorenz.cruz', '$2y$10$wGoDIgrVvRC0z9ZjQSK7C.wzWV/fjZAAfAELu14DV0GWbutE1hSV6', 'CSD', 'User', '2025-06-30 11:09:32', 'Yes', 'online', 'Main Office', 'Sales Executive', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(10, 'Joy Tiempo', 'joy.tiempo', '$2y$10$d3NlxEuhaGJWE0Qi99uHlem07oInHrQLZqEEUUSlrBGcH7WcT9Gpe', 'OP Sales - PP', 'User', '2026-05-13 12:58:33', 'Yes', 'offline', 'Main Office', 'Account Executive', 'PP SALES', 0, 0),
-(15, 'Jefferson Manabat', 'jefferson.manabat', '$2y$10$ROl99k/b8.GntwwOL3CeBuL2bS3UfKQHjByKR5ifS0d/vT6/PNkau', 'OP Sales - MFP/RISO', 'User', '2025-02-18 13:10:49', 'No', 'online', 'Angeles', 'Manager', 'BRANCH - ANGELES', 0, 0),
-(19, 'Allen Rose Cahilig', 'allen.cahilig', '$2y$10$wPYU8BZ7Nbzo7gzNrN3G1.pLR8HbTgK.uCaWejvCFAHfv7cx55mXC', 'OP Consumables', 'User', '2026-04-07 15:23:05', 'Yes', 'offline', 'Main Office', 'Sales Executive', 'OP CONSUMABLES SALES', 0, 0),
-(20, 'Meralynn Doria', 'meralynn.doria', '$2y$10$1jTeUr/c/4HaRoWNcBvR2et64XbXoxz3AzIJ4cb5TxqqFt7X0QkTO', 'OP Consumables ', 'User', '2026-04-27 11:50:22', 'No', 'online', 'Main Office', 'Sales Executive', 'OP CONSUMABLES SALES', 0, 0),
-(21, 'Julie-an Camazo', 'juliean.camazo', '$2y$10$pLitrGP.Qwp67NZrCUVSw.Ss9TOPmrix27QxARvY6f8qTTNwGzQfm', 'OP Consumables', 'User', '2026-04-01 10:21:43', 'Yes', 'online', 'Cagayan De Oro', 'Sales Executive', 'OP CONSUMABLES SALES', 0, 1),
-(25, 'Maria Valerie Gomez', 'valerie.gomez', '$2y$10$DsAkFxCXome1/l1Dj/8W6.njiid3UckPl6OjNk5khwxlF87JYiDe2', 'OP Sales - MFP/RISO', 'User', '2026-05-05 08:09:57', 'Yes', 'online', 'Main Office', 'User', 'OP MFP(SOUTH)', 0, 0),
-(26, 'Reymund Rodelas', 'reymund.rodelas', '$2y$10$n67ADmlGVbOaCwSbeZ2mdeEOhWNDtCHsdsD8ghUqlwPSQzZhi28bS', 'CSD', 'User', '2026-05-13 14:30:04', 'Yes', 'online', 'Main Office', 'Sales Executive', 'RENTAL SALES - MAKATI/BGC', 0, 0),
-(29, 'Reynaldo Francisco', 'reynaldo.francisco', '$2y$10$f.gRvAlT8tLYJE1yLfdwC.KKUwBO9oDvm5gzG5t7BBvLGcwq9qo2u', 'CSD', 'Manager', '2026-05-07 08:12:51', 'No', 'offline', 'Main Office', 'Assistant Manager', 'RENTAL SALES - SOUTH MANILA', 0, 0),
-(31, 'Carlos Ramirez', 'carlos.ramirez', '$2y$10$DSPhGXmIRPZJL4zCLU9sM.gFzotz0XwRRMtvn8wn7q1LzWQG/gBSC', 'CSD', 'Manager', '2025-06-30 11:12:20', 'No', 'online', 'Main Office', 'Assistant Manager', 'RENTAL SALES - MAKATI/BGC', 0, 0),
-(33, 'Dories Azeez', 'doresalyn.azeez', '$2y$10$/bydO1FAuTswd5N8yYDmk.6iN86noJIe.bRvVLVOgzZORqOtqej..', 'Furniture', 'User', '2026-05-06 18:10:23', 'Yes', 'online', 'Main Office', 'Assistant Manager', 'FURNITURE', 0, 0),
-(34, 'Michael Oriarte', 'michael.oriarte', '$2y$10$TNxFsKB9P7.is3UKINmZPOgiMqKhc1a8JEl0Rjrtc2csYLMQ5C57O', 'MIS', 'Admin', '2024-01-24 16:04:51', 'No', 'New', 'Main Office', '', '', 0, 0),
-(36, 'Ubix Admin', 'ubix.admin', '$2y$10$CaNzBN6rSmMVJuChDxuekOaV4UqlHE4bbfWcakweVgnZbEUF1kwx2', 'MIS', 'Admin', '2026-05-06 14:12:19', 'Yes', 'offline', 'Main Office', '', '', 0, 0),
-(39, 'Benjur Castillo', 'benjur.castillo', '$2y$10$i2s4TSi6b3GAJQnsOQIdEeNvY6k7psk0B7g8HTr6UDF709Ger/JBG', 'OP Sales - MFP/RISO', 'User', '2025-04-16 17:21:03', 'No', 'offline', 'Main Office', 'Sales Executive', 'OP MFP(SOUTH)', 0, 1),
-(41, 'Ken Angelo Azanza', 'kenangelo.azanza', '$2y$10$jSxaCF5G3RPZBdfvGQEUS.jbqyceUED7HayU1DCqVYWH6L.AQzMAW', 'OP Sales - MFP/RISO', 'User', '2025-04-21 14:00:40', 'No', 'offline', 'Main Office', 'Sales Executive', '', 0, 1),
-(45, 'Excel Marie Villanueva', 'excelmarie.villanueva', '$2y$10$h8XImu/QpyBhtsqdgQPH6On7hHZndY54KGkE3/479Ms3g47rxnTbK', 'OP Sales - PP', 'Admin', '2024-04-17 16:43:50', 'Yes', 'offline', 'Main Office', '', '', 0, 1),
-(48, 'Jennebel Suello', 'jennebel.suello', '$2y$10$m5N9uXxWlg8l00jz9azyWOEzEeHykmCoNolS3qq6geO4C1mAu3tcG', 'OP Consumables', 'User', '2026-05-13 17:54:00', 'No', 'offline', 'Gensan', 'Sales Executive', 'OP CONSUMABLES SALES', 0, 0),
-(49, 'Jezza Bantillan', 'jezza.bantillan', '$2y$10$puqXbOcHL43O9j9qBVqvyeGWpFfWkfUOrLosJhe4oL7RyoQ89hXo6', 'CSD', 'User', '2025-02-10 18:23:44', 'No', 'offline', 'Main Office', 'Sales Executive', '', 0, 1),
-(54, 'John Joseph Rugue', 'johnjoseph.rugue', '$2y$10$azAdKyDCaC/i4bGOBFRsruy.8dnoqjk1fC27bjpNbSV21e8bDOfQK', 'CSD', 'Manager', '2025-11-04 14:23:18', 'Yes', 'online', 'Main Office', 'Manager', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(55, 'Mhackhy Villasan', 'mhackhy.villasan', '$2y$10$XUgExOHSLG5JkpiWQm6EYOnBzVaCXhy0QlMeBCxOIQ2FSUjPYOqoO', 'OP Sales - MFP/RISO', 'User', '2025-05-29 17:28:34', 'Yes', 'offline', 'Main Office', 'Account Executive', 'OP MFP(SOUTH)', 0, 1),
-(58, 'Allaine Bless Espinosa', 'allaine.espinosa', '$2y$10$YFflP8F./DW/LvXkxFKWJu3peyIEJvaWPfsCgP0p5hWWnSbw51feK', 'CSD', 'User', '2026-05-07 13:44:01', 'Yes', 'offline', 'Main Office', 'Sales Executive', 'RENTAL SALES - SOUTH MANILA', 0, 0),
-(59, 'Mark Joseph Butihin', 'markjoseph.butihin', '$2y$10$4w02z65tM/n0vQoiKqORDeNgnh38ZmS1y2oiskmrJpTdCy5vO9hqe', 'CSD', 'User', '2025-04-15 11:48:54', 'Yes', 'offline', 'Main Office', 'Sales Executive', '', 0, 1),
-(60, 'Ferdinand Dee', 'ferdinand.dee', '$2y$10$mjP3DbhiMFY6/WyRQTIHNOzJegv3XJIoYHJ.JPBiCmsuFCnyt4YVa', 'OP Sales - MFP/RISO', 'User', '2025-05-14 14:02:41', 'Yes', 'offline', 'Main Office', 'User', 'OP MFP(SOUTH)', 1, 1),
-(61, 'Ma. Lorie Mae Baltar', 'lorie.baltar', '$2y$10$bAcxKVXukV/yiAx5kioyVulXG6XSoruB0MDm6zGsgirKwt8qFIcoW', 'CSD', 'Admin', '2026-05-13 17:52:44', 'Yes', 'offline', 'Main Office', 'User', '', 0, 0),
-(62, 'Diane Gepilano', 'diane.gepilano', '$2y$10$xNzK06NDjetYf.arq5yEg.5uoYwTm/EJqJ7ommNpe9CepMe9pzTo6', 'UIC', 'Manager', '2024-11-20 12:14:22', 'Yes', 'offline', 'Main Office', 'Manager', '', 0, 0),
-(63, 'Michaela Cedilla', 'michaela.cedilla', '$2y$10$kCG9D94Az2w18c61Mkwciuaya0d3uBNAb15KlVrbHDWbXoOHV3RRi', 'CSD', 'User', '2026-03-19 17:38:49', 'Yes', 'offline', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 1),
-(64, 'Hannah Mae Pangan', 'hannah.pangan', '$2y$10$ryO0RUi9kPz96E2gXw.sQOAqpBpYo7BHlN3XukuBZJDdAKAhH2Hh.', 'CSD', 'User', '2026-05-12 09:39:50', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 0),
-(66, 'Execquil Maniclang', 'Execquil.maniclang', '$2y$10$XMbAfE8P4oGIY34C4X7UF.4wmcemRc9cs3HscV8hra33j1JM4MIUS', 'CSD', 'User', '2025-04-03 09:11:31', 'Yes', 'offline', 'Main Office', 'User', '', 0, 1),
 (69, 'Bon Bidan', 'bon', '$2y$10$igq6m6xTkc7RJULtLQnx1uOpluLnTgF0rzs0r0aeNqfSwpPgMYBbu', 'MIS', 'Admin', '2026-02-12 11:08:29', 'No', 'online', 'Main Office', 'Manager', '', 0, 0),
-(70, 'Jemwel C. Aguilar', 'jemwel.aguilar', '$2y$10$GWn2chGt9BuTHulhTEWQ..qyXFt96uK1oQKQXR6d10p9u6.vZGmwC', 'OP Sales - MFP/RISO', 'User', '2025-07-10 09:37:46', 'Yes', 'online', 'Cebu', 'User', 'BRANCH - CEBU', 0, 1),
-(71, 'Melody Laureano', 'melody.laureano', '$2y$10$V8.NrvroyseAk3NE6g5wyuLEyaXtGIV9/TV2tBR5bqcUjMr75Ssi.', 'CSD', 'User', '2025-04-24 11:37:27', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - SOUTH MANILA', 0, 1),
-(72, 'Bianca Inocencio', 'bianca.inocencio', '$2y$10$ExpgFJE5sjJB6zsK.P8/HOp9es7tNZBgChmTdyu9gX/0P3Z8wQxYC', 'CSD', 'User', '2026-05-07 13:41:48', 'Yes', 'offline', 'Main Office', 'User', 'RENTAL SALES - SOUTH MANILA', 0, 0),
-(74, 'Meghan Cabrera', 'meghan.cabrera', '$2y$10$H1bjwdBcgGcu8YXS/bxr7u14RLEgB0l3WQ1lvlTyCsaTkymI.hVJG', 'CSD', 'User', '2025-04-10 10:17:10', 'Yes', 'online', 'Main Office', 'User', '', 0, 1),
-(76, 'Emanuel Saez', 'emanuel.saez', '$2y$10$cgV.sHCxPZtMIJCDOGmNG.C.v0.RGDmhpKK/pd/Dij2kbUXCF3WwC', 'OP Sales - MFP/RISO', 'User', '2026-05-07 14:27:48', 'Yes', 'offline', 'Main Office', 'User', 'OP MFP(SOUTH)', 0, 0),
-(77, 'Aaron Camacho', 'aaron.camacho', '$2y$10$W8/C2g5EgkGvBSLxdebVeO5PmMZ4QYBTyfx162Ebdl9dz2Exva4Wi', 'OP Consumables', 'User', '2026-05-11 17:11:22', 'Yes', 'online', 'Main Office', 'User', 'OP CONSUMABLES SALES', 0, 0),
-(78, 'Edelyn Tolibas', 'edelyn.tolibas', '$2y$10$yaZ6CaVqr671qs9kmfGE0uvb7WDNEVgZE2WqKhURnPxZAVXiUqRI.', 'OP Consumables', 'User', '2026-05-13 09:03:50', 'Yes', 'online', 'Tacloban', 'User', 'OP CONSUMABLES SALES', 0, 0),
-(79, 'Ivy Bejerano', 'ivy.bejerano', '$2y$10$Kv/L4Vow/zE.Oe2XQgMLd.LmeOxCyo1LZJDCcAzGJ51dIBT69TXxu', 'OP Consumables', 'User', '2025-08-04 14:11:44', 'Yes', 'online', 'Zamboanga', 'User', 'OP CONSUMABLES SALES', 0, 0),
-(80, 'Mary Rose Andal', 'maryrose.andal', '$2y$10$SJM4l.ILEyDMxJKRk0kOsu8KaYJwbZfAZqTxMAkgR3eUMWPSo7P4y', 'OP Consumables', 'User', '2026-03-27 08:57:07', 'Yes', 'online', 'Main Office', 'User', 'OP CONSUMABLES SALES', 0, 1),
-(81, 'John Rafael Mahinay', 'john.mahinay', '$2y$10$45iM4kb/QwAfZ8t/yPeBAeusLWOe4RXGYgAcaaNSKrO/7kTcRy3BG', 'OP Consumables', 'User', '2025-10-06 08:54:51', 'Yes', 'online', 'Bacolod', 'User', 'OP CONSUMABLES SALES', 0, 1),
-(82, 'Ronjel Veneracion', 'ronjel.veneracion', '$2y$10$AA74AcdETiaZZWLXRr1Tb.9t9ZvbyCW0oqFm6YFUIQMojoyddx5eO', 'OP Sales - MFP/RISO', 'User', '2025-10-02 15:15:50', 'Yes', 'online', 'Gensan', 'User', 'BRANCH - GENSAN', 0, 1),
-(83, 'Jude Jesrel Pacatang', 'jude.pacatang', '$2y$10$zNlbmqdTGicGGvXLTrfLbu9LCXqQxGV8QBJaiE4Xu7cV50bV.XoS.', 'OP Sales - MFP/RISO', 'User', '2025-04-30 08:22:26', 'Yes', 'online', 'Dumaguete', 'User', 'BRANCH - DUMAGUETE', 0, 1),
-(84, 'Jane Mendoza', 'jane.mendoza', '$2y$10$c0oeq9Itq4AsOxfpDx3nR.KmYbWQF1/Q0/1Q39QkwAo2PrClIuFj.', 'OP Consumables', 'Manager', '2026-02-09 11:39:03', 'Yes', 'online', 'Main Office', 'Manager', 'OP CONSUMABLES SALES', 0, 0),
-(85, 'Yoshi Hondo', 'yoshi.hondo', '$2y$10$5BA0KPu43G/mCi3F6svvIOUUgX2b4vrfTciWiPMYQALXHeHAwlUFe', 'UIC', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Main Office', 'User', '', 0, 0),
-(86, 'Kyle Marquez', 'kyle.marquez', '$2y$10$QgyxxSoGJyyAKk6nVMxEOO6KLVxrSGkuHaXxIzrG4mBS4iVhdFiKa', 'UIC', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Main Office', 'User', '', 0, 1),
-(87, 'Monico Alexander Flores', 'monico.flores', '$2y$10$r4.WLnXoSrkwbdRO8fcdk.qQgtJHzKEwFkEpPKH.g94yzvaZKG5iG', 'OP Sales - MFP/RISO', 'User', '2025-09-04 17:49:46', 'Yes', 'online', 'Main Office', 'User', 'OP RISO', 0, 1),
-(89, 'Ralph Ronnie Ian Dela Cruz', 'ralph.delacruz', '$2y$10$y9N0rCe4Qfa1Jl2bU1RuGO.0jxmOIOkk4vv78zKBmVSQkfxsp6XGO', 'CSD', 'User', '2025-06-05 08:42:20', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(90, 'Ronald Talampas', 'ronald.talampas', '$2y$10$S1tTANj3omEl5mHY/TKu1OC3RVnnZcsf5xdz.3Qe2j/m1vq5yz9TK', 'OP Sales - PP', 'User', '2025-07-01 16:50:52', 'Yes', 'offline', 'Main Office', 'User', 'PP SALES', 0, 1),
-(91, 'Jomar Soriano', 'jomar.soriano', '$2y$10$jHsqNemq5SFzQZYUkG6dxeaX4tArdZA0BgezMkUxqJqJUdIGXmrxa', 'CSD', 'User', '2026-02-09 14:56:53', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 0),
-(92, 'Bien Valdez', 'bien.valdez', '$2y$10$1.QTovkm2arZQ9ZOpDRIserJqFMzYX7W3knFvuF.Imt.kf6.K2ogm', 'CSD', 'User', '2026-05-14 08:03:08', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - SOUTH MANILA', 0, 0),
-(93, 'Catalino Rullan', 'catalino.rullan', '$2y$10$qqxUZ7A66KCSog8YYsEieeOwS527nqSy4edG.wWYhszmLeOiLSz7i', 'OP Consumables', 'User', '2025-06-30 14:30:49', 'Yes', 'online', 'Cabanatuan', 'User', 'OP CONSUMABLES SALES', 0, 1),
-(94, 'Larry Paul Petargue', 'larry.petargue', '$2y$10$o.Z4y.qIN51joxzQUkb3QuI3k4S2Cb3LYzKrOGssryD8dKpm77lNi', 'OP Sales - MFP/RISO', 'User', '2025-06-09 10:44:27', 'Yes', 'online', 'Main Office', 'User', 'OP MFP(SOUTH)', 0, 1),
-(95, 'Siricia-Mae Torres', 'siricia.torres', '$2y$10$dUKufmBitvf6lqkJ121AkuMLELnwn8kFnVkdmyycCPfyzXFu7P/qu', 'CSD', 'User', '2025-12-09 18:28:07', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(96, 'Lauriece Jade Zamora', 'lauriece.zamora', '$2y$10$RtogfZt6papzt6EMHyKEtuq5mg6usAWe9xGineYbZ0LSf8dRKZfPq', 'OP Sales - MFP/RISO', 'User', '2025-08-22 14:31:40', 'Yes', 'offline', 'Main Office', 'User', 'OP MFP(SOUTH)', 0, 1),
-(97, 'Nicko Acita', 'nicko.acita', '$2y$10$654Ly1FKh4RG5niqcqXsYucYLmXsBpoqlnPWs8hTwYLAS2MjAM1P6', 'CSD', 'User', '2025-10-30 15:32:42', 'Yes', 'offline', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(98, 'Patricia Collin Gallano', 'patricia.gallano', '$2y$10$6GrrAgmuLq3eNlvHoDVAeuX5Fij4Rgpk1jsOtvHzZdwP/hW8yL46K', 'CSD', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 1),
-(99, 'Rochelle Pornobi', 'rochelle.pornobi', '$2y$10$jvCtUxKe7d9epalpIPqpPOvjxJaJTBabUPZZUe1jJW.C8jG2Sk6Yy', 'CSD', 'User', '2026-02-20 08:28:56', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 1),
-(100, 'Daniel De Leon', 'daniel.deleon', '$2y$10$EfOW8DwxNMggLfmSdg7VW.oU5Wmdsrj1XfZulLwVMTBNXf4eJ69eu', 'CSD', 'User', '2025-11-17 09:16:10', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 1),
-(101, 'Angelica Lejano', 'angelica.lejano', '$2y$10$yNE7bdQFHXGsN7RHi9iKOOA7Y2OG3Qu/GNyQk2koDeB7AU6lWDWbe', 'CSD', 'User', '2025-12-26 08:25:12', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(102, 'John Gabriel Carpio', 'john.carpio', '$2y$10$3PeF2xHOfN9r/raY4ix3QeGEYbQwEgjDGJGSL7SbCPTtDgCsRb2l2', 'CSD', 'User', '2025-09-17 13:48:49', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(103, 'Ken Angelo Tatel', 'ken.tatel', '$2y$10$sdg5N7Hzre32PoIaEbyG7ur0G.xmKKfRwNZIbBSRNM5Qcjktsm24S', 'CSD', 'User', '2025-09-15 13:08:21', 'Yes', 'online', 'Main Office', 'User', 'RENTAL SALES - SOUTH MANILA', 0, 1),
-(104, 'Luis Mayrina', 'luis.mayrina', '$2y$10$n6LhEuZxxUM6NuwIAPxelOEaxPCdLSmqEJsm4SFHKX55U5w4wRvo6', 'MIS', 'Admin', '2026-04-16 08:34:08', 'Yes', 'online', 'Main Office', 'User', '', 0, 0),
-(105, 'Jose Eduardo Bauyon', 'jose.bauyon', '$2y$10$/.wnCaVr6uJGRPmuFYomb./nWd50rs2HA8RyEEUrIfNCb36Mg9sZq', 'OP Consumables', 'User', '2026-01-14 15:13:10', 'Yes', 'online', 'Main Office', 'User', 'OP RISO', 0, 1),
-(106, 'Edwin Lachica', 'edwin.lachica', '$2y$10$plcH0olDo0raDTpKUwfKR.kOAt5zdzcmSDApJcUDtJp08c1Ts7bM6', 'OP Sales - MFP/RISO', 'Manager', '2026-03-03 11:17:49', '', 'offline', 'Main Office', 'Manager', 'OP MFP(SOUTH)', 0, 1),
-(107, 'Miguel Canio', 'miguel.canio', '$2y$10$5EWdwgRQheawblZdTeb95OG4sSLsBMiLzjz9jCHQkqqhUjGjWTRzm', 'OP Sales - PP', 'Manager', '2026-01-07 13:57:08', 'Yes', 'online', 'Main Office', 'Manager', '', 0, 0),
-(111, 'Edwin Lachica', 'ed.lachica', '$2y$10$HSBik8rL4LXWfxN08hfAROw.VzKqhQmrRwQLtcb.4Oe1QJcR2zuXe', 'OP Sales - MFP/RISO', 'User', '2026-03-26 07:54:09', 'Yes', 'online', 'Main Office', 'User', 'OP MFP(NORTH)', 0, 1),
-(112, 'JR Mahinay', 'jr.mahinay', '$2y$10$HkdpR6XzfZ9rWTgYTfjMI.XdGGObbOyKxgHFg8LCxFqmZ770OdUAa', 'OP Consumables', 'User', '2026-03-13 08:58:22', 'Yes', 'online', 'Bacolod', 'Account Executive', 'BRANCH - BACOLOD', 0, 0),
-(113, 'Danica Mae Zarsata', 'danica.zarsata', '$2y$10$eT1DjhL50X/yDBaIHtSbd.o3mmi50s8vBrb9LxSZvdmLhj4Dr38iO', 'OP Consumables', 'User', '2026-03-23 07:55:34', 'Yes', 'online', 'Main Office', 'User', 'OP CONSUMABLES SALES', 0, 0),
-(114, 'Michaela Cedilla', 'michael.cedilla', '$2y$10$CCN63CN77iUiYmA4w6eNPeV9TwHPu14QMUz72NiYna6LUM1p3ug1u', 'CSD', 'User', '2026-03-19 17:38:49', 'Yes', 'offline', 'Main Office', 'User', '', 0, 1),
-(117, 'Ronan De Chavez', 'ronan.dechavez', '$2y$10$5yR7whGOhLhTFoi2E2D86.QdwN2DP69.ry7MLOTbpTkAMycPWlyRm', 'OP Consumables', 'User', '2026-03-06 08:19:41', 'No', 'online', 'Main Office', 'User', 'RENTAL SALES - QC/ORTIGAS', 0, 1),
-(123, 'Michaela Cedilla', 'cedilla.michaela', '$2y$10$sQg4emeijow3YHKqKXg33uWCBXQNj7CNzp11VzjLswI0HyiYANPIS', 'CSD', 'User', '2026-05-14 08:03:38', 'No', 'online', 'Main Office', 'User', 'RENTAL SALES - MAKATI/BGC', 0, 0),
-(124, 'Timothy Ed Austria', 'timothy.austria', '$2y$10$Lcv2LKHaBX08ZhHYuKQkwOpYGE.vgZ4E0dvMHV/IqOOLmJ5NHsxve', 'OP Sales - PP', 'User', '2026-05-13 08:30:58', 'Yes', 'online', 'Main Office', 'User', 'PP SALES', 0, 0),
-(125, 'Kenneth Esguerra', 'kenneth.esguerra', '$2y$10$pqQ0GCU2ib9KMQM6X80G5uGFZ5OwJcyuDhMx77FsXUTlmNbB1TgCC', 'OP Sales - MFP/RISO', 'User', '2026-05-14 08:04:27', 'Yes', 'online', 'Main Office', 'User', 'OP RISO', 0, 0),
-(126, 'Nathaniel Talag', 'nath', '$2y$10$VKCoUalmUlIF6u45MxP/fO9wJP7cAbNFH7d5rqHpmddYNarX.PjIm', 'MIS', 'Admin', '2026-07-22 14:31:50', 'Yes', 'online', 'Main Office', '', '', 0, 0),
+(126, 'Nathaniel Talag', 'nath', '$2y$10$VKCoUalmUlIF6u45MxP/fO9wJP7cAbNFH7d5rqHpmddYNarX.PjIm', 'MIS', 'Admin', '2026-08-03 16:27:18', 'Yes', 'offline', 'Main Office', '', '', 0, 0),
 (127, 'test', 'test', '$2y$10$WKQ.37vP.EfnQab9K7UWCe.WF0PJH2aTEz709D2PUOIMwoVxw06OC', 'Food and Beverages', 'Manager', '2026-06-15 16:50:55', 'No', 'offline', 'Main Office', 'Sales Executive', 'BRANCH - CEBU', 0, 0),
-(128, 'nathh', 'nathh', '$2y$10$.sARrfHRlTYZ8J88v1C9M.Lyuz0srXSxpt60kFqqwhWMIEpYlrff6', 'MIS', 'User', '2026-07-06 16:21:31', 'No', 'offline', 'Angeles', 'User', 'ENTERPRISE', 0, 0),
-(129, 'Wandi Lacruz', 'wan', '$2y$10$9Sli8Z6ZsXaQK3jK/sWdOentLaExtqTPhcgmuQUZtcXP6Vek3qWwy', 'MIS', 'User', '2026-06-16 08:05:41', 'No', 'online', 'Main Office', 'User', 'OP RISO', 0, 0);
+(128, 'nathh', 'nathh', '$2y$10$.sARrfHRlTYZ8J88v1C9M.Lyuz0srXSxpt60kFqqwhWMIEpYlrff6', 'MIS', 'Admin', '2026-07-06 16:21:31', 'No', 'offline', 'Angeles', 'Manager', 'ENTERPRISE', 0, 0),
+(131, 'Gabriela P. Riño', 'gabriela', '$2y$10$x1SxT9DqS.yOL5cSvT63lO9kQSslogB5owpttYniisKawNmRAcxh2', '', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Angeles', 'Sales Executive', '', 0, 0),
+(132, 'Edith Salonga', 'edith', '$2y$10$6DZ/VfTROwRvpXpJG7UyyuiogJ9pbJ8gg/Ni0u406pwakduC395xy', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Cabanatuan', '', 'BRANCH - CABANATUAN', 0, 0),
+(133, 'Jhel Antonette Frenandez', 'jhel', '$2y$10$RfEJ3vhBUfZ4BAZ9xQK04eqPxX7k33XghUyilSYCwPOAzSve8dtCa', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Subic', 'Sales Executive', 'BRANCH - SUBIC', 0, 0),
+(134, 'Genine Javier', 'genine', '$2y$10$NynvcNeILzcnhi5Js6LxZuyfwC.T0duZNr4fDYaPTN2fL8k12rBEW', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Batangas', 'Sales Executive', 'BRANCH - BATANGAS', 0, 0),
+(135, 'Ronalyn Quinto', 'ronalyn', '$2y$10$THHfzAhYZ.Mov1b4cWmfc.HbWObBIZ1iE4PG6cC3xZ5/3ZlrGrlx2', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Bacolod', 'Sales Executive', 'BRANCH - BACOLOD', 0, 0),
+(136, 'Hazel Jane Serdan', 'hazel', '$2y$10$eMIvfSZp/DJUUM/VCYfule59SbqjQgaqZ2rb5IT0BZX4g8Kvay39u', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Cebu', 'Sales Executive', 'BRANCH - CEBU', 0, 0),
+(137, 'Isabelita Barrientos', 'isabelita', '$2y$10$7Z/3yV.ocuwlfMonHogg.OM8mvoEzwlamREPaB63ZzolqbcU859uy', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Dumaguete', 'Sales Executive', 'BRANCH - DUMAGUETE', 0, 0),
+(138, 'Ma. Corazon Tendero ', 'corazon', '$2y$10$tuH1efG/XjYLh.WN5qBFa.afQbwdqBeR5lf6A7S972Z7XDgPG/Xre', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Iloilo', 'Sales Executive', 'BRANCH - ILOILO', 0, 0),
+(139, 'Edelyn Tolibas', 'edelyn', '$2y$10$pwi3tSooijA8XgiwJowuuutRtFvPdxZBlndkHYMdIGYTItcsVAQK6', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Tacloban', 'Sales Executive', 'BRANCH - TACLOBAN', 0, 0),
+(140, 'Melanie Galido', 'melanie', '$2y$10$ozsI.6hhyz427PUgKWWciuuGakCpwcjfT1iIuRXdYgVAyy/4OuTw6', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Cagayan De Oro', 'Sales Executive', 'BRANCH - CAGAYAN DE ORO', 0, 0),
+(141, 'Gladeys Cañada', 'gladys', '$2y$10$9mIlMeI4T/VfmRoYIYOq5esIUKSxbiag/TqWg5Fqnxnxgp2gFsW/O', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Davao', 'Sales Executive', 'BRANCH - DAVAO', 0, 0),
+(142, 'Jennebel Suello', 'jennebel', '$2y$10$2aWz/VBo8aJXm5yMnvuyMeektexXx6IQ8kKR8ZRR7KX986ViNrtv.', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'General Santos', 'Sales Executive', 'BRANCH - GENERAL SANTOS', 0, 0),
+(143, 'Ivy Bejerano', 'ivy', '$2y$10$ztTumtVY/eLJcI/pBTMSI.WR4NEKenO2xY9Sh3jC9N.QQxPeNAqwK', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Zamboanga', 'Sales Executive', 'BRANCH - ZAMBOANGA', 0, 0),
+(144, 'Allen Rose Cahilig', 'allen', '$2y$10$sglTtbXvwcXsTjvfEbhkMOtFD7BjkphFdu94hwEHlqRcPNn6hmuWG', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Metro Manila', 'Sales Executive', 'BRANCH - METRO MANILA', 0, 0),
+(145, 'Meralyn Doria', 'meralyn', '$2y$10$VVlK8bgWwjfxH2meF4HRgOFBfAUR1osPIkLxY4f3bNdVOJ9LBBMKi', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Metro Manila', 'Sales Executive', 'BRANCH - METRO MANILA', 0, 0),
+(146, 'Aaron Camacho', 'aaron', '$2y$10$JfyO.DiPUyGPlba.hwLYpuHpsCThwyTFhyb5VDXCSFUkOMaI9B6Ie', 'OP Sales - PP', 'User', '0000-00-00 00:00:00', 'Yes', 'New', 'Metro Manila', 'Sales Executive', 'BRANCH - METRO MANILA', 0, 0),
+(147, 'Maria Valerie Gomez', 'valerie', '$2y$10$EpOJG9eJnMXynOQnTsV/EOibdAfMvCOJ0xs2yScEWBGaDWkwPo/ta', 'OP Sales - PP', 'Admin', '0000-00-00 00:00:00', 'Yes', 'New', 'Main Office', 'Manager', 'BRANCH - MAIN OFFICE', 0, 0),
+(148, 'Janet Beland', 'janet', '$2y$10$Sev6u89skp2/3Ocowrjo8.2wfialkA6uJi5l.Rt3UStnq1BAP0OxK', 'OP Sales - PP', 'Admin', '0000-00-00 00:00:00', 'Yes', 'New', 'Main Office', 'Manager', 'BRANCH - MAIN OFFICE', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -4707,19 +4521,19 @@ ALTER TABLE `consumables`
 -- AUTO_INCREMENT for table `dashboard_settings`
 --
 ALTER TABLE `dashboard_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `encoded`
 --
 ALTER TABLE `encoded`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `encoded_logs`
 --
 ALTER TABLE `encoded_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `event`
@@ -4761,7 +4575,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- Constraints for dumped tables
