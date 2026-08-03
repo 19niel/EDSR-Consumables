@@ -405,7 +405,7 @@ $isKm = !$isRiso;
                     <th>UNIT PRICE</th>
                     <th>QTY</th>
                     <th>UNIT</th>
-                    <th>AMOUNT</th>
+                    <th>TOTAL PRICE</th>
                 </tr>
             </thead>
             <tbody>

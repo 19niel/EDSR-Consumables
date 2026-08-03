@@ -397,7 +397,7 @@
                                             </div>
 
                                             <div class="col-lg-3 col-md-6 col-6">
-                                                <label class="form-label">Amount <span class="req">*</span></label>
+                                                <label class="form-label">Unit Price <span class="req">*</span></label>
                                                 <div class="input-group">
                                                     <span class="input-group-text">₱</span>
                                                     <input type="number" class="form-control" name="productAmount[]" step="0.01" required />
@@ -467,7 +467,7 @@
                                             </div>
                                             
                                             <div class="col-lg-2 col-md-6 col-6">
-                                                <label class="form-label">Amount <span class="req">*</span></label>
+                                                <label class="form-label">Unit Price <span class="req">*</span></label>
                                                 <div class="input-group">
                                                     <span class="input-group-text">₱</span>
                                                     <input type="number" class="form-control" name="consumableAmount[]" step="0.01" required />

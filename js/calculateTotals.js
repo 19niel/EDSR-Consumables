@@ -9,11 +9,7 @@ $(document).ready(function() {
             let amount = parseFloat($(this).find('input[name="productAmount[]"]').val()) || 0.0;
             
             totalQty += qty;
-            totalAmount += amount; // Assuming the amount field is the total amount for that row.
-            // If it should be unit price * qty, it would be: totalAmount += (qty * amount);
-            // We'll just sum the amounts directly as they are typically inputted as row totals in such forms,
-            // or if it's unit price, they can enter the multiplied amount. 
-            // Wait, the prompt says "total of Quantity and Amount". So just sum them.
+            totalAmount += (qty * amount);
         });
 
         $('#machineTotalQty').text(totalQty);
@@ -29,7 +25,7 @@ $(document).ready(function() {
             let amount = parseFloat($(this).find('input[name="consumableAmount[]"]').val()) || 0.0;
             
             totalQty += qty;
-            totalAmount += amount;
+            totalAmount += (qty * amount);
         });
 
         $('#consumableTotalQty').text(totalQty);

@@ -46,7 +46,7 @@
                                                 <input type="number" class="form-control" name="quantity[]" min="1" disabled value="<?php echo htmlspecialchars($item['quantity'] ?? ''); ?>" />
                                             </div>
                                             <div class="col-lg-3 col-md-6 col-6">
-                                                <label class="form-label">Amount <span class="req">*</span></label>
+                                                <label class="form-label">Unit Price <span class="req">*</span></label>
                                                 <div class="input-group">
                                                     <span class="input-group-text">₱</span>
                                                     <input type="number" class="form-control" name="productAmount[]" step="0.01" disabled value="<?php echo htmlspecialchars($item['productAmount'] ?? ''); ?>" />
@@ -84,7 +84,7 @@
                                             <input type="number" class="form-control" name="quantity[]" min="1" disabled />
                                         </div>
                                         <div class="col-lg-3 col-md-6 col-6">
-                                            <label class="form-label">Amount <span class="req">*</span></label>
+                                            <label class="form-label">Unit Price <span class="req">*</span></label>
                                             <div class="input-group">
                                                 <span class="input-group-text">₱</span>
                                                 <input type="number" class="form-control" name="productAmount[]" step="0.01" disabled />
