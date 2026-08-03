@@ -4,18 +4,16 @@ include('../php/accountList.php');
 include('../php/db_conn.php'); 
 
 // Fetch dynamic configuration target limits directly from database
-$targetKmMachine = 5000000.00; // System fallback default
-$targetRisoMachine = 5000000.00;
+$targetKmRisoMachine = 10000000.00; // System fallback default
 $targetKmCons = 5000000.00;
 $targetRisoCons = 5000000.00;
 
-$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_machine', 'kpi_target_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons')";
+$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons')";
 $settingsResult = mysqli_query($conn, $settingsQuery);
 
 if ($settingsResult && mysqli_num_rows($settingsResult) > 0) {
     while ($row = mysqli_fetch_assoc($settingsResult)) {
-        if ($row['setting_key'] === 'kpi_target_km_machine') $targetKmMachine = floatval($row['setting_value']);
-        elseif ($row['setting_key'] === 'kpi_target_riso_machine') $targetRisoMachine = floatval($row['setting_value']);
+        if ($row['setting_key'] === 'kpi_target_km_riso_machine') $targetKmRisoMachine = floatval($row['setting_value']);
         elseif ($row['setting_key'] === 'kpi_target_km_cons') $targetKmCons = floatval($row['setting_value']);
         elseif ($row['setting_key'] === 'kpi_target_riso_cons') $targetRisoCons = floatval($row['setting_value']);
     }
@@ -189,20 +187,21 @@ $userRole = isset($_SESSION['category']) ? strtoupper(trim($_SESSION['category']
     <script>
         window.dashboardConfig = {
             targets: {
-                km_machine: <?php echo $targetKmMachine; ?>,
-                riso_machine: <?php echo $targetRisoMachine; ?>,
+                km_riso_machine: <?php echo $targetKmRisoMachine; ?>,
+                km_machine: <?php echo $targetKmRisoMachine / 2; ?>, // Fallback for cached JS
+                riso_machine: <?php echo $targetKmRisoMachine / 2; ?>, // Fallback for cached JS
                 km_consumables: <?php echo $targetKmCons; ?>,
                 riso_consumables: <?php echo $targetRisoCons; ?>
             }
         };
     </script>
 
-    <script src="../js/db_1kpiRealtime.js"></script>
-    <script src="../js/db_2pipelineRealtime.js"></script> 
-    <script src="../js/db_3newAndExistingRealtime.js"></script>
-    <script src="../js/db_4leaderboardRealtime.js"></script>
-    <script src="../js/db_5wonProjectsRealtime.js"></script>
-    <script src="../js/db_6agingProjectsRealTime.js"></script> </body>
+    <script src="../js/db_1kpiRealtime.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/db_2pipelineRealtime.js?v=<?php echo time(); ?>"></script> 
+    <script src="../js/db_3newAndExistingRealtime.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/db_4leaderboardRealtime.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/db_5wonProjectsRealtime.js?v=<?php echo time(); ?>"></script>
+    <script src="../js/db_6agingProjectsRealTime.js?v=<?php echo time(); ?>"></script> </body>
 
     <script>
         var category = "<?php echo $_SESSION['category'] ?? $category ?? ''; ?>";

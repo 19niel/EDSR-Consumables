@@ -54,16 +54,17 @@ function updateSalesMeterRealtime() {
     let targetGoal = 0;
     const targets = window.dashboardConfig && window.dashboardConfig.targets 
         ? window.dashboardConfig.targets 
-        : { km_machine: 5000000, riso_machine: 5000000, km_consumables: 5000000, riso_consumables: 5000000 };
+        : { km_riso_machine: 10000000, km_consumables: 5000000, riso_consumables: 5000000 };
     
     const selectedSbu = window.currentSbuFilter || 'all';
     
     if (selectedSbu === 'all') {
-        targetGoal = targets.km_machine + targets.riso_machine + targets.km_consumables + targets.riso_consumables;
+        targetGoal = targets.km_riso_machine + targets.km_consumables + targets.riso_consumables;
     } else {
         const sbus = selectedSbu.split(',');
-        if (sbus.includes('km_machine')) targetGoal += targets.km_machine;
-        if (sbus.includes('riso_machine')) targetGoal += targets.riso_machine;
+        if (sbus.includes('km_machine') || sbus.includes('riso_machine')) {
+            targetGoal += targets.km_riso_machine;
+        }
         if (sbus.includes('km_consumables')) targetGoal += targets.km_consumables;
         if (sbus.includes('riso_consumables')) targetGoal += targets.riso_consumables;
     }

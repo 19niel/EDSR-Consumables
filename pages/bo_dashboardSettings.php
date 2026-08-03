@@ -9,10 +9,9 @@ $statusMessageHtml = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Processing Panel Action 1: KPI Sales Target Limit Meter
-    if (isset($_POST['target_km_machine']) && isset($_POST['target_riso_machine']) && isset($_POST['target_km_cons']) && isset($_POST['target_riso_cons'])) {
+    if (isset($_POST['target_km_riso_machine']) && isset($_POST['target_km_cons']) && isset($_POST['target_riso_cons'])) {
         $targets = [
-            'kpi_target_km_machine' => floatval($_POST['target_km_machine']),
-            'kpi_target_riso_machine' => floatval($_POST['target_riso_machine']),
+            'kpi_target_km_riso_machine' => floatval($_POST['target_km_riso_machine']),
             'kpi_target_km_cons' => floatval($_POST['target_km_cons']),
             'kpi_target_riso_cons' => floatval($_POST['target_riso_cons'])
         ];
@@ -76,21 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // 🎯 Fetch current live configurations safely from the database to pre-populate input cells
-$targetKmMachine = 5000000.00; // System baseline fallback limit
-$targetRisoMachine = 5000000.00;
+$targetKmRisoMachine = 10000000.00; // System baseline fallback limit
 $targetKmCons = 5000000.00;
 $targetRisoCons = 5000000.00;
 $agingDaysThreshold = 60;         // Stagnation baseline fallback rule index
 
-$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_machine', 'kpi_target_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons', 'aging_days_threshold')";
+$settingsQuery = "SELECT setting_key, setting_value FROM dashboard_settings WHERE setting_key IN ('kpi_target_km_riso_machine', 'kpi_target_km_cons', 'kpi_target_riso_cons', 'aging_days_threshold')";
 $settingsResult = mysqli_query($conn, $settingsQuery);
 
 if ($settingsResult) {
     while ($row = mysqli_fetch_assoc($settingsResult)) {
-        if ($row['setting_key'] === 'kpi_target_km_machine') {
-            $targetKmMachine = floatval($row['setting_value']);
-        } elseif ($row['setting_key'] === 'kpi_target_riso_machine') {
-            $targetRisoMachine = floatval($row['setting_value']);
+        if ($row['setting_key'] === 'kpi_target_km_riso_machine') {
+            $targetKmRisoMachine = floatval($row['setting_value']);
         } elseif ($row['setting_key'] === 'kpi_target_km_cons') {
             $targetKmCons = floatval($row['setting_value']);
         } elseif ($row['setting_key'] === 'kpi_target_riso_cons') {
@@ -206,17 +202,10 @@ mysqli_close($conn);
                             <form id="kpiSalesTargetForm" method="POST" action="" class="w-100 d-flex flex-column h-100 justify-content-between">
                                 <div class="mb-3 flex-grow-1 d-flex flex-column gap-2">
                                     <div>
-                                        <label for="kmMachineInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">KM Machine (₱)</label>
+                                        <label for="kmRisoMachineInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">KM and Riso Machine (₱)</label>
                                         <div class="input-group input-group-sm">
                                             <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
-                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="kmMachineInput" name="target_km_machine" value="<?php echo $targetKmMachine; ?>" required>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="risoMachineInput" class="form-label small fw-bold text-secondary text-uppercase mb-1" style="font-size:0.68rem;">Riso Machine (₱)</label>
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-text bg-light fw-bold text-secondary">₱</span>
-                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="risoMachineInput" name="target_riso_machine" value="<?php echo $targetRisoMachine; ?>" required>
+                                            <input type="number" step="0.01" min="1" class="form-control fw-bold target-input" id="kmRisoMachineInput" name="target_km_riso_machine" value="<?php echo $targetKmRisoMachine; ?>" required>
                                         </div>
                                     </div>
                                     <div>
