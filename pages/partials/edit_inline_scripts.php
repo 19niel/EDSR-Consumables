@@ -99,7 +99,7 @@
                     $('#consumablesPricingCard').hide();
                     if (isAdminEdit) toggleInputs('#machinePricingCard', true);
                     toggleInputs('#consumablesPricingCard', false);
-                } else if (sbuId == '342' || sbuId == '343' || trimmed === 'OP - Consumables') {
+                } else if (sbuId == '342' || sbuId == '343' || trimmed === 'OP - Consumables' || trimmed === 'KM Kitbuyer' || trimmed === 'RISO Kitbuyer') {
                     $('#machinePricingCard').hide();
                     $('#consumablesPricingCard').show();
                     toggleInputs('#machinePricingCard', false);
