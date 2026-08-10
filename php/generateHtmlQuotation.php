@@ -90,11 +90,11 @@ $isKm = !$isRiso;
         }
         @page {
             size: letter;
-            margin: 0.5in;
+            margin: 0;
         }
         @media print {
             body { background-color: white; margin: 0; padding: 0; display: block; }
-            .a4-container { box-shadow: none; margin: 0; padding: 0; width: 100%; height: auto !important; min-height: auto !important; }
+            .a4-container { box-shadow: none; margin: 0; padding: 0.5in; width: 100%; height: auto !important; min-height: auto !important; }
             .no-print { display: none !important; }
             
             table.items-table { page-break-inside: auto; }
@@ -115,12 +115,12 @@ $isKm = !$isRiso;
         
         .top-info-table {
             width: 450px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
             font-size: 13px;
             border-collapse: collapse;
         }
         .top-info-table td {
-            padding: 4px 0;
+            padding: 1px 0;
             vertical-align: bottom;
         }
         .top-label {
@@ -141,9 +141,9 @@ $isKm = !$isRiso;
         }
 
         .greeting {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            line-height: 1.4;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            line-height: 1.2;
         }
         .check-box-group {
             display: inline-flex;
@@ -351,7 +351,7 @@ $isKm = !$isRiso;
     <button class="print-btn no-print" onclick="window.print()">🖨️ Print Quotation</button>
 
     <div class="a4-container">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px;">
             <div style="font-size: 24px; font-weight: 800; color: #333; border: 2px solid #333; padding: 8px 16px; border-radius: 4px; background-color: #f8f9fa; text-transform: uppercase;">
                 LID: <?= htmlspecialchars($customerId) ?>
             </div>
