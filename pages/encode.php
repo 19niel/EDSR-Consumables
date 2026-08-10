@@ -337,7 +337,25 @@
 
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <label for="proposedPrice" class="form-label">Proposed Price </label>
-                                        <input type="number" class="form-control" id="proposedPrice" name="proposedPrice" />
+                                        <input type="number" class="form-control" id="proposedPrice" name="proposedPrice" step="0.01"/>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <label class="form-label d-block">VAT <span class="req">*</span></label>
+                                        <div class="btn-group w-100" role="group" aria-label="VAT Type">
+                                            <input type="radio" class="btn-check" name="vatType" id="vatInclusive" value="Inclusive" required>
+                                            <label class="btn btn-outline-secondary text-dark" for="vatInclusive">Inclusive</label>
+                                            
+                                            <input type="radio" class="btn-check" name="vatType" id="vatExclusive" value="Exclusive" required>
+                                            <label class="btn btn-outline-secondary text-dark" for="vatExclusive">Exclusive</label>
+                                        </div>
+                                        <style>
+                                            .btn-check:checked + .btn-outline-secondary {
+                                                background-color: #0d6efd !important;
+                                                color: white !important;
+                                                border-color: #0d6efd !important;
+                                            }
+                                        </style>
                                     </div>
 
                                     <div class="col-md-6 col-lg-4 col-xl-3">

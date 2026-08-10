@@ -55,6 +55,7 @@ if (isset($_POST['editEncode'])) {
                 dmDesignation = '{$contact['dmDesignation']}',
                 decisionMakerEmail = '{$contact['dmEmail']}',
                 proposedPrice = '{$project['proposedPrice']}',
+                vatType = '{$project['vatType']}',
                 paymentTerms = '{$project['paymentTerms']}',
                 contactType = '{$project['contractType']}',
                 callNature = '{$progress['callNature']}',

@@ -493,7 +493,7 @@ $isKm = !$isRiso;
                     <span class="label">GRAND TOTAL</span>
                     <span class="value"><?= number_format($totalAmount, 2) ?></span>
                 </div>
-                <div class="vat-inclusive">VAT INCLUSIVE</div>
+                <div class="vat-inclusive"><?= (isset($data['vatType']) && $data['vatType'] === 'Exclusive') ? 'VAT EXCLUSIVE' : 'VAT INCLUSIVE' ?></div>
             </div>
         </div>
 

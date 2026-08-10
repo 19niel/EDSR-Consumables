@@ -55,6 +55,7 @@ function extractProjectData($post) {
     return [
         'projTitle'             => $post['projTitle'] ?? NULL,
         'proposedPrice'         => $post['proposedPrice'] ?? NULL,
+        'vatType'               => $post['vatType'] ?? NULL,
         'paymentTerms'          => $post['paymentTerms'] ?? NULL,
         'contractType'          => $post['contractType'] ?? NULL,
         'projAddress'           => $post['projectAddress'] ?? NULL,

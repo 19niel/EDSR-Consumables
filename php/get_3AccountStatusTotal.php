@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 // Pull layout month tracking arguments securely from request variables
 $monthFilter = isset($_GET['month']) ? mysqli_real_escape_string($conn, $_GET['month']) : 'current';
 
-// Enforce status filter condition 230 (Won Project) and ignore soft deleted assets
+// Enforce status filter condition 230 (Delivered) and ignore soft deleted assets
 $whereClause = "WHERE is_deleted = 0 AND accStatus = 230"; 
 $currentYear = date('Y');
 
@@ -36,41 +36,44 @@ if ($monthFilter === 'current') {
     $whereClause .= " AND MONTH(callDate) = $monthVal AND YEAR(callDate) = '$currentYear'";
 }
 
-// Build query to select counts grouped strictly by cleaned team values
-$query = "SELECT TRIM(UPPER(team)) as team_name, COUNT(*) as total_count 
+// Build query to select counts grouped strictly by cleaned region values
+$query = "SELECT TRIM(UPPER(region1)) as region_name, COUNT(*) as total_count 
           FROM encoded 
           $whereClause 
-          AND team IS NOT NULL 
-          AND TRIM(team) != ''
-          GROUP BY TRIM(UPPER(team))";
+          AND region1 IS NOT NULL 
+          AND TRIM(region1) != ''
+          GROUP BY TRIM(UPPER(region1))";
 
 $result = mysqli_query($conn, $query);
 
 // Setup baseline payload map structure
 $response = [    
-    'makati' => 0,
-    'qc'     => 0,
-    'manila' => 0,
-    'total'  => 0,
-    'success'=> true
+    'mm'       => 0,
+    'luzon'    => 0,
+    'visayas'  => 0,
+    'mindanao' => 0,
+    'total'    => 0,
+    'success'  => true
 ];
 
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
-        $team = strtoupper(trim($row['team_name']));
+        $region = strtoupper(trim($row['region_name']));
         $count = intval($row['total_count']);
         
-        if ($team === 'MAKATI') {
-            $response['makati'] = $count;
-        } elseif ($team === 'QC') {
-            $response['qc'] = $count;
-        } elseif ($team === 'MANILA') {
-            $response['manila'] = $count;
+        if ($region === 'MM') {
+            $response['mm'] = $count;
+        } elseif ($region === 'LUZON') {
+            $response['luzon'] = $count;
+        } elseif ($region === 'VISAYAS') {
+            $response['visayas'] = $count;
+        } elseif ($region === 'MINDANAO') {
+            $response['mindanao'] = $count;
         }
     }
     
     // Aggregated data total summary tally calculation
-    $response['total'] = $response['makati'] + $response['qc'] + $response['manila'];
+    $response['total'] = $response['mm'] + $response['luzon'] + $response['visayas'] + $response['mindanao'];
 } else {
     $response['success'] = false;
 }

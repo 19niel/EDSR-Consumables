@@ -21,11 +21,11 @@ if (isset($_POST['encodeAccount'])) {
         accCat, existingSystem, endOfContractCompetitor, endUser, industry, industrySubcategory, 
         accSource, accountSourceCategory, region, province, city, barangay, branch1, region1, 
         address, contactPerson, designation, contactNumber, email, contactPerson1, designation1, contactNumber1, email1, decisionMaker, dmDesignation, 
-        decisionMakerEmail, projTitle, proposedPrice, paymentTerms, contactType, projAddress, 
+        decisionMakerEmail, projTitle, proposedPrice, vatType, paymentTerms, contactType, projAddress, 
         callNature, accStatus, reason, deliveryDate, endOfContract, remarks, whatTranspired, 
         segment, reasonSubcategory, progressDate
     ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )"; 
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -36,7 +36,7 @@ if (isset($_POST['encodeAccount'])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "sssssssssssssssssssssssssssssssssssssssssssssssssss",
+        "ssssssssssssssssssssssssssssssssssssssssssssssssssss",
         $pipeline['sbu'],
         $pipeline['accountExecutive'],
         $user['branch'],
@@ -75,6 +75,7 @@ if (isset($_POST['encodeAccount'])) {
         $contact['dmEmail'],
         $project['projTitle'],
         $project['proposedPrice'],
+        $project['vatType'],
         $project['paymentTerms'],
         $project['contractType'],
         $project['projAddress'],

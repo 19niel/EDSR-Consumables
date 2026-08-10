@@ -1,4 +1,4 @@
-﻿                        <hr class="text-secondary my-4">
+                        <hr class="text-secondary my-4">
 
                         <div class="card p-4 shadow-sm mb-4">
                             <h5 class="text-secondary fw-semibold mb-3">Project Details</h5>
@@ -11,6 +11,27 @@
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <label for="proposedPrice" class="form-label">Proposed Price</label>
                                     <input type="text" class="form-control" id="proposedPrice" name="proposedPrice" disabled value="<?php echo htmlspecialchars($row['proposedPrice'] ?? ''); ?>"/>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <label class="form-label d-block">VAT <span class="req">*</span></label>
+                                    <div class="btn-group w-100" role="group" aria-label="VAT Type">
+                                        <input type="radio" class="btn-check" name="vatType" id="vatInclusive" value="Inclusive" disabled <?php echo (isset($row['vatType']) && $row['vatType'] == 'Inclusive') ? 'checked' : ''; ?> required>
+                                        <label class="btn btn-outline-secondary text-dark" for="vatInclusive">Inclusive</label>
+                                        
+                                        <input type="radio" class="btn-check" name="vatType" id="vatExclusive" value="Exclusive" disabled <?php echo (isset($row['vatType']) && $row['vatType'] == 'Exclusive') ? 'checked' : ''; ?> required>
+                                        <label class="btn btn-outline-secondary text-dark" for="vatExclusive">Exclusive</label>
+                                    </div>
+                                    <style>
+                                        .btn-check:checked + .btn-outline-secondary {
+                                            background-color: #0d6efd !important;
+                                            color: white !important;
+                                            border-color: #0d6efd !important;
+                                        }
+                                        .btn-check:disabled + .btn-outline-secondary {
+                                            opacity: 0.65;
+                                        }
+                                    </style>
                                 </div>
 
                                 <div class="col-md-6 col-lg-4 col-xl-3">
