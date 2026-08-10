@@ -351,9 +351,9 @@
                                         </div>
                                         <style>
                                             .btn-check:checked + .btn-outline-secondary {
-                                                background-color: #0d6efd !important;
+                                                background-color: #059669 !important;
                                                 color: white !important;
-                                                border-color: #0d6efd !important;
+                                                border-color: #059669 !important;
                                             }
                                         </style>
                                     </div>

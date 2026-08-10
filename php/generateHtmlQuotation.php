@@ -94,8 +94,15 @@ $isKm = !$isRiso;
         }
         @media print {
             body { background-color: white; margin: 0; padding: 0; display: block; }
-            .a4-container { box-shadow: none; margin: 0; padding: 0; width: 100%; height: auto; min-height: auto; }
+            .a4-container { box-shadow: none; margin: 0; padding: 0; width: 100%; height: auto !important; min-height: auto !important; }
             .no-print { display: none !important; }
+            
+            table.items-table { page-break-inside: auto; }
+            table.items-table tr { page-break-inside: avoid; page-break-after: auto; }
+            table.items-table thead { display: table-header-group; }
+            table.items-table tfoot { display: table-footer-group; }
+            
+            .totals-section, .bottom-section, .thick-border-container { page-break-inside: avoid; }
         }
         .header-logo {
             text-align: right;
@@ -211,8 +218,6 @@ $isKm = !$isRiso;
             text-decoration: underline;
             margin-top: -5px;
             margin-right: 10px;
-            color: #059669;
-            font-size: 16px;
         }
 
         .thick-border-box {
