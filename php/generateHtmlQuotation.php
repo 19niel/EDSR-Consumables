@@ -78,19 +78,23 @@ $isKm = !$isRiso;
             justify-content: center;
         }
         .a4-container {
-            width: 210mm;
-            min-height: 297mm;
+            width: 8.5in;
+            min-height: 11in;
             background-color: white;
-            padding: 10mm 15mm;
+            padding: 0.5in 0.75in;
             box-sizing: border-box;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            margin: 20px 0;
+            margin: 20px auto;
             position: relative;
             font-size: 13px;
         }
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
         @media print {
             body { background-color: white; margin: 0; padding: 0; display: block; }
-            .a4-container { box-shadow: none; margin: 0; padding: 10mm; width: 100%; height: 100%; }
+            .a4-container { box-shadow: none; margin: 0; padding: 0; width: 100%; height: auto; min-height: auto; }
             .no-print { display: none !important; }
         }
         .header-logo {
@@ -207,6 +211,8 @@ $isKm = !$isRiso;
             text-decoration: underline;
             margin-top: -5px;
             margin-right: 10px;
+            color: #059669;
+            font-size: 16px;
         }
 
         .thick-border-box {
@@ -411,48 +417,39 @@ $isKm = !$isRiso;
             <tbody>
                 <?php 
                 $totalAmount = 0;
-                for ($i = 0; $i < 6; $i++): 
-                    if ($i < count($products)) {
-                        $product = $products[$i];
-                        $modelName = getSubcategoryName($conn, $product['productSubcategoryID'] ?? '');
-                        
-                        $itemCodeName = '';
-                        if (!empty($product['itemCode'])) {
-                            $itemCodeName = getItemCodeName($conn, $product['itemCode']);
-                            if ($itemCodeName === 'N/A') {
-                                $itemCodeName = $product['itemCode'];
-                            }
+                foreach ($products as $product):
+                    $modelName = getSubcategoryName($conn, $product['productSubcategoryID'] ?? '');
+                    
+                    $itemCodeName = '';
+                    if (!empty($product['itemCode'])) {
+                        $itemCodeName = getItemCodeName($conn, $product['itemCode']);
+                        if ($itemCodeName === 'N/A') {
+                            $itemCodeName = $product['itemCode'];
                         }
-                        
-                        $consName = '';
-                        if (!empty($product['deviceConditionID'])) {
-                            $consName = getConsumableName($conn, $product['deviceConditionID']);
-                            if ($consName === 'N/A') {
-                                $consName = '';
-                            }
-                        }
-                        
-                        $itemDescCode = trim($itemCodeName . ' ' . $consName);
-                        if (empty($itemDescCode)) {
-                            $type = $product['productTypeSubcategory'] ?? '';
-                            $consumable = $product['consumables'] ?? '';
-                            $itemDescCode = $type;
-                            if (!empty($consumable)) {
-                                $itemDescCode .= " ( " . $consumable . " )";
-                            }
-                        }
-                        
-                        $price = floatval($product['productAmount'] ?? 0);
-                        $qty = intval($product['quantity'] ?? 0);
-                        $amount = $price * $qty;
-                        $totalAmount += $amount;
-                    } else {
-                        $modelName = '';
-                        $itemDescCode = '';
-                        $price = 0;
-                        $qty = 0;
-                        $amount = 0;
                     }
+                    
+                    $consName = '';
+                    if (!empty($product['deviceConditionID'])) {
+                        $consName = getConsumableName($conn, $product['deviceConditionID']);
+                        if ($consName === 'N/A') {
+                            $consName = '';
+                        }
+                    }
+                    
+                    $itemDescCode = trim($itemCodeName . ' ' . $consName);
+                    if (empty($itemDescCode)) {
+                        $type = $product['productTypeSubcategory'] ?? '';
+                        $consumable = $product['consumables'] ?? '';
+                        $itemDescCode = $type;
+                        if (!empty($consumable)) {
+                            $itemDescCode .= " ( " . $consumable . " )";
+                        }
+                    }
+                    
+                    $price = floatval($product['productAmount'] ?? 0);
+                    $qty = intval($product['quantity'] ?? 0);
+                    $amount = $price * $qty;
+                    $totalAmount += $amount;
                 ?>
                 <tr>
                     <td><?= htmlspecialchars($modelName) ?></td>
@@ -462,15 +459,7 @@ $isKm = !$isRiso;
                     <td><?= ($price > 0 && $qty > 0) ? 'pc' : '' ?></td>
                     <td><?= $amount > 0 ? number_format($amount, 2) : '-' ?></td>
                 </tr>
-                <?php endfor; ?>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>-</td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
 
