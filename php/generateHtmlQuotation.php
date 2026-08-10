@@ -108,9 +108,15 @@ $isKm = !$isRiso;
             text-align: right;
             font-size: 14px;
             color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
         }
         .header-logo img {
-            max-height: 150px;
+            max-height: 50px;
+            margin-bottom: 10px;
+            display: block;
         }
         
         .top-info-table {
@@ -351,12 +357,12 @@ $isKm = !$isRiso;
     <button class="print-btn no-print" onclick="window.print()">🖨️ Print Quotation</button>
 
     <div class="a4-container">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
             <div style="font-size: 24px; font-weight: 800; color: #333; border: 2px solid #333; padding: 8px 16px; border-radius: 4px; background-color: #f8f9fa; text-transform: uppercase;">
                 LID: <?= htmlspecialchars($customerId) ?>
             </div>
             <div class="header-logo" style="margin-bottom: 0;">
-                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo"><br>
+                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo">
                 <strong>www.ubix.com.ph</strong>
             </div>
         </div>
