@@ -94,9 +94,27 @@ include('../php/accountList.php');
                 <?php include('./modals/searchFilter.php') ?>
 
                 <!-- Section 3: Records Presentation Canvas Box -->
+                <style>
+                    /* Custom Scrollbar for the table */
+                    .table-responsive::-webkit-scrollbar {
+                        height: 12px;
+                    }
+                    .table-responsive::-webkit-scrollbar-track {
+                        background: #f8f9fa;
+                        border-top: 1px solid #e9ecef;
+                    }
+                    .table-responsive::-webkit-scrollbar-thumb {
+                        background-color: #c1c1c1;
+                        border-radius: 6px;
+                        border: 3px solid #f8f9fa;
+                    }
+                    .table-responsive::-webkit-scrollbar-thumb:hover {
+                        background-color: #a8a8a8;
+                    }
+                </style>
                 <div class="main-content-card shadow-sm overflow-hidden mb-4">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle m-0 modern-table">
+                        <table class="table table-hover align-middle m-0 modern-table" style="min-width: 1500px;">
                             <thead>
                                 <tr>
                                     <th class="text-center" style="width: 110px;">Actions</th>
