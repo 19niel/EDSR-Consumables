@@ -307,21 +307,6 @@
                                     </div>
                                 </div>
 
-                                <!-- Decision Maker Details -->
-                                <div class="row g-3 border-top pt-3">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="decisionMaker" class="form-label">Decision Maker</label>
-                                        <input type="text" class="form-control" id="decisionMaker" name="decisionMaker" />
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="dmDesignation" class="form-label">Decision Maker Designation</label>
-                                        <input type="text" class="form-control" id="dmDesignation" name="dmDesignation" />
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="dmEmail" class="form-label">Decision Maker Email</label>
-                                        <input type="email" class="form-control" id="dmEmail" name="dmEmail" />
-                                    </div>
-                                </div>
                             </div>
 
                             <hr class="text-secondary my-4">
