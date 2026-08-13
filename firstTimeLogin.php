@@ -31,7 +31,7 @@ $username = $_GET['username'];
 
 <body>
     <div class="center">
-        <img class="logo" src="img/new.png" alt="UBIX Logo">
+        <img class="logo" src="scratch/UBIX-Logo.png" alt="UBIX Logo">
         <form name="form" action="php/login.php" method="POST">
             <div class="title">
                 E-DSR <span style="color: var(--login-primary);">Consumables</span>

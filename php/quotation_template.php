@@ -5,7 +5,7 @@ if (!isset($data) || !isset($conn)) {
 }
 
 // Convert logo to base64 so DomPDF can easily embed it
-$logoPath = __DIR__ . '/../img/new.png';
+$logoPath = __DIR__ . '/../scratch/UBIX-Logo.png';
 $logoSrc = '';
 if (file_exists($logoPath)) {
     $logoData = base64_encode(file_get_contents($logoPath));

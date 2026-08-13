@@ -114,8 +114,7 @@ $isKm = !$isRiso;
             justify-content: center;
         }
         .header-logo img {
-            max-height: 50px;
-            margin-bottom: 10px;
+            max-height: 150px;
             display: block;
         }
         
@@ -362,8 +361,8 @@ $isKm = !$isRiso;
                 LID: <?= htmlspecialchars($customerId) ?>
             </div>
             <div class="header-logo" style="margin-bottom: 0;">
-                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo">
-                <strong>www.ubix.com.ph</strong>
+                <img src="../scratch/UBIX-Logo.png" alt="UBIX Logo" style="margin-bottom: -35px;">
+                <strong style="line-height: 1;">www.ubix.com.ph</strong>
             </div>
         </div>
 
