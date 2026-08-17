@@ -249,7 +249,7 @@ $isKm = !$isRiso;
         .bottom-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .bottom-left {
             width: 45%;
@@ -328,7 +328,7 @@ $isKm = !$isRiso;
 
         .footer-line {
             border-top: 2px solid #000;
-            margin-top: 30px;
+            margin-top: 10px;
             padding-top: 5px;
             font-size: 11px;
         }
