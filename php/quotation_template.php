@@ -34,7 +34,7 @@ if (file_exists($logoPath)) {
         }
         
         .logo { 
-            max-width: 2500px; 
+            max-width: 250px; 
             float: right; 
         }
         
@@ -61,13 +61,13 @@ if (file_exists($logoPath)) {
         .items-table th { 
             background-color: #f2f2f2; 
             border: 1px solid #999; 
-            padding: 8px; 
+            padding: 4px; 
             text-align: left; 
             font-weight: bold;
         }
         .items-table td { 
             border: 1px solid #ccc; 
-            padding: 8px; 
+            padding: 4px; 
         }
         
         .text-right { text-align: right; }
@@ -80,10 +80,10 @@ if (file_exists($logoPath)) {
         }
         
         .reminders {
-            margin-top: 40px;
+            margin-top: 20px;
             font-size: 8pt;
             color: #666;
-            line-height: 1.5;
+            line-height: 1.2;
         }
         .reminders strong { color: #333; }
     </style>
