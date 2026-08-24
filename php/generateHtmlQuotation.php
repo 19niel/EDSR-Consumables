@@ -380,7 +380,7 @@ if ($aeName) {
                 LID: <?= htmlspecialchars($customerId) ?>
             </div>
             <div class="header-logo" style="margin-bottom: 0;">
-                <img src="../scratch/UBIX-Logo.png" alt="UBIX Logo" style="margin-bottom: -35px;">
+                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo" style="margin-bottom: -35px;">
                 <strong style="line-height: 1;">www.ubix.com.ph</strong>
             </div>
         </div>

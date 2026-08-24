@@ -77,7 +77,7 @@ if ($checkEncodedCol && mysqli_num_rows($checkEncodedCol) == 0) {
 mysqli_close($conn);
 
 echo "<script>
-    alert('$message');
+    alert(" . json_encode($message) . ");
     window.location.href = 'index.php';
 </script>";
 ?>
