@@ -188,7 +188,7 @@
     <script type="text/javascript" src="../js/autoFill.js"></script>
     <script src="../js/ph-address-selector.js"></script>
     <script src="../js/handleBranchToRegion.js"></script>
-    <script src="../js/calculateTotals.js"></script>
+    <script src="../js/calculateTotals.js?v=<?php echo time(); ?>"></script>
 
     <?php include('partials/edit_inline_scripts.php'); ?>
 </body>

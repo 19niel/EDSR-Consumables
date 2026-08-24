@@ -61,6 +61,25 @@ $sbu = strtolower($data['sbu'] ?? '');
 $isRiso = (strpos($sbu, 'riso') !== false);
 $isKm = !$isRiso;
 
+// Fetch AE Details
+$aeName = $data['accExec'] ?? '';
+$aeEmail = '';
+$aeContact = '';
+
+if ($aeName) {
+    $aeStmt = $conn->prepare("SELECT email_address, contact_no FROM users WHERE name = ? AND is_deleted = 0 LIMIT 1");
+    if ($aeStmt) {
+        $aeStmt->bind_param('s', $aeName);
+        $aeStmt->execute();
+        $aeResult = $aeStmt->get_result();
+        if ($aeRow = $aeResult->fetch_assoc()) {
+            $aeEmail = $aeRow['email_address'] ?? '';
+            $aeContact = $aeRow['contact_no'] ?? '';
+        }
+        $aeStmt->close();
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -488,9 +507,30 @@ $isKm = !$isRiso;
                     <span class="label">TOTAL</span>
                     <span class="value"><?= number_format($totalAmount, 2) ?></span>
                 </div>
+                <?php
+                $grandTotal = $totalAmount;
+                if (!empty($data['discountEnabled'])) {
+                    $discountType = $data['discountType'] ?? 'percentage';
+                    $discountValue = (float)($data['discountValue'] ?? 0);
+                    $discountAmount = 0;
+                    
+                    if ($discountType === 'percentage') {
+                        $discountAmount = $totalAmount * ($discountValue / 100);
+                        $discountText = rtrim(rtrim(number_format($discountValue, 2), '0'), '.') . '%';
+                    } else {
+                        $discountAmount = $discountValue;
+                        $discountText = '₱' . number_format($discountValue, 2);
+                    }
+                    $grandTotal = max(0, $totalAmount - $discountAmount);
+                ?>
+                <div class="totals-row" style="color: #d32f2f;">
+                    <span class="label">DISCOUNT (<?= $discountText ?>)</span>
+                    <span class="value">-<?= number_format($discountAmount, 2) ?></span>
+                </div>
+                <?php } ?>
                 <div class="totals-row" style="margin-bottom: 5px;">
                     <span class="label">GRAND TOTAL</span>
-                    <span class="value"><?= number_format($totalAmount, 2) ?></span>
+                    <span class="value"><?= number_format($grandTotal, 2) ?></span>
                 </div>
                 <div class="vat-inclusive"><?= (isset($data['vatType']) && $data['vatType'] === 'Exclusive') ? 'VAT EXCLUSIVE' : 'VAT INCLUSIVE' ?></div>
             </div>
@@ -503,13 +543,14 @@ $isKm = !$isRiso;
 
         <div class="paragraph">
             Should you need additional information and/or clarification, please feel free to get in touch with us at<br>
-            telephone no. <span class="inline-line"></span> and we would be glad to discuss it with you at your most convenient time.<br><br>
+            telephone no. <span class="inline-line" style="text-align: center; font-weight: bold;"><?= htmlspecialchars($aeContact) ?></span> and we would be glad to discuss it with you at your most convenient time.<br><br>
             If you wish to avail the quoted item/s please fill up <strong>COMPLETELY</strong> the data below, then EMAIL back at
         </div>
 
         <div class="bottom-section">
             <div class="bottom-left">
                 <div style="text-align: center; width: 80%;">
+                    <div style="font-weight: bold; margin-bottom: 2px; height: 18px;"><?= htmlspecialchars($aeEmail) ?></div>
                     <div class="sign-line-full"></div>
                     <div class="sign-sub" style="padding-left:0;">Email Address</div>
                 </div>
@@ -518,6 +559,7 @@ $isKm = !$isRiso;
 
                 <div class="sign-block">
                     Prepared by:<br><br><br>
+                    <div style="text-align:center; width:80%; font-weight:bold; height: 18px;"><?= htmlspecialchars($aeName) ?></div>
                     <div class="sign-line-full"></div>
                     <div class="sign-title">AE/CSO/AO</div>
                     <div class="sign-sub" style="padding-left:0; text-align:center; width:80%;">Signature over Printed Name</div>
@@ -525,7 +567,7 @@ $isKm = !$isRiso;
 
                 <div class="sign-block">
                     Noted by:<br><br><br>
-                    <div style="text-align:center; width:80%;">Maria Valerie Gomez</div>
+                    <div style="text-align:center; width:80%; font-weight:bold;">Maria Valerie Gomez</div>
                     <div class="sign-line-full"></div>
                     <div class="sign-sub" style="padding-left:0; text-align:center; width:80%;">Signature over Printed Name</div>
                 </div>

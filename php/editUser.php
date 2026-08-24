@@ -11,6 +11,8 @@ if (isset($_POST['editUser'])) {
     $editRole = $_POST['editRole'];
     $editPasswordChange = $_POST['editPasswordChange'];
     $editBranch = $_POST['editBranch'];
+    $editEmailAddress = $_POST['editEmailAddress'];
+    $editContactNo = $_POST['editContactNo'];
 
     // Retrieve current password from the database
     $sql = "SELECT password FROM users WHERE id = $editId AND is_deleted = 0";
@@ -30,7 +32,7 @@ if (isset($_POST['editUser'])) {
 
     // Update the user information
     $sql = "UPDATE users SET name = '$editName', user_id = '$editUsername', dept = '$editDepartment', 
-            category = '$editCategory', handled = '$editSubDepartment', authority = '$editRole', pass_change = '$editPasswordChange', branch = '$editBranch' $passwordUpdate
+            category = '$editCategory', handled = '$editSubDepartment', email_address = '$editEmailAddress', contact_no = '$editContactNo', authority = '$editRole', pass_change = '$editPasswordChange', branch = '$editBranch' $passwordUpdate
             WHERE id = $editId";
     $result = mysqli_query($conn, $sql);
     echo '<script>
@@ -41,10 +43,10 @@ if (isset($_POST['editUser'])) {
 
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
-    $stmt = $conn->prepare("SELECT name, user_id, password, dept, category, pass_change, branch, authority, handled FROM users WHERE id = ? AND is_deleted = 0");
+    $stmt = $conn->prepare("SELECT name, user_id, password, dept, category, pass_change, branch, email_address, contact_no, authority, handled FROM users WHERE id = ? AND is_deleted = 0");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
-    $stmt->bind_result($name, $user_id, $password, $dept, $category, $pass_change, $branch, $authority, $handled);
+    $stmt->bind_result($name, $user_id, $password, $dept, $category, $pass_change, $branch, $email_address, $contact_no, $authority, $handled);
     if ($stmt->fetch()) {
         // Include userId in the array
         $userArray = array(
@@ -55,6 +57,8 @@ if (isset($_GET['id'])) {
             'category' => $category,
             'pass_change' => $pass_change,
             'branch' => $branch,
+            'email_address' => $email_address,
+            'contact_no' => $contact_no,
             'authority' => $authority,
             'handled' => $handled
         );

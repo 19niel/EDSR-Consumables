@@ -42,6 +42,16 @@
                             <option value="Zamboanga">Zamboanga</option>
                         </select>
                     </div>
+                    <!-- Input field for the email address -->
+                    <div class="col-md-6">
+                        <label for="emailAddress" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailAddress" name="emailAddress" />
+                    </div>
+                    <!-- Input field for the contact number -->
+                    <div class="col-md-6">
+                        <label for="contactNo" class="form-label">Contact No.</label>
+                        <input type="text" class="form-control" id="contactNo" name="contactNo" />
+                    </div>
                     <!-- Input field for the username -->
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>

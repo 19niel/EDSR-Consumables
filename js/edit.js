@@ -20,6 +20,8 @@ function editUser(id) {
       $("#editCategory").val(data.category);
       $("#editPasswordChange").val(data.pass_change);
       $("#editBranch").val(data.branch);
+      $("#editEmailAddress").val(data.email_address);
+      $("#editContactNo").val(data.contact_no);
       $("#editRole").val(data.authority);
       $("#editSubDepartment").val(data.handled);
       $("#editUserModal").modal("show");

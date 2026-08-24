@@ -134,7 +134,7 @@
                                     </div>
 
                                     <!-- ARS Expiry Date -->
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="col-md-6 col-lg-4 col-xl-3" id="arsExpiryDateContainer">
                                         <label for="arsExpiryDate" class="form-label">ARS Expiry Date<span class="req">*</span></label>
                                         <input type="date" class="form-control" id="arsExpiryDate" name="arsExpiryDate" min="<?php echo $min_expiry; ?>"/>
                                     </div>
@@ -419,9 +419,27 @@
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="addProductEntry">
                                             <i class="fa fa-plus me-1"></i> Add Another Product
                                         </button>
-                                        <div class="text-end">
-                                            <strong>Total Qty:</strong> <span id="machineTotalQty">0</span> &nbsp;&nbsp;&nbsp;
-                                            <strong>Total Amount:</strong> ₱<span id="machineTotalAmount">0.00</span>
+                                        <div class="text-end" style="min-width: 320px;">
+                                            <div>
+                                                <strong>Total Qty:</strong> <span id="machineTotalQty">0</span> &nbsp;&nbsp;&nbsp;
+                                                <strong>Total Amount:</strong> ₱<span id="machineTotalAmount">0.00</span>
+                                            </div>
+                                            <div class="mt-2 d-flex justify-content-end align-items-center gap-2">
+                                                <div class="form-check form-switch mb-0">
+                                                    <input class="form-check-input discount-toggle" type="checkbox" id="machineDiscountToggle" name="machineDiscountEnabled" value="1">
+                                                    <label class="form-check-label text-muted small" for="machineDiscountToggle">Add Discount</label>
+                                                </div>
+                                                <div class="btn-group btn-group-sm discount-type-group" role="group" id="machineDiscountTypeGroup" style="display:none;">
+                                                    <input type="radio" class="btn-check discount-type" name="machineDiscountType" id="machineDiscountPercent" value="percentage" checked>
+                                                    <label class="btn btn-outline-secondary" for="machineDiscountPercent">%</label>
+                                                    <input type="radio" class="btn-check discount-type" name="machineDiscountType" id="machineDiscountAmount" value="amount">
+                                                    <label class="btn btn-outline-secondary" for="machineDiscountAmount">₱</label>
+                                                </div>
+                                                <input type="number" class="form-control form-control-sm discount-value" id="machineDiscountValue" name="machineDiscountValue" style="width:80px; display:none;" step="0.01" min="0" placeholder="0">
+                                            </div>
+                                            <div class="mt-1" style="display:none;" id="machineGrandTotalContainer">
+                                                <h6 class="mb-0 text-success fw-bold">Grand Total: ₱<span id="machineGrandTotal">0.00</span></h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -489,9 +507,27 @@
                                         <button type="button" class="btn btn-outline-primary btn-sm" id="addConsumableEntry">
                                             <i class="fa fa-plus me-1"></i> Add Another Consumable
                                         </button>
-                                        <div class="text-end">
-                                            <strong>Total Qty:</strong> <span id="consumableTotalQty">0</span> &nbsp;&nbsp;&nbsp;
-                                            <strong>Total Amount:</strong> ₱<span id="consumableTotalAmount">0.00</span>
+                                        <div class="text-end" style="min-width: 320px;">
+                                            <div>
+                                                <strong>Total Qty:</strong> <span id="consumableTotalQty">0</span> &nbsp;&nbsp;&nbsp;
+                                                <strong>Total Amount:</strong> ₱<span id="consumableTotalAmount">0.00</span>
+                                            </div>
+                                            <div class="mt-2 d-flex justify-content-end align-items-center gap-2">
+                                                <div class="form-check form-switch mb-0">
+                                                    <input class="form-check-input discount-toggle" type="checkbox" id="consumableDiscountToggle" name="consumableDiscountEnabled" value="1">
+                                                    <label class="form-check-label text-muted small" for="consumableDiscountToggle">Add Discount</label>
+                                                </div>
+                                                <div class="btn-group btn-group-sm discount-type-group" role="group" id="consumableDiscountTypeGroup" style="display:none;">
+                                                    <input type="radio" class="btn-check discount-type" name="consumableDiscountType" id="consumableDiscountPercent" value="percentage" checked>
+                                                    <label class="btn btn-outline-secondary" for="consumableDiscountPercent">%</label>
+                                                    <input type="radio" class="btn-check discount-type" name="consumableDiscountType" id="consumableDiscountAmount" value="amount">
+                                                    <label class="btn btn-outline-secondary" for="consumableDiscountAmount">₱</label>
+                                                </div>
+                                                <input type="number" class="form-control form-control-sm discount-value" id="consumableDiscountValue" name="consumableDiscountValue" style="width:80px; display:none;" step="0.01" min="0" placeholder="0">
+                                            </div>
+                                            <div class="mt-1" style="display:none;" id="consumableGrandTotalContainer">
+                                                <h6 class="mb-0 text-success fw-bold">Grand Total: ₱<span id="consumableGrandTotal">0.00</span></h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -585,7 +621,7 @@
         <script src="../js/toggleDateFields.js"></script>
         <script src="../js/handleIndustryChange.js"></script>
         <script src="../js/handleAccountSourceChange.js"></script>
-        <script src="../js/calculateTotals.js"></script>
+        <script src="../js/calculateTotals.js?v=<?php echo time(); ?>"></script>
         <script>
             $(document).ready(function () {
                 function toggleInputs(containerId, enable) {
@@ -614,6 +650,7 @@
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', false);
                         toggleInputs('#consumablesPricingCard', false);
+                        $('#arsExpiryDateContainer').show();
                         return;
                     }
                     
@@ -622,16 +659,20 @@
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', true);
                         toggleInputs('#consumablesPricingCard', false);
+                        $('#arsExpiryDateContainer').show();
                     } else if (sbuId == '342' || sbuId == '343') {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').show();
                         toggleInputs('#machinePricingCard', false);
                         toggleInputs('#consumablesPricingCard', true);
+                        $('#arsExpiryDateContainer').hide();
+                        $('#arsExpiryDate').val(''); // Clear the field since it's irrelevant
                     } else {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', false);
                         toggleInputs('#consumablesPricingCard', false);
+                        $('#arsExpiryDateContainer').show();
                     }
                 }
 

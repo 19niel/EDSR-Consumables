@@ -59,6 +59,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="call.php">
+                        <i class="fa-solid fa-phone me-1" style="font-size:0.8rem;opacity:0.75;"></i>Call
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="bo_search.php">
                         <i class="fa-solid fa-magnifying-glass me-1" style="font-size:0.8rem;opacity:0.75;"></i>Search
                     </a>

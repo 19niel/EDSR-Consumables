@@ -12,6 +12,20 @@ if (isset($_POST['encodeAccount'])) {
     $progress = extractProgressData($_POST);
     $address = extractAddressData($_POST);
     $user = getBranchAndDept($conn, $pipeline['accountExecutive']);
+    // Extract discount data
+    $discountEnabled = 0;
+    $discountType = NULL;
+    $discountValue = NULL;
+
+    if (isset($_POST['machineDiscountEnabled']) && $_POST['machineDiscountEnabled'] == '1') {
+        $discountEnabled = 1;
+        $discountType = $_POST['machineDiscountType'] ?? 'percentage';
+        $discountValue = isset($_POST['machineDiscountValue']) ? (float)$_POST['machineDiscountValue'] : 0;
+    } elseif (isset($_POST['consumableDiscountEnabled']) && $_POST['consumableDiscountEnabled'] == '1') {
+        $discountEnabled = 1;
+        $discountType = $_POST['consumableDiscountType'] ?? 'percentage';
+        $discountValue = isset($_POST['consumableDiscountValue']) ? (float)$_POST['consumableDiscountValue'] : 0;
+    }
 
     // =========================
     // INSERT ENCODED
@@ -23,9 +37,9 @@ if (isset($_POST['encodeAccount'])) {
         address, contactPerson, designation, contactNumber, email, contactPerson1, designation1, contactNumber1, email1, decisionMaker, dmDesignation, 
         decisionMakerEmail, projTitle, proposedPrice, vatType, paymentTerms, contactType, projAddress, 
         callNature, accStatus, reason, deliveryDate, endOfContract, remarks, whatTranspired, 
-        segment, reasonSubcategory, progressDate
+        segment, reasonSubcategory, progressDate, discountEnabled, discountType, discountValue
     ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )"; 
 
     $stmt = mysqli_prepare($conn, $sql);
@@ -36,7 +50,7 @@ if (isset($_POST['encodeAccount'])) {
 
     mysqli_stmt_bind_param(
         $stmt,
-        "ssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        "ssssssssssssssssssssssssssssssssssssssssssssssssssssisd",
         $pipeline['sbu'],
         $pipeline['accountExecutive'],
         $user['branch'],
@@ -88,7 +102,10 @@ if (isset($_POST['encodeAccount'])) {
         $progress['whatTranspired'],
         $pipeline['segment'],
         $progress['reasonSubcategory'],
-        $progress['progressDate']
+        $progress['progressDate'],
+        $discountEnabled,
+        $discountType,
+        $discountValue
     );
 
     $execute = mysqli_stmt_execute($stmt);

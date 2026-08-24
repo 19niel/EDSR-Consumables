@@ -16,12 +16,14 @@ if (isset($_POST['addUser'])) {
     $passwordChange = $_POST['passwordChange'];
     $status = "New";
     $branch = $_POST['branch'];
+    $emailAddress = $_POST['emailAddress'];
+    $contactNo = $_POST['contactNo'];
 
     $sql = "INSERT INTO users (name, user_id, 
-            password, dept, category, handled, authority, log_at, pass_change, 
+            password, dept, category, handled, email_address, contact_no, authority, log_at, pass_change, 
             stat, branch)
             VALUES ('$name', '$username', '$hashedPassword', 
-            '$department', '$category', '$subDepartment', '$role',  '$logAt', '$passwordChange', 
+            '$department', '$category', '$subDepartment', '$emailAddress', '$contactNo', '$role',  '$logAt', '$passwordChange', 
             '$status', '$branch')";
     $addUserResult = mysqli_query($conn, $sql);
 

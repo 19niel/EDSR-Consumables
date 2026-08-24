@@ -145,22 +145,6 @@ include ('../php/managerList.php');
                                 <div class="col-12 mini-btns">
                                     <div class="card p-2">
                                         <div class="d-flex justify-content-between align-items-center px-1 gap-1">
-                                            <h4 class="mb-0" id="scheduledMeeting"></h4>
-                                            <h6 class="mb-0 text-end">F2F Meeting</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mini-btns">
-                                    <div class="card p-2">
-                                        <div class="d-flex justify-content-between align-items-center px-1 gap-1">
-                                            <h4 class="mb-0" id="email"></h4>
-                                            <h6 class="mb-0 text-end">Email</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mini-btns">
-                                    <div class="card p-2">
-                                        <div class="d-flex justify-content-between align-items-center px-1 gap-1">
                                             <h4 class="mb-0" id="callCountSpan"></h4>
                                             <h6 class="mb-0 text-end">Calls Made</h6>
                                         </div>
@@ -169,24 +153,8 @@ include ('../php/managerList.php');
                                 <div class="col-12 mini-btns">
                                     <div class="card p-2">
                                         <div class="d-flex justify-content-between align-items-center px-1 gap-1">
-                                            <h4 class="mb-0" id="actualCountSpan"></h4>
-                                            <h6 class="mb-0 text-end">Account Numbers</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mini-btns">
-                                    <div class="card p-2">
-                                        <div class="d-flex justify-content-between align-items-center px-1 gap-1">
                                             <h4 class="mb-0" id="actualClosedCountSpan"></h4>
                                             <h6 class="mb-0 text-end">Closed Calls</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 mini-btns">
-                                    <div class="card p-2">
-                                        <div class="d-flex justify-content-between align-items-center px-1 gap-1">
-                                            <h4 class="mb-0" id="conversionSpan"></h4>
-                                            <h6 class="mb-0 text-end">Conversion</h6>
                                         </div>
                                     </div>
                                 </div>

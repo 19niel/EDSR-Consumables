@@ -26,6 +26,21 @@ if (isset($_POST['editEncode'])) {
         $address = extractAddressData($_POST);
         $user = getBranchAndDept($conn, $pipeline['accountExecutive']);
 
+        // Extract discount data
+        $discountEnabled = 0;
+        $discountType = NULL;
+        $discountValue = NULL;
+
+        if (isset($_POST['machineDiscountEnabled']) && $_POST['machineDiscountEnabled'] == '1') {
+            $discountEnabled = 1;
+            $discountType = $_POST['machineDiscountType'] ?? 'percentage';
+            $discountValue = isset($_POST['machineDiscountValue']) ? (float)$_POST['machineDiscountValue'] : 0;
+        } elseif (isset($_POST['consumableDiscountEnabled']) && $_POST['consumableDiscountEnabled'] == '1') {
+            $discountEnabled = 1;
+            $discountType = $_POST['consumableDiscountType'] ?? 'percentage';
+            $discountValue = isset($_POST['consumableDiscountValue']) ? (float)$_POST['consumableDiscountValue'] : 0;
+        }
+
         $masterSql = "UPDATE encoded 
                 SET
                 sbu = '{$pipeline['sbu']}',
@@ -78,7 +93,10 @@ if (isset($_POST['editEncode'])) {
                 
                 -- Synchronize new core progress properties into the master context row
                 progressDate = '{$progress['progressDate']}',
-                estimatedDelivery = " . ($progress['estimatedDelivery'] === NULL ? "NULL" : "'{$progress['estimatedDelivery']}'") . "
+                estimatedDelivery = " . ($progress['estimatedDelivery'] === NULL ? "NULL" : "'{$progress['estimatedDelivery']}'") . ",
+                discountEnabled = $discountEnabled,
+                discountType = " . ($discountType === NULL ? "NULL" : "'$discountType'") . ",
+                discountValue = " . ($discountValue === NULL ? "NULL" : "'$discountValue'") . "
                 WHERE id = '$id';";
                 
         $masterUpdateSuccess = mysqli_query($conn, $masterSql);
