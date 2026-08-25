@@ -78,11 +78,13 @@
                         <i class="fa-solid fa-users me-1" style="font-size:0.8rem;opacity:0.75;"></i>Users
                     </a>
                 </li>
+                <?php if (isset($category) && ($category === 'Admin' || $category === 'VP')): ?>
                 <li id="performance" class="nav-item admin">
                     <a class="nav-link" href="performance.php">
                         <i class="fa-solid fa-chart-line me-1" style="font-size:0.8rem;opacity:0.75;"></i>Performance
                     </a>
                 </li>
+                <?php endif; ?>
                 <!-- 
                 <li id="leave" class="nav-item admin">
                     <a class="nav-link" href="leaveData.php">
