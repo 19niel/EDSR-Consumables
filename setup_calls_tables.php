@@ -74,6 +74,14 @@ if ($checkEncodedCol && mysqli_num_rows($checkEncodedCol) == 0) {
     }
 }
 
+// Add Call_ID to calls table
+$checkCallIdCol = mysqli_query($conn, "SHOW COLUMNS FROM calls LIKE 'Call_ID'");
+if ($checkCallIdCol && mysqli_num_rows($checkCallIdCol) == 0) {
+    if(mysqli_query($conn, "ALTER TABLE calls ADD Call_ID VARCHAR(50) NULL AFTER id")) {
+        $message .= "Column 'Call_ID' added to calls table.\\n";
+    }
+}
+
 mysqli_close($conn);
 
 echo "<script>

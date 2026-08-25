@@ -69,6 +69,17 @@ if (isset($_POST['submitCall'])) {
         }
 
         $callID = mysqli_insert_id($conn);
+
+        // Generate Call_ID (e.g., CALL-000001)
+        $formattedId = str_pad($callID, 6, "0", STR_PAD_LEFT);
+        $cidString = "CALL-" . $formattedId;
+        
+        $sqlUpdateCid = "UPDATE calls SET Call_ID = ? WHERE id = ?";
+        $stmtCid = mysqli_prepare($conn, $sqlUpdateCid);
+        mysqli_stmt_bind_param($stmtCid, "si", $cidString, $callID);
+        mysqli_stmt_execute($stmtCid);
+        mysqli_stmt_close($stmtCid);
+
         mysqli_stmt_close($stmtCall);
 
         // =========================

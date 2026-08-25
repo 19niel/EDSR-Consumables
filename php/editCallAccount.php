@@ -33,6 +33,8 @@ if (isset($_POST['editCall'])) {
     $accountsStatus = getPostData('accountsStatus');
     $remarks = getPostData('remarks');
 
+    $isLogOnly = isset($_POST['is_log_only']) && $_POST['is_log_only'] === 'true';
+
     // Start Transaction
     mysqli_begin_transaction($conn);
 
@@ -40,27 +42,36 @@ if (isset($_POST['editCall'])) {
         // =========================
         // UPDATE calls TABLE
         // =========================
-        $sqlUpdate = "UPDATE calls SET 
-            sbu = ?, natureOfCall = ?, accountExecutive = ?, dateOfActivity = ?, activityBranch = ?,
-            customerId = ?, accountName = ?, clientBranch = ?, region = ?, address = ?,
-            contactPerson = ?, designation = ?, contactDetails = ?, emailAddress = ?,
-            dateOfProgress = ?, accountsStatus = ?, remarks = ?
-            WHERE id = ?";
+        if ($isLogOnly) {
+            $sqlUpdate = "UPDATE calls SET dateOfProgress = ?, accountsStatus = ?, remarks = ? WHERE id = ?";
+            $stmtUpdate = mysqli_prepare($conn, $sqlUpdate);
+            if (!$stmtUpdate) {
+                throw new Exception("Prepare failed for calls progress update: " . mysqli_error($conn));
+            }
+            mysqli_stmt_bind_param($stmtUpdate, "sssi", $dateOfProgress, $accountsStatus, $remarks, $callID);
+        } else {
+            $sqlUpdate = "UPDATE calls SET 
+                sbu = ?, natureOfCall = ?, accountExecutive = ?, dateOfActivity = ?, activityBranch = ?,
+                customerId = ?, accountName = ?, clientBranch = ?, region = ?, address = ?,
+                contactPerson = ?, designation = ?, contactDetails = ?, emailAddress = ?,
+                dateOfProgress = ?, accountsStatus = ?, remarks = ?
+                WHERE id = ?";
 
-        $stmtUpdate = mysqli_prepare($conn, $sqlUpdate);
-        if (!$stmtUpdate) {
-            throw new Exception("Prepare failed for calls update: " . mysqli_error($conn));
+            $stmtUpdate = mysqli_prepare($conn, $sqlUpdate);
+            if (!$stmtUpdate) {
+                throw new Exception("Prepare failed for calls update: " . mysqli_error($conn));
+            }
+
+            mysqli_stmt_bind_param(
+                $stmtUpdate,
+                "sssssssssssssssssi",
+                $sbu, $natureOfCall, $accountExecutive, $dateOfActivity, $activityBranch,
+                $customerId, $accountName, $clientBranch, $region, $address,
+                $contactPerson, $designation, $contactDetails, $emailAddress,
+                $dateOfProgress, $accountsStatus, $remarks,
+                $callID
+            );
         }
-
-        mysqli_stmt_bind_param(
-            $stmtUpdate,
-            "sssssssssssssssssi",
-            $sbu, $natureOfCall, $accountExecutive, $dateOfActivity, $activityBranch,
-            $customerId, $accountName, $clientBranch, $region, $address,
-            $contactPerson, $designation, $contactDetails, $emailAddress,
-            $dateOfProgress, $accountsStatus, $remarks,
-            $callID
-        );
 
         if (!mysqli_stmt_execute($stmtUpdate)) {
             throw new Exception("Execute failed for calls update: " . mysqli_stmt_error($stmtUpdate));
@@ -96,9 +107,15 @@ if (isset($_POST['editCall'])) {
         // Commit transaction
         mysqli_commit($conn);
 
+        $alertMessage = $isLogOnly 
+            ? "Progress History Activity Log Entry Added Successfully."
+            : "Call Master Record and Progress History Log Updated Successfully.";
+
+        $redirectUrl = $isLogOnly ? "../pages/editCall.php?id=" . urlencode($callID) : "../pages/search_calls.php";
+
         echo '<script>
-            alert("Success: Call activity updated successfully!");
-            window.location.href = "../pages/call.php";
+            alert("' . $alertMessage . '");
+            window.location.href = "' . $redirectUrl . '";
             </script>';
         exit();
 
@@ -108,7 +125,7 @@ if (isset($_POST['editCall'])) {
     }
 } else {
     // Redirect back if accessed directly without POST
-    header("Location: ../pages/call.php");
+    header("Location: ../pages/search_calls.php");
     exit();
 }
 ?>

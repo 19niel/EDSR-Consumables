@@ -106,20 +106,7 @@ $headerRow2 .= "<th class='total' style='background-color: #938953' scope='col'>
 
 
 // Fetch the headers for call nature
-$callNatureHeaders = [];
-
-foreach ($allCalls as $date => $execs) {
-    foreach ($execs as $exec => $natures) {
-        foreach ($natures as $nature => $count) {
-            if ($nature !== 'Total' && !in_array($nature, $callNatureHeaders)) {
-                $callNatureHeaders[] = $nature;
-            }
-        }
-    }
-}
-
-// Optional: Sort them alphabetically
-sort($callNatureHeaders);
+$callNatureHeaders = ['Courtesy Visit', 'Message Call', 'Virtual Meeting'];
 $natureColspan = count($callNatureHeaders) + 2; // +2 for CV/Target and CV/Total
 $headerRow1 .= "<th scope='col' colspan='". $natureColspan . "'>Nature of Call</th></tr>";
 $headerRow2 .= "";

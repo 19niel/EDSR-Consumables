@@ -53,7 +53,7 @@ function fetchAllLeaves($conn) {
 
 // Function to fetch all call counts for users and dates
 function fetchAllCallCounts($conn) {
-    $query = "SELECT callDate, accExec, CallNature, COUNT(*) as call_count FROM encoded WHERE is_deleted = 0 GROUP BY callDate, accExec, callNature ";
+    $query = "SELECT dateOfActivity as callDate, accountExecutive as accExec, natureOfCall as CallNature, COUNT(*) as call_count FROM calls GROUP BY dateOfActivity, accountExecutive, natureOfCall";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
