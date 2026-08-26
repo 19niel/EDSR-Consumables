@@ -5,8 +5,8 @@ echo "<h3>Adding BH-C458 Roller Consumable</h3>";
 
 $categoryName = 'KM Color';
 $modelName = 'BH-C458';
-$consumableName = 'Roller';
-$itemCodeName = 'Roller ADXG560100';
+$consumableName = 'ROLLER';
+$itemCodeName = 'ROLLER ADXG560100';
 
 // 1. Get Category ID for KM Color
 $stmt_cat = $conn->prepare("SELECT id FROM categories WHERE category_name = ? AND is_deleted = 0 LIMIT 1");
