@@ -543,7 +543,7 @@ if ($aeName) {
 
         <div class="paragraph">
             Should you need additional information and/or clarification, please feel free to get in touch with us at<br>
-            telephone no. <span class="inline-line" style="text-align: center; font-weight: bold;"><?= htmlspecialchars($aeContact) ?></span> and we would be glad to discuss it with you at your most convenient time.<br><br>
+            contact no. <span class="inline-line" style="text-align: center; font-weight: bold;"><?= htmlspecialchars($aeContact) ?></span> and we would be glad to discuss it with you at your most convenient time.<br><br>
             If you wish to avail the quoted item/s please fill up <strong>COMPLETELY</strong> the data below, then EMAIL back at
         </div>
 
