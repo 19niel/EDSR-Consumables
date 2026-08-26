@@ -26,28 +26,12 @@ $departmentBusinessUnits = [
     'Furniture' => ['FURNITURE']
 ];
 
-$unit_list = [
-    'PP SALES',
-    'OP MFP(NORTH)',
-    'OP MFP(SOUTH)',
-    'OP RISO',
-    'ENTERPRISE',
-    'OP CONSUMABLES SALES',
-    'FURNITURE',
-    'RENTAL SALES - MAKATI/BGC',
-    'RENTAL SALES - SOUTH MANILA',
-    'RENTAL SALES - QC/ORTIGAS',
-    'BRANCH - LA UNION',
-    'BRANCH - ANGELES',
-    'BRANCH - CABANATUAN',
-    'BRANCH - BACOLOD',
-    'BRANCH - CEBU',
-    'BRANCH - ILO-ILO',
-    'BRANCH - CDO',
-    'BRANCH - DUMAGUETE',
-    'BRANCH - GENSAN',
-    'FOOD AND BEVERAGES'
-];
+$unit_list_query = "SELECT DISTINCT handled FROM users WHERE is_deleted = 0 ORDER BY handled ASC";
+$unit_list_result = mysqli_query($conn, $unit_list_query);
+$unit_list = [];
+while ($row = mysqli_fetch_assoc($unit_list_result)) {
+    $unit_list[] = $row['handled'];
+}
 
 
 ?>

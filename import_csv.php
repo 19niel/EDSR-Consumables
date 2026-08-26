@@ -13,6 +13,10 @@ $filesToProcess = [
     [
         'file' => 'EDSR CONS 1(KM COLOR).csv',
         'category' => 'KM Machine'
+    ],
+    [
+        'file' => 'EDSR CONS 1(KM MONO) (4).csv',
+        'category' => 'KM Mono'
     ]
 ];
 

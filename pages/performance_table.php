@@ -140,7 +140,8 @@ foreach ($unit_list as $unit) {
     $rowCount = $userList->num_rows;
     if ($rowCount !== 0) {
         $totalCols = 2 + count($sets) + 3 + count($callNatureHeaders) + 2;
-        echo "<tr><td class='names' colspan='". $totalCols ."' style='text-align: start;'>" . htmlspecialchars($unit) . "</td></tr>";
+        $unitDisplayName = ($unit === '') ? 'UNASSIGNED' : $unit;
+        echo "<tr><td class='names' colspan='". $totalCols ."' style='text-align: start;'>" . htmlspecialchars($unitDisplayName) . "</td></tr>";
 
         $execUnit = ($unit === "OP RISO") ? "OP MFP(SOUTH)" : 
                     (($unit === "BRANCH - CEBU" || $unit === "BRANCH - DUMAGUETE" || $unit === "BRANCH - GENSAN") ? "BRANCH - CEBU" : $unit);
