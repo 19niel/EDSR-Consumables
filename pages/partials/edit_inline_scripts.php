@@ -34,6 +34,12 @@
                 document.getElementById('addContactEntry').disabled = false;
                 document.getElementById('addContactEntry').removeAttribute('disabled');
                 
+                // Reveal the discount block only when admin successfully bypasses
+                var discountWrappers = document.querySelectorAll('.admin-discount-wrapper');
+                discountWrappers.forEach(function(wrapper) {
+                    wrapper.style.display = 'block';
+                });
+                
                 var adminBtn = document.querySelector("button[onclick='verifyAdminPassword()']");
                 adminBtn.className = "btn btn-primary px-3 fw-medium d-flex align-items-center gap-2 shadow-sm rounded-3";
                 adminBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Master Updates';
