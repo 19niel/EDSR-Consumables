@@ -651,6 +651,7 @@
                         toggleInputs('#machinePricingCard', false);
                         toggleInputs('#consumablesPricingCard', false);
                         $('#arsExpiryDateContainer').show();
+                        $('#arsExpiryDate').prop('disabled', false);
                         return;
                     }
                     
@@ -660,6 +661,7 @@
                         toggleInputs('#machinePricingCard', true);
                         toggleInputs('#consumablesPricingCard', false);
                         $('#arsExpiryDateContainer').show();
+                        $('#arsExpiryDate').prop('disabled', false);
                     } else if (sbuId == '342' || sbuId == '343') {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').show();
@@ -667,12 +669,14 @@
                         toggleInputs('#consumablesPricingCard', true);
                         $('#arsExpiryDateContainer').hide();
                         $('#arsExpiryDate').val(''); // Clear the field since it's irrelevant
+                        $('#arsExpiryDate').prop('disabled', true);
                     } else {
                         $('#machinePricingCard').hide();
                         $('#consumablesPricingCard').hide();
                         toggleInputs('#machinePricingCard', false);
                         toggleInputs('#consumablesPricingCard', false);
                         $('#arsExpiryDateContainer').show();
+                        $('#arsExpiryDate').prop('disabled', false);
                     }
                 }
 
