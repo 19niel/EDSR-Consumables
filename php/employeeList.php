@@ -5,7 +5,7 @@ include('../php/autoRedirect.php');
 $employee_list = "SELECT * FROM users WHERE is_deleted = 0";
 $employee_list_result = mysqli_query($conn, $employee_list);
 
-$user_list = "SELECT name FROM users WHERE category = 'user' AND is_deleted = 0";
+$user_list = "SELECT name FROM users WHERE call_edit_access = 1 AND is_deleted = 0";
 $user_list_result = mysqli_query($conn, $user_list);
 
 // Fetch results into an array

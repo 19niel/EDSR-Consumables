@@ -75,6 +75,7 @@
                         <label for="editDepartment" class="form-label">Department</label>
                         <select id="editDepartment" name="editDepartment" class="form-select" required>
                             <option value="N/A" selected disabled>Choose...</option>
+                            <option value="Sales">Sales</option>
                             <option value="OP Sales - PP">OP Sales - PP</option>
                             <option value="OP Sales - MFP/RISO">OP Sales - MFP/RISO</option>
                             <option value="OP Consumables">OP Consumables</option>
@@ -129,6 +130,8 @@
                             <option value="Sales Executive">Sales Executive</option>
                             <option value="Sales Executive (Supervisor)">Sales Executive (Supervisor)</option>
                             <option value="Assistant Manager">Assistant Manager</option>
+                            <option value="Branch Admin">Branch Admin</option>
+                            <option value="Customer Service Officer">Customer Service Officer</option>
                         </select>
                     </div>
                     <!-- Dropdown to select if the password should be changed -->
@@ -139,6 +142,13 @@
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                    </div>
+                    <!-- Toggle for Call Edit Access -->
+                    <div class="col-md-6 d-flex align-items-center mt-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="editCallEditAccess" name="editCallEditAccess" value="1">
+                            <label class="form-check-label" for="editCallEditAccess">With Call Edit Access</label>
+                        </div>
                     </div>
                     <!-- Submit button to edit the user details -->
                     <div class="col-12">

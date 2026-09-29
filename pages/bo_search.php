@@ -122,7 +122,6 @@ include('../php/accountList.php');
                                     <th>Project Title</th>
                                     <th>Product Type</th>
                                     <th>Sales Executive</th>
-                                    <th>Client Name</th>
                                     <th>Creation Date</th>
                                     <th>Proposed Amount</th>
                                     <th>Status</th>
@@ -160,7 +159,6 @@ include('../php/accountList.php');
                                             <td><div class="text-dark fw-medium" style="max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['projTitle'] ?? 'N/A'); ?></div></td>
                                             <td><div class="text-secondary fw-medium" style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['product_types'] ?? 'N/A'); ?></div></td>
                                             <td><div class="text-dark fw-medium" style="max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><?php echo htmlspecialchars($row['accExec'] ?? 'N/A'); ?></div></td>
-                                            <td><span class="text-secondary"><?php echo htmlspecialchars(ucwords(strtolower($row['accName'] ?? ''))); ?></span></td>
                                             <td><span class="text-muted font-monospace"><?php echo htmlspecialchars($row['callDate'] ?? 'N/A'); ?></span></td>
                                             <td><span class="fw-semibold text-dark">₱<?php echo number_format((float)($row['proposedPrice'] ?? 0), 2); ?></span></td>
                                             <td>

@@ -321,8 +321,8 @@
                                     </div>
 
                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="proposedPrice" class="form-label">Proposed Price </label>
-                                        <input type="number" class="form-control" id="proposedPrice" name="proposedPrice" step="0.01"/>
+                                        <label for="proposedPrice" class="form-label">Proposed Price <span class="req">*</span></label>
+                                        <input type="number" class="form-control" id="proposedPrice" name="proposedPrice" step="0.01" required/>
                                     </div>
 
                                     <div class="col-md-6 col-lg-4 col-xl-3">
@@ -541,7 +541,7 @@
                                 <div class="row g-3 mb-3">
                                     <div class="col-md-6 col-lg-4 col-xl-3">
                                         <label for="progressDate" class="form-label">Date of Progress</label>
-                                        <input type="date" class="form-control" id="progressDate" name="progressDate" min="<?php echo $min_expiry; ?>"/>
+                                        <input type="date" class="form-control" id="progressDate" name="progressDate" min="<?php echo $min_expiry; ?>" value="<?php echo date('Y-m-d'); ?>"/>
                                     </div>
                                   
                                     <div class="col-md-6 col-lg-4 col-xl-3">
@@ -567,8 +567,8 @@
                                     </div>
 
                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <label for="estimatedDelivery" class="form-label">Estimated Delivery</label>
-                                        <select id="estimatedDelivery" name="estimatedDelivery" class="form-select">
+                                        <label for="estimatedDelivery" class="form-label">Estimated Delivery <span class="req">*</span></label>
+                                        <select id="estimatedDelivery" name="estimatedDelivery" class="form-select" required>
                                             <option value="" selected disabled>Choose Month...</option>
                                             <option value="January">January</option>
                                             <option value="February">February</option>

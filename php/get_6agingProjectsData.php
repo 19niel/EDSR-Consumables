@@ -25,13 +25,13 @@ if (!in_array('all', $sbuArray) && !empty($sbuFilter)) {
     foreach ($sbuArray as $sbu) {
         $sbu = trim($sbu);
         if ($sbu === 'km_machine') {
-            $sbuConditions[] = "(sbu LIKE '%OP MFP%' OR sbu LIKE '%OP - PP%')";
+            $sbuConditions[] = "EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 350)";
         } elseif ($sbu === 'riso_machine') {
-            $sbuConditions[] = "(sbu = 'OP - Riso' OR sbu = 'OP Riso')";
+            $sbuConditions[] = "EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 351)";
         } elseif ($sbu === 'km_consumables') {
-            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID IN (393, 395)))";
+            $sbuConditions[] = "EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID IN (393, 395))";
         } elseif ($sbu === 'riso_consumables') {
-            $sbuConditions[] = "(sbu = 'OP - Consumables' AND EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 396))";
+            $sbuConditions[] = "EXISTS (SELECT 1 FROM product_details pd WHERE pd.encodedID = encoded.id AND pd.productTypeID = 396)";
         }
     }
 }

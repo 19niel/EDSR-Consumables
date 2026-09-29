@@ -24,6 +24,7 @@ function editUser(id) {
       $("#editContactNo").val(data.contact_no);
       $("#editRole").val(data.authority);
       $("#editSubDepartment").val(data.handled);
+      $("#editCallEditAccess").prop("checked", data.call_edit_access == 1);
       $("#editUserModal").modal("show");
     },
     error: function (error) {

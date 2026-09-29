@@ -135,7 +135,7 @@ require_once 'performance_table_header.php';
 
 
 foreach ($unit_list as $unit) {
-    $userList = fetchUserList($conn, $unit, ['Assistant Manager', 'User', 'Account Executive', 'Sales Executive']);
+    $userList = fetchUserList($conn, $unit, ['Assistant Manager', 'User', 'Account Executive', 'Sales Executive'], true);
     $userList->data_seek(0); // Reset pointer to the first row
     $rowCount = $userList->num_rows;
     if ($rowCount !== 0) {

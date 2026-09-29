@@ -27,6 +27,7 @@
                             <label for="department" class="form-label">Department</label>
                             <select id="department" name="department" class="form-select">
                                 <option value="N/A" selected disabled>Choose...</option>
+                                <option value="Sales">Sales</option>
                                 <option value="OP Sales - PP">OP Sales - PP</option>
                                 <option value="OP Sales - MFP/RISO">OP Sales - MFP/RISO</option>
                                 <option value="OP Consumables">OP Consumables</option>

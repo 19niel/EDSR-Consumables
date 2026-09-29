@@ -72,6 +72,7 @@
                         <label for="department" class="form-label">Department</label>
                         <select id="department" name="department" class="form-select" required>
                             <option value="N/A" selected disabled>Choose...</option>
+                            <option value="Sales">Sales</option>
                             <option value="OP Sales - PP">OP Sales - PP</option>
                             <option value="OP Sales - MFP/RISO">OP Sales - MFP/RISO</option>
                             <option value="OP Consumables">OP Consumables</option>
@@ -132,6 +133,8 @@
                             <option value="Sales Executive">Sales Executive</option>
                             <option value="Sales Executive (Supervisor)">Sales Executive (Supervisor)</option>
                             <option value="Assistant Manager">Assistant Manager</option>
+                            <option value="Branch Admin">Branch Admin</option>
+                            <option value="Customer Service Officer">Customer Service Officer</option>
                         </select>
                     </div>
                     <!-- Dropdown to select if the password should be changed -->
@@ -142,6 +145,13 @@
                             <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </select>
+                    </div>
+                    <!-- Toggle for Call Edit Access -->
+                    <div class="col-md-6 d-flex align-items-center mt-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="callEditAccess" name="callEditAccess" value="1">
+                            <label class="form-check-label" for="callEditAccess">With Call Edit Access</label>
+                        </div>
                     </div>
                     <!-- Submit button to add the user -->
                     <div class="col-12">
