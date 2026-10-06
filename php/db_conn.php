@@ -21,4 +21,7 @@ if ($columnResult && $columnResult->num_rows == 0) {
     $conn->query($alterSql);
 }
 
+// Auto-migration to ensure RISO FII consumable options exist
+require_once __DIR__ . '/auto_migrate_riso_options.php';
+
 ?>
