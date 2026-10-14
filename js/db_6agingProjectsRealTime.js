@@ -62,7 +62,7 @@ $(document).ready(function () {
             rowsHtml += `
                 <tr>
                     <td class="fw-semibold text-dark">
-                        <a href="${window.BASE_URL}pages/editEncode.php?id=${encodeURIComponent(item.id)}" class="text-decoration-none text-danger border-bottom border-danger border-opacity-10 pb-0.5">
+                        <a href="${window.BASE_URL}pages/editEncode.php?id=${encodeURIComponent(item.id)}" class="text-decoration-none text-danger border-bottom border-danger border-opacity-10">
                             ${item.LID}
                         </a>
                     </td>
@@ -71,7 +71,7 @@ $(document).ready(function () {
                             ${item.accName}
                         </div>
                     </td>
-                    <td class="text-end text-muted font-monospace" style="font-size: 0.70rem;">
+                    <td class="text-end text-muted font-monospace" style="font-size: 0.58rem;">
                         ${item.progressDate}
                     </td>
                 </tr>`;

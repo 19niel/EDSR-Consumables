@@ -4,13 +4,13 @@
 
 <style>
 .won-table-fontSize { 
-    font-size: 0.65rem !important; 
+    font-size: 0.58rem !important; 
 }
-/* 🎯 SCROLL FIX: Enforced clean scaling to guarantee the layout matches the template footprint */
+/* 🎯 SCROLL FIX: Enforced clean scaling so 5 rows fit without a scroll view */
 .won-table-container { 
     height: 165px !important; 
     max-height: 165px !important; 
-    overflow-y: auto; 
+    overflow-y: hidden !important; 
     overflow-x: hidden; 
 }
 /* 🎯 DATA RENDERING FIX: Standardized single-line clipping classes to keep row strings visible */
@@ -22,14 +22,16 @@
     text-overflow: ellipsis;
 }
 .won-compact-head th {
-    padding-top: 0.35rem !important;
-    padding-bottom: 0.35rem !important;
-    font-size: 0.62rem !important;
+    padding-top: 0.22rem !important;
+    padding-bottom: 0.22rem !important;
+    font-size: 0.58rem !important;
     font-weight: 700;
+    line-height: 1.2 !important;
 }
 .won-table-fontSize tbody td {
-    padding-top: 0.3rem !important;
-    padding-bottom: 0.3rem !important;
+    padding-top: 0.18rem !important;
+    padding-bottom: 0.18rem !important;
+    line-height: 1.25 !important;
 }
 .pagination-sm-override .page-link { 
     padding: 0.05rem 0.25rem !important; 

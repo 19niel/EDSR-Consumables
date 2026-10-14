@@ -83,22 +83,22 @@ $(document).ready(function () {
             const targetUrl = `editEncode.php?id=${row.id}`;
             const rowHtml = `
                 <tr style="cursor: pointer;">
-                    <td class="py-1">
+                    <td class="py-0.5">
                         <a href="${targetUrl}" class="text-decoration-none d-block">
                             <div class="text-ellipsis-won fw-medium text-dark" title="${row.accExec}">${row.accExec}</div>
                         </a>
                     </td>
-                    <td class="py-1">
+                    <td class="py-0.5">
                         <a href="${targetUrl}" class="text-decoration-none d-block">
                             <div class="text-ellipsis-won text-secondary" title="${row.accName}">${row.accName}</div>
                         </a>
                     </td>
-                    <td class="py-1 text-nowrap">
-                        <a href="${targetUrl}" class="text-decoration-none d-block text-muted" style="font-size: 0.68rem;">
+                    <td class="py-0.5 text-nowrap">
+                        <a href="${targetUrl}" class="text-decoration-none d-block text-muted" style="font-size: 0.58rem;">
                             ${row.progressDate}
                         </a>
                     </td>
-                    <td class="py-1 text-end fw-bold text-nowrap">
+                    <td class="py-0.5 text-end fw-bold text-nowrap">
                         <a href="${targetUrl}" class="text-decoration-none d-block text-success">
                             ${formatShortCurrency(row.proposedPrice)}
                         </a>

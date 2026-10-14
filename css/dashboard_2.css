@@ -26,6 +26,7 @@
     height: 140px !important;
     /* Locks rows into identical alignments */
     min-height: 140px !important;
+    overflow-y: hidden !important;
 }
 
 /* Ensure ChartJS canvas contexts don't blow past their grid columns */
