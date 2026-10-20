@@ -100,20 +100,36 @@ if ($aeName) {
             width: 8.5in;
             min-height: 11in;
             background-color: white;
-            padding: 0.5in 0.75in;
+            padding: 0.25in 0.65in 0.25in 0.65in;
             box-sizing: border-box;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            margin: 20px auto;
+            margin: 15px auto;
             position: relative;
-            font-size: 13px;
+            font-size: 12.5px;
         }
         @page {
             size: letter;
             margin: 0;
         }
         @media print {
-            body { background-color: white; margin: 0; padding: 0; display: block; }
-            .a4-container { box-shadow: none; margin: 0; padding: 0.5in; width: 100%; height: auto !important; min-height: auto !important; }
+            body {
+                background-color: white;
+                margin: 0;
+                padding: 0;
+                display: block;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .a4-container {
+                box-shadow: none;
+                margin: 0 auto;
+                padding: 0.2in 0.45in 0.2in 0.45in;
+                width: 100%;
+                max-width: 8.5in;
+                height: auto !important;
+                min-height: auto !important;
+                page-break-inside: avoid;
+            }
             .no-print { display: none !important; }
             
             table.items-table { page-break-inside: auto; }
@@ -125,7 +141,7 @@ if ($aeName) {
         }
         .header-logo {
             text-align: right;
-            font-size: 14px;
+            font-size: 13px;
             color: #000;
             display: flex;
             flex-direction: column;
@@ -133,14 +149,15 @@ if ($aeName) {
             justify-content: center;
         }
         .header-logo img {
-            max-height: 150px;
+            max-height: 110px;
             display: block;
+            margin-bottom: 2px;
         }
         
         .top-info-table {
             width: 450px;
-            margin-bottom: 5px;
-            font-size: 13px;
+            margin-bottom: 4px;
+            font-size: 12.5px;
             border-collapse: collapse;
         }
         .top-info-table td {
@@ -148,26 +165,27 @@ if ($aeName) {
             vertical-align: bottom;
         }
         .top-label {
-            width: 130px;
+            width: 125px;
             font-weight: bold;
         }
         .top-value {
             border-bottom: 1px solid #000;
-            padding-bottom: 2px;
-            padding-left: 30px; /* Increase this to push the text further right along the line */
+            padding-bottom: 1px;
+            padding-left: 20px;
             font-weight: normal;
         }
         .attention-subtext {
             text-align: center;
-            font-size: 11px;
-            padding-top: 2px;
+            font-size: 10.5px;
+            padding-top: 1px;
             font-weight: normal;
         }
 
         .greeting {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            line-height: 1.2;
+            margin-top: 4px;
+            margin-bottom: 4px;
+            line-height: 1.25;
+            font-size: 12.5px;
         }
         .check-box-group {
             display: inline-flex;
@@ -178,12 +196,12 @@ if ($aeName) {
         }
         .check-box {
             display: inline-block;
-            width: 15px;
-            height: 15px;
+            width: 14px;
+            height: 14px;
             border: 1px solid #000;
             text-align: center;
-            line-height: 15px;
-            font-size: 14px;
+            line-height: 14px;
+            font-size: 13px;
             font-weight: bold;
         }
         .check-box-filled {
@@ -194,44 +212,47 @@ if ($aeName) {
         .items-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 8px;
             font-weight: bold;
+            font-size: 12px;
         }
         .items-table th, .items-table td {
             border: 1px solid #000;
-            padding: 4px;
+            padding: 3px 4px;
             text-align: center;
         }
         .items-table td {
             font-weight: normal;
-            height: 20px;
+            height: 18px;
         }
 
         .totals-section {
             display: flex;
-            margin-top: 5px;
-            margin-bottom: 15px;
+            margin-top: 4px;
+            margin-bottom: 6px;
         }
         .totals-left {
             flex: 1;
             font-weight: bold;
-            padding-left: 50px;
+            padding-left: 35px;
+            font-size: 12px;
         }
         .totals-right {
             width: 300px;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            font-size: 12px;
         }
         .totals-row {
             display: flex;
             width: 100%;
             justify-content: flex-end;
-            margin-bottom: 15px;
+            margin-bottom: 4px;
             font-weight: bold;
         }
         .totals-row span.label {
-            margin-right: 40px;
+            margin-right: 30px;
         }
         .totals-row span.value {
             min-width: 80px;
@@ -240,8 +261,9 @@ if ($aeName) {
         .vat-inclusive {
             font-weight: bold;
             text-decoration: underline;
-            margin-top: -5px;
+            margin-top: -2px;
             margin-right: 10px;
+            font-size: 11.5px;
         }
 
         .thick-border-box {
@@ -250,14 +272,16 @@ if ($aeName) {
             font-weight: bold;
             display: inline-block;
             margin-bottom: 2px;
+            font-size: 12px;
         }
         .thick-border-container {
-            margin-bottom: 15px;
+            margin-bottom: 6px;
         }
 
         .paragraph {
-            margin-bottom: 15px;
-            line-height: 1.4;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            font-size: 12px;
         }
         .inline-line {
             display: inline-block;
@@ -268,7 +292,8 @@ if ($aeName) {
         .bottom-section {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-top: 6px;
+            font-size: 12px;
         }
         .bottom-left {
             width: 45%;
@@ -276,16 +301,16 @@ if ($aeName) {
             flex-direction: column;
         }
         .sign-block {
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 8px;
+            margin-bottom: 4px;
         }
         .sign-line-full {
             border-bottom: 1px solid #000;
             width: 80%;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         .sign-sub {
-            font-size: 11px;
+            font-size: 10.5px;
             font-style: italic;
             padding-left: 20px;
         }
@@ -293,7 +318,7 @@ if ($aeName) {
             font-weight: bold;
             text-align: center;
             width: 80%;
-            font-size: 12px;
+            font-size: 11.5px;
         }
 
         .bottom-right {
@@ -305,12 +330,12 @@ if ($aeName) {
         }
         .br-header {
             font-weight: bold;
-            padding: 5px;
+            padding: 4px;
             border-bottom: 1px solid #000;
-            height: 70px;
+            height: 48px;
         }
         .br-header-title {
-            margin-bottom: 15px;
+            margin-bottom: 4px;
         }
         .br-header-center {
             text-align: center;
@@ -318,38 +343,40 @@ if ($aeName) {
         .br-num-row {
             display: flex;
             border-bottom: 1px solid #000;
-            padding: 2px 5px;
+            padding: 1px 4px;
             font-weight: bold;
+            min-height: 18px;
         }
         .br-details {
-            padding: 5px;
+            padding: 4px;
         }
         .br-details-header {
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px;
-            margin-top: 5px;
+            margin-bottom: 4px;
+            margin-top: 2px;
         }
         .br-row {
             display: flex;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             align-items: flex-end;
         }
         .br-label {
             font-weight: bold;
-            width: 150px;
+            width: 145px;
+            font-size: 11.5px;
         }
         .br-value {
             flex: 1;
             border-bottom: 1px solid #000;
-            min-height: 15px;
+            min-height: 14px;
         }
 
         .footer-line {
             border-top: 2px solid #000;
-            margin-top: 10px;
-            padding-top: 5px;
-            font-size: 11px;
+            margin-top: 6px;
+            padding-top: 3px;
+            font-size: 10.5px;
         }
 
         .print-btn {
@@ -375,13 +402,13 @@ if ($aeName) {
     <button class="print-btn no-print" onclick="window.print()">🖨️ Print Quotation</button>
 
     <div class="a4-container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-            <div style="font-size: 24px; font-weight: 800; color: #333; border: 2px solid #333; padding: 8px 16px; border-radius: 4px; background-color: #f8f9fa; text-transform: uppercase;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="font-size: 18px; font-weight: 800; color: #333; border: 2px solid #333; padding: 4px 12px; border-radius: 4px; background-color: #f8f9fa; text-transform: uppercase; letter-spacing: 0.5px;">
                 LID: <?= htmlspecialchars($customerId) ?>
             </div>
             <div class="header-logo" style="margin-bottom: 0;">
-                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo" style="margin-bottom: -35px;">
-                <strong style="line-height: 1;">www.ubix.com.ph</strong>
+                <img src="../scratch/UBIX_LOGO.png" alt="UBIX Logo">
+                <strong style="line-height: 1.1; font-size: 13px;">www.ubix.com.ph</strong>
             </div>
         </div>
 
@@ -402,9 +429,9 @@ if ($aeName) {
                 <td class="top-label">Address :</td>
                 <td><div class="top-value"><?= htmlspecialchars($address) ?></div></td>
             </tr>
-            <tr><td colspan="2" style="height: 10px;"></td></tr>
+            <tr><td colspan="2" style="height: 3px;"></td></tr>
             <tr>
-                <td class="top-label" style="vertical-align: top; padding-top: 4px;">Attention:</td>
+                <td class="top-label" style="vertical-align: top; padding-top: 2px;">Attention:</td>
                 <td>
                     <div class="top-value"><?= htmlspecialchars($contactName) ?></div>
                     <div class="attention-subtext">Contact Person</div>
@@ -413,7 +440,7 @@ if ($aeName) {
             <tr>
                 <td></td>
                 <td>
-                    <div class="top-value" style="margin-top: 10px;"><?= htmlspecialchars($contactNumber) ?></div>
+                    <div class="top-value" style="margin-top: 3px;"><?= htmlspecialchars($contactNumber) ?></div>
                     <div class="attention-subtext">Contact</div>
                 </td>
             </tr>
@@ -542,32 +569,32 @@ if ($aeName) {
         </div>
 
         <div class="paragraph">
-            Should you need additional information and/or clarification, please feel free to get in touch with us at<br>
-            contact no. <span class="inline-line" style="text-align: center; font-weight: bold;"><?= htmlspecialchars($aeContact) ?></span> and we would be glad to discuss it with you at your most convenient time.<br><br>
+            Should you need additional information and/or clarification, please feel free to get in touch with us at
+            contact no. <span class="inline-line" style="text-align: center; font-weight: bold;"><?= htmlspecialchars($aeContact) ?></span> and we would be glad to discuss it with you at your most convenient time.<br>
             If you wish to avail the quoted item/s please fill up <strong>COMPLETELY</strong> the data below, then EMAIL back at
         </div>
 
         <div class="bottom-section">
             <div class="bottom-left">
                 <div style="text-align: center; width: 80%;">
-                    <div style="font-weight: bold; margin-bottom: 2px; height: 18px;"><?= htmlspecialchars($aeEmail) ?></div>
+                    <div style="font-weight: bold; margin-bottom: 2px; height: 16px;"><?= htmlspecialchars($aeEmail) ?></div>
                     <div class="sign-line-full"></div>
                     <div class="sign-sub" style="padding-left:0;">Email Address</div>
                 </div>
                 
-                <div style="margin-top: 15px;">Thank you.</div>
+                <div style="margin-top: 8px;">Thank you.</div>
 
                 <div class="sign-block">
-                    Prepared by:<br><br><br>
-                    <div style="text-align:center; width:80%; font-weight:bold; height: 18px;"><?= htmlspecialchars($aeName) ?></div>
+                    Prepared by:
+                    <div style="text-align:center; width:80%; font-weight:bold; height: 18px; margin-top: 25px;"><?= htmlspecialchars($aeName) ?></div>
                     <div class="sign-line-full"></div>
                     <div class="sign-title">AE/CSO/AO</div>
                     <div class="sign-sub" style="padding-left:0; text-align:center; width:80%;">Signature over Printed Name</div>
                 </div>
 
                 <div class="sign-block">
-                    Noted by:<br><br><br>
-                    <div style="text-align:center; width:80%; font-weight:bold;">Maria Valerie Gomez</div>
+                    Noted by:
+                    <div style="text-align:center; width:80%; font-weight:bold; height: 18px; margin-top: 25px;">Maria Valerie Gomez</div>
                     <div class="sign-line-full"></div>
                     <div class="sign-sub" style="padding-left:0; text-align:center; width:80%;">Signature over Printed Name</div>
                 </div>
@@ -583,7 +610,6 @@ if ($aeName) {
                 
                 <div class="br-details">
                     <div class="br-details-header">Place of Delivery :</div>
-                    <br>
                     <div class="br-row">
                         <div class="br-label">Contact Number :</div>
                         <div class="br-value"></div>

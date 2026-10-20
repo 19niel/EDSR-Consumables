@@ -5,7 +5,7 @@ if (!isset($data) || !isset($conn)) {
 }
 
 // Convert logo to base64 so DomPDF can easily embed it
-$logoPath = __DIR__ . '/../scratch/UBIX-Logo.png';
+$logoPath = file_exists(__DIR__ . '/../scratch/UBIX_LOGO.png') ? (__DIR__ . '/../scratch/UBIX_LOGO.png') : (__DIR__ . '/../scratch/UBIX-Logo.png');
 $logoSrc = '';
 if (file_exists($logoPath)) {
     $logoData = base64_encode(file_get_contents($logoPath));
@@ -17,47 +17,50 @@ if (file_exists($logoPath)) {
 <head>
     <meta charset="utf-8">
     <style type="text/css">
+        @page { margin: 20px 30px; }
         body { 
             font-family: Arial, Helvetica, sans-serif; 
-            font-size: 10pt; 
+            font-size: 9.5pt; 
             color: #333;
+            margin: 0;
+            padding: 0;
         }
         table { width: 100%; border-collapse: collapse; }
         .header-table td { vertical-align: top; }
         
         .title { 
-            font-size: 16pt; 
+            font-size: 15pt; 
             font-weight: bold; 
             text-align: right; 
             color: #000;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .logo { 
-            max-width: 250px; 
+            max-width: 170px; 
             float: right; 
         }
         
         .company-info h2 {
             margin-top: 0;
-            font-size: 14pt;
+            font-size: 13pt;
         }
         .company-info p {
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.3;
         }
         
         hr { 
             border: 0; 
             border-top: 2px solid #333; 
-            margin: 20px 0; 
+            margin: 10px 0; 
         }
         
-        .info-table { margin-bottom: 20px; }
-        .info-table td { padding: 4px; vertical-align: top; }
+        .info-table { margin-bottom: 10px; }
+        .info-table td { padding: 3px; vertical-align: top; }
         .info-label { font-weight: bold; width: 120px; color: #555; }
         
-        .items-table { margin-top: 20px; }
+        .items-table { margin-top: 10px; }
         .items-table th { 
             background-color: #f2f2f2; 
             border: 1px solid #999; 
