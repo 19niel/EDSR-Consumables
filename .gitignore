@@ -15,6 +15,7 @@ AGENTS.md
 # Database & Backup Files
 # ==========================================
 # Ignores your database dumps so they don't bloat the repository
+*.sql
 
 
 # ==========================================
